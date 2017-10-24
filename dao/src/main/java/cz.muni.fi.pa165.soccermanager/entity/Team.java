@@ -1,5 +1,5 @@
 package cz.muni.fi.pa165.soccermanager.entity;
-import javax.persistence.*;
+
 import java.util.Collections;
 import java.util.Set;
 
@@ -9,119 +9,17 @@ import java.util.Set;
  * Class representing playable team. Each team has exactly one unique manager,
  * set of players playing for the team, nationality and name. Points, goals scored
  * and goals conceded which are valid for current league season and changed after every matchday.
- * You should use TeamBuilder to create instances of Team.
  */
 
-@Entity
 public class Team {
-
-    public static class TeamBuilder {
-        private  String origin;
-        private  String name;
-        private  League league;
-        private int points = 0;
-        private int goalsScored = 0;
-        private int goalsConceded = 0;
-        private Manager manager;
-        private Set<Player> players;
-
-        public TeamBuilder(String name, String origin, League league) {
-            this.origin = origin;
-            this.name = name;
-            this.league = league;
-        }
-
-        public TeamBuilder points(int points) {
-            this.points = points;
-            return this;
-        }
-
-        public TeamBuilder goalsScored(int goalsScored) {
-            this.goalsScored = goalsScored;
-            return this;
-        }
-
-        public TeamBuilder goalsConceded(int goalsConceded) {
-            this.goalsConceded = goalsConceded;
-            return this;
-        }
-
-        public TeamBuilder manager(Manager manager) {
-            this.manager = manager;
-            return this;
-        }
-
-        public TeamBuilder players(Set<Player> players) {
-            this.players = players;
-            return this;
-        }
-
-        public TeamBuilder league(League league) {
-            this.league = league;
-            return this;
-        }
-
-        public TeamBuilder origin(String origin) {
-            this.origin = origin;
-            return this;
-        }
-
-        public TeamBuilder name(String name) {
-            this.name = name;
-            return this;
-        }
-
-        public Team build() {
-            return new Team(this);
-        }
-    }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
+    private Set<Player> players;
     private String origin;
-
-    @Column(nullable = false,unique = true)
     private String name;
-
+    private Manager manager;
     private int points;
     private int goalsScored;
     private int goalsConceded;
-
-    @OneToOne
-    @JoinTable(name = "TEAM_MANAGER",
-            joinColumns = @JoinColumn(name = "TEAM_ID"),
-            inverseJoinColumns = @JoinColumn(name = "MANAGER_ID"))
-    private Manager manager;
-
-    @OneToMany
-    @JoinTable(name = "TEAM_PLAYERS",
-            joinColumns = @JoinColumn(name = "TEAM_ID"),
-            inverseJoinColumns = @JoinColumn(name = "PLAYER_ID"))
-    private Set<Player> players;
-
-    @ManyToOne
-    @JoinTable(name="TEAM_LEAGUE",
-            joinColumns = @JoinColumn(name = "TEAM_ID"),
-            inverseJoinColumns = @JoinColumn(name = "LEAGUE_ID"))
-    private League league;
-
-
-    public Team() {
-    }
-
-    private Team(TeamBuilder builder) {
-        name = builder.name;
-        players = builder.players;
-        origin = builder.origin;
-        manager = builder.manager;
-        league = builder.league;
-        points = builder.points;
-        goalsConceded = builder.goalsConceded;
-        goalsScored = builder.goalsScored;
-    }
 
     public Long getId() {
         return id;
@@ -212,8 +110,8 @@ public class Team {
     @Override
     public String toString() {
         return "Team{" +
-                ", name='" + name + '\'' +
                 "origin='" + origin + '\'' +
+                ", name='" + name + '\'' +
                 ", manager=" + manager +
                 '}';
     }
