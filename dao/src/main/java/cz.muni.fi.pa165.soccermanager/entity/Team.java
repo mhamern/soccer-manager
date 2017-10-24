@@ -12,10 +12,53 @@ import java.util.Set;
  * Class representing playable team. Each team has exactly one unique manager,
  * set of players playing for the team, nationality and name. Points, goals scored
  * and goals conceded which are valid for current league season and changed after every matchday.
+ * You should use TeamBuilder to create instances of Team.
  */
 
 @Entity
 public class Team {
+
+    public static class TeamBuilder {
+        private final String origin;
+        private final String name;
+
+        private int points = 0;
+        private int goalsScored = 0;
+        private int goalsConceded = 0;
+        private Manager manager;
+        private Set<Player> players;
+
+        public TeamBuilder(String name, String origin) {
+            this.origin = origin;
+            this.name = name;
+        }
+
+        public TeamBuilder points(int points) {
+            this.points = points;
+            return this;
+        }
+
+        public TeamBuilder goalsScored(int goalsScored) {
+            this.goalsScored = goalsScored;
+            return this;
+        }
+
+        public TeamBuilder goalsConceded(int goalsConceded) {
+            this.goalsConceded = goalsConceded;
+            return this;
+        }
+
+        public TeamBuilder manager(Manager manager) {
+            this.manager = manager;
+            return this;
+        }
+
+        public TeamBuilder players(Set<Player> players) {
+            this.players = players;
+            return this;
+        }
+
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
