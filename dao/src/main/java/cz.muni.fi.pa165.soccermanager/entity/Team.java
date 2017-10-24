@@ -1,5 +1,8 @@
 package cz.muni.fi.pa165.soccermanager.entity;
 
+import com.sun.istack.internal.NotNull;
+
+import javax.persistence.*;
 import java.util.Collections;
 import java.util.Set;
 
@@ -11,15 +14,32 @@ import java.util.Set;
  * and goals conceded which are valid for current league season and changed after every matchday.
  */
 
+@Entity
 public class Team {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Set<Player> players;
+
+    @NotNull
+    @Column(nullable = false, unique = true)
     private String origin;
+
+    @NotNull
+    @Column(nullable = false,unique = true)
     private String name;
-    private Manager manager;
+
     private int points;
     private int goalsScored;
     private int goalsConceded;
+
+    @OneToOne
+    @JoinTable(name = "MANAGER")
+    private Manager manager;
+
+    @OneToMany
+    @JoinColumn(name = "PLAYERS")
+    private Set<Player> players;
 
     public Long getId() {
         return id;
