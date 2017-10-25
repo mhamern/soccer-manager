@@ -61,7 +61,7 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String origin;
 
     @Column(nullable = false,unique = true)
