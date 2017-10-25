@@ -1,7 +1,4 @@
 package cz.muni.fi.pa165.soccermanager.entity;
-
-import com.sun.istack.internal.NotNull;
-
 import javax.persistence.*;
 import java.util.Collections;
 import java.util.Set;
@@ -62,13 +59,11 @@ public class Team {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
-    @NotNull
     @Column(nullable = false, unique = true)
     private String origin;
 
-    @NotNull
     @Column(nullable = false,unique = true)
     private String name;
 
@@ -77,12 +72,22 @@ public class Team {
     private int goalsConceded;
 
     @OneToOne
-    @JoinTable(name = "MANAGER")
+    @JoinTable(name = "TEAM_MANAGER",
+            joinColumns = @JoinColumn(name = "TEAM_ID"),
+            inverseJoinColumns = @JoinColumn(name = "MANAGER_ID"))
     private Manager manager;
 
     @OneToMany
-    @JoinColumn(name = "PLAYERS")
+    @JoinTable(name = "TEAM_PLAYERS",
+            joinColumns = @JoinColumn(name = "TEAM_ID"),
+            inverseJoinColumns = @JoinColumn(name = "PLAYER_ID"))
     private Set<Player> players;
+
+    @ManyToOne
+    @JoinTable(name="TEAM_LEAGUE",
+            joinColumns = @JoinColumn(name = "TEAM_ID"),
+            inverseJoinColumns = @JoinColumn(name = "LEAGUE_ID"))
+    private League league;
 
     public Long getId() {
         return id;

@@ -9,7 +9,7 @@ public interface PlayerDao {
     /**
      * @return found player if exists, null otherwise
      */
-    Player fetchById(Long playerId);
+    Player fetchById(long playerId);
     List<Player> fetchAll();
     void insert(Player player);
     void update(Player player);
