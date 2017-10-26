@@ -16,18 +16,19 @@ import java.util.Set;
 public class Team {
 
     public static class TeamBuilder {
-        private final String origin;
-        private final String name;
-
+        private  String origin;
+        private  String name;
+        private  League league;
         private int points = 0;
         private int goalsScored = 0;
         private int goalsConceded = 0;
         private Manager manager;
         private Set<Player> players;
 
-        public TeamBuilder(String name, String origin) {
+        public TeamBuilder(String name, String origin, League league) {
             this.origin = origin;
             this.name = name;
+            this.league = league;
         }
 
         public TeamBuilder points(int points) {
@@ -55,6 +56,24 @@ public class Team {
             return this;
         }
 
+        public TeamBuilder league(League league) {
+            this.league = league;
+            return this;
+        }
+
+        public TeamBuilder origin(String origin) {
+            this.origin = origin;
+            return this;
+        }
+
+        public TeamBuilder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Team build() {
+            return new Team(this);
+        }
     }
 
     @Id
@@ -88,6 +107,21 @@ public class Team {
             joinColumns = @JoinColumn(name = "TEAM_ID"),
             inverseJoinColumns = @JoinColumn(name = "LEAGUE_ID"))
     private League league;
+
+
+    public Team() {
+    }
+
+    private Team(TeamBuilder builder) {
+        name = builder.name;
+        players = builder.players;
+        origin = builder.origin;
+        manager = builder.manager;
+        league = builder.league;
+        points = builder.points;
+        goalsConceded = builder.goalsConceded;
+        goalsScored = builder.goalsScored;
+    }
 
     public Long getId() {
         return id;
@@ -178,8 +212,8 @@ public class Team {
     @Override
     public String toString() {
         return "Team{" +
-                "origin='" + origin + '\'' +
                 ", name='" + name + '\'' +
+                "origin='" + origin + '\'' +
                 ", manager=" + manager +
                 '}';
     }
