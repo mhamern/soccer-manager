@@ -7,7 +7,7 @@ import java.util.List;
 public interface ManagerDao {
     Manager fetchById(long managerId);
     List<Manager> fetchAll();
-    void insert(Manager player);
-    void update(Manager player);
+    void insert(Manager manager);
+    void update(Manager manager);
     void delete(long managerId);
 }
