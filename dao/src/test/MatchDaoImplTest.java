@@ -1,12 +1,12 @@
 import cz.muni.fi.pa165.soccermanager.PersistentContext;
 import cz.muni.fi.pa165.soccermanager.dao.MatchDao;
+import cz.muni.fi.pa165.soccermanager.entity.League;
 import cz.muni.fi.pa165.soccermanager.entity.Match;
 import cz.muni.fi.pa165.soccermanager.entity.Team;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 
@@ -36,15 +37,44 @@ public class MatchDaoImplTest {
     @PersistenceContext
     private EntityManager manager;
 
+    private Match match1;
+    private Match match2;
 
     @Before
     public void setUp() {
+        League league1 = new League.LeagueBuilder("La Liga", "Spain").build();
+        Team team1 = new Team.TeamBuilder("Real Madrid", "Spain", league1).build();
+        Team team2 = new Team.TeamBuilder("FC Barcelona", "Spain", league1).build();
 
+        League league2 = new League.LeagueBuilder("Premier League", "England").build();
+        Team team3 = new Team.TeamBuilder("Arsenal FC", "England", league2).build();
+        Team team4 = new Team.TeamBuilder("Chelsea FC", "England", league2).build();
+        manager.persist(league1);
+        manager.persist(team1);
+        manager.persist(team2);
+
+        manager.persist(league2);
+        manager.persist(team3);
+        manager.persist(team4);
+
+        match1 = new Match.MatchBuilder(
+                team1,
+                team2,
+                Date.from(Instant.now()))
+                .stadium("Santiago Bernabeu")
+                .build();
+
+        match2 = new Match.MatchBuilder(
+                team1,
+                team2,
+                Date.from(Instant.now()))
+                .stadium("Stamford Bridge")
+                .build();
     }
 
     @Test
     public void testInsertMatch() {
-        Match inserted = getTestMatchOne();
+        Match inserted = match1;
         matchDao.insert(inserted);
 
         assertEquals("Match retrieved from DAO does not equal expected result",
@@ -53,8 +83,8 @@ public class MatchDaoImplTest {
 
     @Test
     public void insertTwoMatches() {
-        Match insertedOne = getTestMatchOne();
-        Match insertedTwo = getTestMatchTwo();
+        Match insertedOne = match1;
+        Match insertedTwo = match2;
         matchDao.insert(insertedOne);
         matchDao.insert(insertedTwo);
 
@@ -67,11 +97,10 @@ public class MatchDaoImplTest {
 
     @Test
     public void updateMatch() {
-        Match inserted = getTestMatchOne();
+        Match inserted = match1;
         manager.persist(inserted);
 
-        Match updated = getTestMatchOne();
-        updated.setId(manager.find(Match.class, inserted.getId()).getId());
+        Match updated = manager.find(Match.class, inserted.getId());
         updated.setStadium("Eden");
         matchDao.update(updated);
 
@@ -82,13 +111,12 @@ public class MatchDaoImplTest {
 
     @Test
     public void updateTwoMatches() {
-        Match insertedOne = getTestMatchOne();
-        Match insertedTwo = getTestMatchTwo();
+        Match insertedOne = match1;
+        Match insertedTwo = match2;
         manager.persist(insertedOne);
         manager.persist(insertedTwo);
 
-        Match updatedOne = getTestMatchOne();
-        updatedOne.setId(manager.find(Match.class, insertedOne.getId()).getId());
+        Match updatedOne =  manager.find(Match.class, insertedOne.getId());
         updatedOne.setStadium("San Siro");
         matchDao.update(updatedOne);
 
@@ -98,8 +126,7 @@ public class MatchDaoImplTest {
         assertEquals("Match retrieved from DAO does not equal to match that was not updated",
                 insertedTwo, manager.find(Match.class, insertedTwo.getId()));
 
-        Match updatedTwo = getTestMatchTwo();
-        updatedTwo.setId(manager.find(Match.class, insertedTwo.getId()).getId());
+        Match updatedTwo = manager.find(Match.class, insertedTwo.getId());
         updatedTwo.setStadium("Anfield Road");
         matchDao.update(updatedTwo);
 
@@ -112,7 +139,7 @@ public class MatchDaoImplTest {
 
     @Test
     public void deleteMatch() {
-        Match inserted = getTestMatchOne();
+        Match inserted = match1;
         manager.persist(inserted);
         matchDao.delete(inserted.getId());
 
@@ -122,8 +149,8 @@ public class MatchDaoImplTest {
 
     @Test
     public void deleteTwoMatches() {
-        Match insertedOne = getTestMatchOne();
-        Match insertedTwo = getTestMatchTwo();
+        Match insertedOne = match1;
+        Match insertedTwo = match2;
         manager.persist(insertedOne);
         manager.persist(insertedTwo);
 
@@ -142,7 +169,7 @@ public class MatchDaoImplTest {
 
     @Test
     public void fetchByIdMatch() {
-        Match inserted = getTestMatchOne();
+        Match inserted = match1;
         manager.persist(inserted);
 
         assertEquals("Match retrieved from DAO does not equal expected result",
@@ -151,8 +178,8 @@ public class MatchDaoImplTest {
 
     @Test
     public void fetchByIdTwoMatches() {
-        Match insertedOne = getTestMatchOne();
-        Match insertedTwo = getTestMatchTwo();
+        Match insertedOne = match1;
+        Match insertedTwo = match2;
         manager.persist(insertedOne);
         manager.persist(insertedTwo);
 
@@ -164,8 +191,8 @@ public class MatchDaoImplTest {
     }
 
     @Test
-    public void fetchByIdAllMatch() {
-        Match inserted = getTestMatchOne();
+    public void fetchAllMatch() {
+        Match inserted = match1;
         manager.persist(inserted);
 
         List<Match> matches = matchDao.fetchAll();
@@ -178,9 +205,9 @@ public class MatchDaoImplTest {
     }
 
     @Test
-    public void fetchByIdAllTwoMatches() {
-        Match insertedOne = getTestMatchOne();
-        Match insertedTwo = getTestMatchTwo();
+    public void fetchAllTwoMatches() {
+        Match insertedOne = match1;
+        Match insertedTwo = match2;
         manager.persist(insertedOne);
         manager.persist(insertedTwo);
 
@@ -194,24 +221,6 @@ public class MatchDaoImplTest {
 
         assertTrue("List does not contain second match",
                 matches.contains(insertedTwo));
-    }
-
-    private Match getTestMatchOne() {
-        return new Match.MatchBuilder(
-                new Team(),
-                new Team(),
-                new Date())
-                .stadium("Santiago Bernabeu")
-                .build();
-    }
-
-    private Match getTestMatchTwo() {
-        return new Match.MatchBuilder(
-                new Team(),
-                new Team(),
-                new Date())
-                .stadium("Stamford Bridge")
-                .build();
     }
 
 }

@@ -91,21 +91,12 @@ public class Team {
     private int goalsConceded;
 
     @OneToOne
-    @JoinTable(name = "TEAM_MANAGER",
-            joinColumns = @JoinColumn(name = "TEAM_ID"),
-            inverseJoinColumns = @JoinColumn(name = "MANAGER_ID"))
     private Manager manager;
 
     @OneToMany
-    @JoinTable(name = "TEAM_PLAYERS",
-            joinColumns = @JoinColumn(name = "TEAM_ID"),
-            inverseJoinColumns = @JoinColumn(name = "PLAYER_ID"))
     private Set<Player> players;
 
     @ManyToOne
-    @JoinTable(name="TEAM_LEAGUE",
-            joinColumns = @JoinColumn(name = "TEAM_ID"),
-            inverseJoinColumns = @JoinColumn(name = "LEAGUE_ID"))
     private League league;
 
 
