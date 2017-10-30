@@ -1,3 +1,5 @@
+package cz.muni.fi.pa165.soccermanager.dao;
+
 import cz.muni.fi.pa165.soccermanager.PersistentContext;
 import cz.muni.fi.pa165.soccermanager.dao.MatchDao;
 import cz.muni.fi.pa165.soccermanager.entity.League;
