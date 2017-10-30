@@ -1,13 +1,14 @@
+package cz.muni.fi.pa165.soccermanager.dao;
+
 import cz.muni.fi.pa165.soccermanager.PersistentContext;
 import cz.muni.fi.pa165.soccermanager.dao.PlayerDao;
 import cz.muni.fi.pa165.soccermanager.entity.Player;
 import cz.muni.fi.pa165.soccermanager.entity.Match;
 
-import cz.muni.fi.pa165.soccermanager.entity.Team;
+import cz.muni.fi.pa165.soccermanager.enums.PositionEnum;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 
@@ -198,21 +200,11 @@ public class PlayerDaoImplTest {
     }
 
     private Player getTestPlayerOne() {
-        return new Player.PlayerBuilder()
-                .name("Cristiano Ronaldo")
-                .position("Striker")
-                .number(7)
-                .born(new Date())
-                .build();
+        return new Player("Cristiano Ronaldo",  Date.from(Instant.now()), PositionEnum.ATTACKER, "Portugal", 7);
     }
 
     private Player getTestPlayerTwo() {
-        return new Player.PlayerBuilder()
-                .name("Lio Messi")
-                .position("Striker")
-                .number(10)
-                .born(new Date())
-                .build();
+        return new Player("Lio Messi",  Date.from(Instant.now()), PositionEnum.ATTACKER, "Argentina", 10);
     }
 
 }
