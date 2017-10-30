@@ -1,10 +1,7 @@
 package cz.muni.fi.pa165.soccermanager.entity;
 
 import javax.persistence.*;
-import java.time.Clock;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 
 /**
@@ -25,7 +22,6 @@ public class Match {
         private String stadium;
         private final Team homeTeam;
         private final Team awayTeam;
-        private Clock clock;
 
         public MatchBuilder(Team homeTeam, Team awayTeam, Date date) {
             this.homeTeam = homeTeam;
