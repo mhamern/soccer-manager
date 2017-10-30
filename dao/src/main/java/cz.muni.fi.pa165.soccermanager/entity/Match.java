@@ -13,7 +13,6 @@ import java.util.Date;
  * You should use TeamBuilder to create instances of Team.
  */
 @Entity
-@Table(name = "\"Match\"")
 public class Match {
 
     public static class MatchBuilder {
@@ -67,12 +66,14 @@ public class Match {
     @ManyToOne
     private Team awayTeam;
 
+    @Column(nullable = false)
     private boolean finished;
 
+    @Column(nullable = false)
     private int homeTeamGoals;
 
+    @Column(nullable = false)
     private int awayTeamGoals;
-
 
     public long getId() { return id; }
 
