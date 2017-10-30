@@ -13,6 +13,7 @@ import java.util.Date;
  * You should use TeamBuilder to create instances of Team.
  */
 @Entity
+@Table(name = "\"Match\"")
 public class Match {
 
     public static class MatchBuilder {
