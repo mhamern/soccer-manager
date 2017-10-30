@@ -7,7 +7,7 @@ import java.util.List;
 public interface LeagueDao {
     League fetchById(long leagueId);
     List<League> fetchAll();
-    void insert(League player);
-    void update(League player);
+    void insert(League league);
+    void update(League league);
     void delete(long leagueId);
 }
