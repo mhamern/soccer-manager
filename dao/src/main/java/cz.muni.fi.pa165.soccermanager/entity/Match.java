@@ -16,6 +16,7 @@ import java.util.GregorianCalendar;
  * You should use TeamBuilder to create instances of Team.
  */
 @Entity
+@Table(name = "\"Match\"")
 public class Match {
 
     public static class MatchBuilder {
@@ -26,11 +27,10 @@ public class Match {
         private final Team awayTeam;
         private Clock clock;
 
-        public MatchBuilder(Team homeTeam, Team awayTeam, Date date, Clock clock) {
+        public MatchBuilder(Team homeTeam, Team awayTeam, Date date) {
             this.homeTeam = homeTeam;
             this.awayTeam = awayTeam;
             this.date = date;
-            this.clock = clock;
         }
 
         public MatchBuilder stadium(String stadium) {
@@ -39,14 +39,14 @@ public class Match {
         }
 
         public Match build() {
-            return new Match(this, clock);
+            return new Match(this);
         }
 
     }
 
     public Match() { }
 
-    private Match(MatchBuilder builder, Clock newClock) {
+    private Match(MatchBuilder builder) {
         homeTeam = builder.homeTeam;
         awayTeam = builder.awayTeam;
         date = builder.date;
@@ -54,7 +54,6 @@ public class Match {
         finished = false;
         homeTeamGoals = 0;
         awayTeamGoals = 0;
-        clock = newClock;
     }
 
     @Id
@@ -67,11 +66,9 @@ public class Match {
     private String stadium;
 
     @ManyToOne
-    @Column(nullable = false)
     private Team homeTeam;
 
     @ManyToOne
-    @Column(nullable = false)
     private Team awayTeam;
 
     @Column(nullable = false)
@@ -82,8 +79,6 @@ public class Match {
 
     @Column(nullable = false)
     private int awayTeamGoals;
-
-    private Clock clock;
 
     public long getId() { return id; }
 

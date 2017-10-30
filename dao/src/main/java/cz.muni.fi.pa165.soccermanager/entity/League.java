@@ -71,9 +71,6 @@ public class League {
 
 
     @OneToMany
-    @JoinTable(name = "LEAGUE_MATCHES",
-            joinColumns = @JoinColumn(name = "LEAGUE_ID"),
-            inverseJoinColumns = @JoinColumn(name = "MATCH_ID"))
     private List<Match> matches;
 
 
@@ -111,12 +108,12 @@ public class League {
     }
 
     public List<Match> getMatches() {
-                return Collections.unmodifiableList(matches);
-            }
+        return Collections.unmodifiableList(matches);
+    }
 
     public void setMatches(List<Match> matches) {
-                this.matches = matches;
-            }
+        this.matches = matches;
+    }
 
     @Override
     public boolean equals(Object o) {
