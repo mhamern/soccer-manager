@@ -207,7 +207,7 @@ public class PlayerDaoImplTest {
     }
 
     private Player getTestPlayerTwo() {
-        return new Player()
+        return new Player.PlayerBuilder()
                 .name("Lio Messi")
                 .position("Striker")
                 .number(10)
