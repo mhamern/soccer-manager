@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.soccermanager.dao;
 
 import cz.muni.fi.pa165.soccermanager.entity.Manager;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -10,6 +11,7 @@ import java.util.List;
  * @author 445720 Martin Hamernik
  * @version 10/29/2017.
  */
+@Repository
 public class ManagerDaoImpl implements ManagerDao {
 
     @PersistenceContext
