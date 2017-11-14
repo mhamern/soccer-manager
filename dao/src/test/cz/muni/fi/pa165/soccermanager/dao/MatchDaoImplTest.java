@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -63,14 +64,14 @@ public class MatchDaoImplTest {
         match1 = new Match.MatchBuilder(
                 team1,
                 team2,
-                Date.from(Instant.now()))
+                LocalDate.now())
                 .stadium("Santiago Bernabeu")
                 .build();
 
         match2 = new Match.MatchBuilder(
                 team1,
                 team2,
-                Date.from(Instant.now()))
+                LocalDate.now())
                 .stadium("Stamford Bridge")
                 .build();
     }

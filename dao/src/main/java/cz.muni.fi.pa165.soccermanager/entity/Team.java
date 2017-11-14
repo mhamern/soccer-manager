@@ -3,6 +3,7 @@ import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 
 import javax.persistence.*;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -25,7 +26,7 @@ public class Team {
         private int goalsScored = 0;
         private int goalsConceded = 0;
         private Manager manager;
-        private Set<Player> players;
+        private Set<Player> players = new HashSet<>();
 
         public TeamBuilder(String name, NationalityEnum origin, League league) {
             this.origin = origin;

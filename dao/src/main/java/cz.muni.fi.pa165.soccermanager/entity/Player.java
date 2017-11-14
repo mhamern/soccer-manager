@@ -4,6 +4,10 @@ import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 import cz.muni.fi.pa165.soccermanager.enums.PositionEnum;
 
 import javax.persistence.*;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.Year;
 import java.util.Date;
 
 /**
@@ -18,7 +22,7 @@ public class Player {
         private PositionEnum position;
         private NationalityEnum nationality;
         private int number;
-        private Date birthDate;
+        private LocalDate birthDate;
         private int shooting;
         private int passing;
         private int speed;
@@ -26,7 +30,10 @@ public class Player {
         private int strength;
         private int goalkeeping;
 
-        public PlayerBuilder(String name, PositionEnum position, NationalityEnum nationality, Date birthDate) {
+        public PlayerBuilder(String name, PositionEnum position, NationalityEnum nationality, LocalDate birthDate) {
+            if (!checkPlayersAge(birthDate)) {
+                throw new IllegalArgumentException("Player younger than 15 years cannot be registered");
+            }
             this.name = name;
             this.position = position;
             this.nationality = nationality;
@@ -48,7 +55,10 @@ public class Player {
             return this;
         }
 
-        public PlayerBuilder birthDate(Date birthDate) {
+        public PlayerBuilder birthDate(LocalDate birthDate) {
+            if (!checkPlayersAge(birthDate)) {
+                throw new IllegalArgumentException("Player younger than 15 years cannot be registered");
+            }
             this.birthDate = birthDate;
             return this;
         }
@@ -102,9 +112,8 @@ public class Player {
     @Column(nullable = false)
     private String name;
 
-    @Temporal(TemporalType.DATE)
     @Column(nullable = false)
-    private Date birthDate;
+    private LocalDate birthDate;
 
     @Enumerated(EnumType.STRING)
     private PositionEnum position;
@@ -164,11 +173,14 @@ public class Player {
         this.name = name;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date born) {
+    public void setBirthDate(LocalDate born) {
+        if (!checkPlayersAge(birthDate)) {
+            throw new IllegalArgumentException("Player younger than 15 years cannot be registered");
+        }
         this.birthDate = born;
     }
 
@@ -242,6 +254,14 @@ public class Player {
 
     public void setGoalkeeping(int goalkeeping) {
         this.goalkeeping = goalkeeping;
+    }
+
+    private static boolean checkPlayersAge(LocalDate birthDate) {
+        return birthDate != null &&
+                Period.between(
+                        birthDate,
+                        LocalDate.now())
+                        .getYears() >= 15;
     }
 
     @Override

@@ -54,7 +54,7 @@ public interface TeamDao {
     /**
      * Retrieves teams participating in provided league
      * @param league league of team
-     * @return List of teams retrieved from db, empty lists if no such team is in db
+     * @return List of teams retrieved from db, empty list if no such team is in db
      */
     List<Team> fetchByLeague(League league);
 
