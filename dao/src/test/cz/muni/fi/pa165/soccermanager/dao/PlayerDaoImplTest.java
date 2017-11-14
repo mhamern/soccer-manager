@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.soccermanager.dao.PlayerDao;
 import cz.muni.fi.pa165.soccermanager.entity.Player;
 import cz.muni.fi.pa165.soccermanager.entity.Match;
 
+import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 import cz.muni.fi.pa165.soccermanager.enums.PositionEnum;
 import org.junit.Before;
 import org.junit.Test;
@@ -200,11 +201,21 @@ public class PlayerDaoImplTest {
     }
 
     private Player getTestPlayerOne() {
-        return new Player("Cristiano Ronaldo",  Date.from(Instant.now()), PositionEnum.ATTACKER, "Portugal", 7);
+        return new Player.PlayerBuilder(
+                "Cristiano Ronaldo",
+                PositionEnum.ATTACKER,
+                NationalityEnum.Portugal,
+                Date.from(Instant.now()))
+                .build();
     }
 
     private Player getTestPlayerTwo() {
-        return new Player("Lio Messi",  Date.from(Instant.now()), PositionEnum.ATTACKER, "Argentina", 10);
+        return new Player.PlayerBuilder(
+                "Lio Messi",
+                PositionEnum.ATTACKER,
+                NationalityEnum.Argentina,
+                Date.from(Instant.now()))
+                .build();
     }
 
 }

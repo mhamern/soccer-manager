@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.soccermanager.entity;
 
+import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
+
 import javax.persistence.*;
 
 /**
@@ -14,13 +16,13 @@ public class Manager {
 
     public static class ManagerBuilder {
         private String name;
-        private String nationality;
+        private NationalityEnum nationality;
         private Team team;
         private String email;
 
         public ManagerBuilder() {}
 
-        public ManagerBuilder(String name, String nationality, String email) {
+        public ManagerBuilder(String name, NationalityEnum nationality, String email) {
             this.name = name;
             this.nationality = nationality;
             this.email = email;
@@ -31,7 +33,7 @@ public class Manager {
             return this;
         }
 
-        public ManagerBuilder nationality(String nationality) {
+        public ManagerBuilder nationality(NationalityEnum nationality) {
             this.nationality = nationality;
             return this;
         }
@@ -58,8 +60,8 @@ public class Manager {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private String nationality;
+    @Enumerated(EnumType.STRING)
+    private NationalityEnum nationality;
 
     @OneToOne
     private Team team;
@@ -82,9 +84,7 @@ public class Manager {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public void setId(Long id) { this.id = id; }
 
     public String getName() {
         return name;
@@ -94,11 +94,11 @@ public class Manager {
         this.name = name;
     }
 
-    public String getNationality() {
+    public NationalityEnum getNationality() {
         return nationality;
     }
 
-    public void setNationality(String nationality) {
+    public void setNationality(NationalityEnum nationality) {
         this.nationality = nationality;
     }
 

@@ -6,6 +6,7 @@ import cz.muni.fi.pa165.soccermanager.entity.Manager;
 import cz.muni.fi.pa165.soccermanager.entity.Match;
 import cz.muni.fi.pa165.soccermanager.entity.Team;
 
+import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,9 +45,9 @@ public class ManagerDaoImplTest {
 
     @Before
     public void setUp() {
-        League league1 = new League.LeagueBuilder("La Liga", "Spain").build();
-        Team team1 = new Team.TeamBuilder("Real Madrid", "Spain", league1).build();
-        Team team2 = new Team.TeamBuilder("FC Barcelona", "Spain", league1).build();
+        League league1 = new League.LeagueBuilder("La Liga", NationalityEnum.Spain).build();
+        Team team1 = new Team.TeamBuilder("Real Madrid", NationalityEnum.Spain, league1).build();
+        Team team2 = new Team.TeamBuilder("FC Barcelona", NationalityEnum.Spain, league1).build();
 
         entityManager.persist(league1);
         entityManager.persist(team1);
@@ -54,14 +55,14 @@ public class ManagerDaoImplTest {
 
         manager1 = new Manager.ManagerBuilder(
                 "Jose Mourinho",
-                "Portugal",
+                NationalityEnum.Portugal,
                 "thespecialone@gmail.com")
                 .team(team1)
                 .build();
 
         manager2 = new Manager.ManagerBuilder(
                 "Pep Guardiola",
-                "Spain",
+                NationalityEnum.Spain,
                 "tikitaka@gmail.com")
                 .team(team2)
                 .build();

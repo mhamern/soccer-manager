@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.soccermanager.dao;
 
 import cz.muni.fi.pa165.soccermanager.PersistentContext;
 import cz.muni.fi.pa165.soccermanager.entity.Team;
+import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -170,9 +171,8 @@ public class TeamDayImplTest {
 
     private Team fakeTeamOne() {
         Team team = new Team();
-        //todo link attributes
-        team.setName("Kometa");
-        team.setOrigin("Brno");
+        team.setName("Zbrojovka Brno");
+        team.setOrigin(NationalityEnum.CzechRepublic);
         team.setGoalsConceded(3);
         team.setGoalsScored(4);
         team.setPoints(12);
@@ -181,9 +181,8 @@ public class TeamDayImplTest {
 
     private Team fakeTeamTwo() {
         Team team = new Team();
-        //todo link attributes
-        team.setName("Sparta");
-        team.setOrigin("Praha");
+        team.setName("Sparta Praha");
+        team.setOrigin(NationalityEnum.CzechRepublic);
         team.setGoalsConceded(10);
         team.setGoalsScored(0);
         team.setPoints(1);

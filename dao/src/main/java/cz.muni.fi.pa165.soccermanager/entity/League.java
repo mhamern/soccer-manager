@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.soccermanager.entity;
 
+import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,18 +22,18 @@ public class League {
 
 
         private  String name;
-        private  String country;
+        private NationalityEnum country;
 
         List matches = new ArrayList<>();
 
 
-        public LeagueBuilder(String name, String country,List<Match> matches) {
+        public LeagueBuilder(String name, NationalityEnum country,List<Match> matches) {
             this.name = name;
             this.country = country;
-            this.matches=matches;
+            this.matches = matches;
         }
 
-        public LeagueBuilder(String name, String country) {
+        public LeagueBuilder(String name, NationalityEnum country) {
             this.name = name;
             this.country = country;
         }
@@ -46,7 +48,7 @@ public class League {
             return this;
         }
 
-        public LeagueBuilder country(String country){
+        public LeagueBuilder country(NationalityEnum country){
             this.country = country;
             return this;
         }
@@ -64,8 +66,8 @@ public class League {
     @Column (nullable = false, unique = true)
     private String name;
 
-    @Column (nullable = false)
-    private String country;
+    @Enumerated(EnumType.STRING)
+    private NationalityEnum country;
 
 
     @OneToMany
@@ -85,9 +87,7 @@ public class League {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public void setId(Long id) { this.id = id; }
 
     public String getName() {
         return name;
@@ -97,11 +97,11 @@ public class League {
         this.name = name;
     }
 
-    public String getCountry() {
+    public NationalityEnum getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
+    public void setCountry(NationalityEnum country) {
         this.country = country;
     }
 

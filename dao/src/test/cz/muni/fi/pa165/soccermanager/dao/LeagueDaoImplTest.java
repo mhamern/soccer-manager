@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.soccermanager.PersistentContext;
 import cz.muni.fi.pa165.soccermanager.dao.LeagueDao;
 import cz.muni.fi.pa165.soccermanager.entity.League;
 
+import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 import org.junit.Test;
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -90,7 +91,7 @@ public class LeagueDaoImplTest {
 
         League updated_league = getTestPremierLeague();
         updated_league.setId(manager.find(League.class, league.getId()).getId());
-        updated_league.setCountry("Czech");
+        updated_league.setCountry(NationalityEnum.CzechRepublic);
         leagueDao.update(updated_league);
 
         assertEquals("League retrieved from DAO does not equal updated league",
@@ -113,12 +114,12 @@ public class LeagueDaoImplTest {
 
 
     private League getTestPremierLeague() {
-        return new League.LeagueBuilder("Premier League", "England")
+        return new League.LeagueBuilder("Premier League", NationalityEnum.England)
                 .build();
     }
 
     private League getTestBundesliga() {
-        return new League.LeagueBuilder("Bundesliga", "Germany")
+        return new League.LeagueBuilder("Bundesliga", NationalityEnum.Germany)
                 .build();
     }
 
