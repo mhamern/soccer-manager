@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.soccermanager.dao;
 
 import cz.muni.fi.pa165.soccermanager.entity.Player;
+import cz.muni.fi.pa165.soccermanager.entity.Team;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -24,7 +25,16 @@ public class PlayerDaoImpl implements PlayerDao {
 
     @Override
     public List<Player> fetchAll() {
-        TypedQuery<Player> query = manager.createQuery("SELECT p FROM Player p", Player.class);
+        TypedQuery<Player> query = manager
+                .createQuery("SELECT p FROM Player p", Player.class);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Player> fetchByTeam(Team team) {
+        TypedQuery<Player> query =  manager
+                .createQuery("SELECT p FROM Player p INNER JOIN Team t WHERE Team .name = :teamName", Player.class);
+        query.setParameter("teamName", team.getName());
         return query.getResultList();
     }
 
@@ -43,3 +53,4 @@ public class PlayerDaoImpl implements PlayerDao {
         manager.remove(fetchById(playerId));
     }
 }
+

@@ -1,6 +1,10 @@
 package cz.muni.fi.pa165.soccermanager.dao;
 
+import cz.muni.fi.pa165.soccermanager.entity.League;
+import cz.muni.fi.pa165.soccermanager.entity.Manager;
+import cz.muni.fi.pa165.soccermanager.entity.Player;
 import cz.muni.fi.pa165.soccermanager.entity.Team;
+import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 
 import java.util.List;
 
@@ -27,6 +31,34 @@ public interface TeamDao {
     List<Team> fetchAll();
 
     /**
+     * Retrieves team matching provided name from db
+     * @param name name of team
+     * @return team retrieved from db, null if no such team is in db
+     */
+    Team fetchByName(String name);
+
+    /**
+     * Retrieves team managed by provided manager from db
+     * @param manager manager of team
+     * @return team retrieved from db, null if no such team is in db
+     */
+    Team fetchByManager(Manager manager);
+
+    /**
+     * Retrieves teams matching provided origin from db
+     * @param origin Origin (country) of team
+     * @return List of teams retrieved from db, empty list if no such team is in db
+     */
+    List<Team> fetchByOrigin(NationalityEnum origin);
+
+    /**
+     * Retrieves teams participating in provided league
+     * @param league league of team
+     * @return List of teams retrieved from db, empty lists if no such team is in db
+     */
+    List<Team> fetchByLeague(League league);
+
+    /**
      * Inserts new team to db
      * @param team instance of team which shall be inserted
      *
@@ -44,4 +76,5 @@ public interface TeamDao {
      * @param teamId id of team that shall be deleted
      */
     void delete(long teamId);
+
 }

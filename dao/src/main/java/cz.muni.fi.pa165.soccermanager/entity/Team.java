@@ -178,6 +178,22 @@ public class Team {
         this.goalsConceded = goalsConceded;
     }
 
+    public League getLeague() {
+        return league;
+    }
+
+    public void setLeague(League league) {
+        this.league = league;
+    }
+
+    public void addPlayer(Player player) {
+        players.add(player);
+    }
+
+    public boolean removePlayer(Player player) {
+        return players.remove(player);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
