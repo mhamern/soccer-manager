@@ -16,6 +16,7 @@ public interface MatchFacade {
     public MatchDTO getMatchById(Long id);
     public void addHomeTeam(Long matchId, Long teamId);
     public void addAwayTeam(Long matchId, Long teamId);
+    public boolean isFinished(Long matchId);
     public void play();
 
 }
