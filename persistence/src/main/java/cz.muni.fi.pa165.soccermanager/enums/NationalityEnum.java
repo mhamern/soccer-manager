@@ -217,5 +217,5 @@ public enum NationalityEnum {
     Wales,
     Yemen,
     Zambia,
-    Zimbabwe;
+    Zimbabwe
 }
