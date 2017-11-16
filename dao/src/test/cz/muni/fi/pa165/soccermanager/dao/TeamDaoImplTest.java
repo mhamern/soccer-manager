@@ -293,6 +293,28 @@ public class TeamDaoImplTest {
         assertTrue("Second team not found", foundSecond.contains(second));
     }
 
+    @Test
+    public void testFetchTeamsWithoutManager() {
+        Manager m = new Manager.ManagerBuilder(
+                "Jose Mourinho",
+                NationalityEnum.Portugal,
+                "onlyone@gmail.com")
+                .build();
+        manager.persist(m);
+
+        Team first = fakeTeamOne();
+        manager.persist(first);
+        Team second = fakeTeamTwo();
+        second.setManager(m);
+        manager.persist(second);
+
+
+        List<Team> found = dao.fetchTeamsWithoutManager();
+        assertTrue("There should be exactly one team in DB", found != null && found.size() == 1);
+        assertTrue("First team not found", found.contains(first));
+        assertTrue("Second team should not be found", !found.contains(second));
+    }
+
     private Team fakeTeamOne() {
         Team team = new Team();
         team.setName("Zbrojovka Brno");

@@ -59,6 +59,12 @@ public interface TeamDao {
     List<Team> fetchByLeague(League league);
 
     /**
+     * Retrieves teams currently without manager
+     * @return List of teams retrieved from db without manager, empty list if no such team is in db
+     */
+    public List<Team> fetchTeamsWithoutManager();
+
+    /**
      * Inserts new team to db
      * @param team instance of team which shall be inserted
      *

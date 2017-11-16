@@ -17,7 +17,6 @@ public class Manager {
     public static class ManagerBuilder {
         private String name;
         private NationalityEnum nationality;
-        private Team team;
         private String email;
 
         public ManagerBuilder() {}
@@ -43,10 +42,6 @@ public class Manager {
             return this;
         }
 
-        public ManagerBuilder team(Team team) {
-            this.team = team;
-            return this;
-        }
 
         public Manager build() {
             return new Manager(this);
@@ -63,9 +58,6 @@ public class Manager {
     @Enumerated(EnumType.STRING)
     private NationalityEnum nationality;
 
-    @OneToOne
-    private Team team;
-
     @Column(nullable = false)
     private String email;
 
@@ -77,7 +69,6 @@ public class Manager {
             this.name = builder.name;
             this.nationality = builder.nationality;
             this.email = builder.email;
-            this.team = builder.team;
     }
 
     public Long getId() {
@@ -100,14 +91,6 @@ public class Manager {
 
     public void setNationality(NationalityEnum nationality) {
         this.nationality = nationality;
-    }
-
-    public Team getTeam() {
-        return team;
-    }
-
-    public void setTeam(Team team) {
-        this.team = team;
     }
 
     public String getEmail() {

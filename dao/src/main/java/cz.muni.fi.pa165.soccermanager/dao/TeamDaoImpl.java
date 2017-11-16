@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import java.lang.reflect.Type;
 import java.util.List;
 
 /**
@@ -89,5 +90,11 @@ public class TeamDaoImpl implements TeamDao {
                 .createQuery("SELECT t FROM Team t WHERE t.league = :teamLeague", Team.class);
         query.setParameter("teamLeague", league);
         return query.getResultList();
+    }
+
+    @Override
+    public List<Team> fetchTeamsWithoutManager() {
+        return manager
+                .createQuery("SELECT t FROM Team t WHERE manager IS NULL", Team.class).getResultList();
     }
 }
