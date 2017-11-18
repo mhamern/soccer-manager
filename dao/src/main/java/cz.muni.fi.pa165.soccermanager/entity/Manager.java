@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.soccermanager.entity;
 
+import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
+
 import javax.persistence.*;
 
 /**
@@ -14,13 +16,12 @@ public class Manager {
 
     public static class ManagerBuilder {
         private String name;
-        private String nationality;
-        private Team team;
+        private NationalityEnum nationality;
         private String email;
 
         public ManagerBuilder() {}
 
-        public ManagerBuilder(String name, String nationality, String email) {
+        public ManagerBuilder(String name, NationalityEnum nationality, String email) {
             this.name = name;
             this.nationality = nationality;
             this.email = email;
@@ -31,7 +32,7 @@ public class Manager {
             return this;
         }
 
-        public ManagerBuilder nationality(String nationality) {
+        public ManagerBuilder nationality(NationalityEnum nationality) {
             this.nationality = nationality;
             return this;
         }
@@ -41,10 +42,6 @@ public class Manager {
             return this;
         }
 
-        public ManagerBuilder team(Team team) {
-            this.team = team;
-            return this;
-        }
 
         public Manager build() {
             return new Manager(this);
@@ -58,11 +55,8 @@ public class Manager {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private String nationality;
-
-    @OneToOne
-    private Team team;
+    @Enumerated(EnumType.STRING)
+    private NationalityEnum nationality;
 
     @Column(nullable = false)
     private String email;
@@ -75,16 +69,13 @@ public class Manager {
             this.name = builder.name;
             this.nationality = builder.nationality;
             this.email = builder.email;
-            this.team = builder.team;
     }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public void setId(Long id) { this.id = id; }
 
     public String getName() {
         return name;
@@ -94,20 +85,12 @@ public class Manager {
         this.name = name;
     }
 
-    public String getNationality() {
+    public NationalityEnum getNationality() {
         return nationality;
     }
 
-    public void setNationality(String nationality) {
+    public void setNationality(NationalityEnum nationality) {
         this.nationality = nationality;
-    }
-
-    public Team getTeam() {
-        return team;
-    }
-
-    public void setTeam(Team team) {
-        this.team = team;
     }
 
     public String getEmail() {

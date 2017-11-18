@@ -1,6 +1,8 @@
 package cz.muni.fi.pa165.soccermanager.dao;
 
 import cz.muni.fi.pa165.soccermanager.entity.Manager;
+import cz.muni.fi.pa165.soccermanager.entity.Team;
+import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 
 import java.util.List;
 
@@ -18,6 +20,39 @@ public interface ManagerDao {
      */
     List<Manager> fetchAll();
 
+    /**
+     * Retrieves all managers matching provided nationality from db
+     * @param nationalityEnum nationality of manager
+     * @return List of managers retrieved from db matching provided nationality, empty list if no such manager is in db
+     */
+    List<Manager> fetchByNationality(NationalityEnum nationalityEnum);
+
+    /**
+     * Retrieves all managers currently without team from db
+     * @return List of managers retrieved from db currently without team, empty list if no such manager is in db
+     */
+    List<Manager> fetchManagersWithoutTeam();
+
+    /**
+     * Retrieves manager matching provided name
+     * @param name name of manager
+     * @return Manager retrieved from db matching provided name, null if no such manager is in db
+     */
+    Manager fetchByName(String name);
+
+    /**
+     * Retrieves manager matching provided email
+     * @param email email of manager
+     * @return Manager retrieved from db matching provided email, null if no such manager is in db
+     */
+    Manager fetchByEmail(String email);
+
+    /**
+     * Retrieves manager of provided team
+     * @param team team that manager manages
+     * @return Manager retrieved from db matching provided team, null if no such manager is in db
+     */
+    Manager fetchByTeam(Team team);
     /**
      * Inserts new manager to db
      * @param manager instance of manager which shall be inserted

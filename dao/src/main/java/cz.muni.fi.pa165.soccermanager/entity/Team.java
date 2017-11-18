@@ -1,6 +1,9 @@
 package cz.muni.fi.pa165.soccermanager.entity;
+import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
+
 import javax.persistence.*;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -16,16 +19,16 @@ import java.util.Set;
 public class Team {
 
     public static class TeamBuilder {
-        private  String origin;
+        private NationalityEnum origin;
         private  String name;
         private  League league;
         private int points = 0;
         private int goalsScored = 0;
         private int goalsConceded = 0;
         private Manager manager;
-        private Set<Player> players;
+        private Set<Player> players = new HashSet<>();
 
-        public TeamBuilder(String name, String origin, League league) {
+        public TeamBuilder(String name, NationalityEnum origin, League league) {
             this.origin = origin;
             this.name = name;
             this.league = league;
@@ -61,7 +64,7 @@ public class Team {
             return this;
         }
 
-        public TeamBuilder origin(String origin) {
+        public TeamBuilder origin(NationalityEnum origin) {
             this.origin = origin;
             return this;
         }
@@ -80,8 +83,8 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String origin;
+    @Enumerated(EnumType.STRING)
+    private NationalityEnum origin;
 
     @Column(nullable = false,unique = true)
     private String name;
@@ -118,9 +121,7 @@ public class Team {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public void setId(Long id) { this.id = id; }
 
     public Set<Player> getPlayers() {
         return Collections.unmodifiableSet(players);
@@ -130,11 +131,11 @@ public class Team {
         this.players = players;
     }
 
-    public String getOrigin() {
+    public NationalityEnum getOrigin() {
         return origin;
     }
 
-    public void setOrigin(String origin) {
+    public void setOrigin(NationalityEnum origin) {
         this.origin = origin;
     }
 
@@ -176,6 +177,22 @@ public class Team {
 
     public void setGoalsConceded(int goalsConceded) {
         this.goalsConceded = goalsConceded;
+    }
+
+    public League getLeague() {
+        return league;
+    }
+
+    public void setLeague(League league) {
+        this.league = league;
+    }
+
+    public void addPlayer(Player player) {
+        players.add(player);
+    }
+
+    public boolean removePlayer(Player player) {
+        return players.remove(player);
     }
 
     @Override

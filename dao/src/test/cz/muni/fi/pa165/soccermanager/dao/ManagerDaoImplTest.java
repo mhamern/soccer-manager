@@ -6,6 +6,7 @@ import cz.muni.fi.pa165.soccermanager.entity.Manager;
 import cz.muni.fi.pa165.soccermanager.entity.Match;
 import cz.muni.fi.pa165.soccermanager.entity.Team;
 
+import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,26 +45,17 @@ public class ManagerDaoImplTest {
 
     @Before
     public void setUp() {
-        League league1 = new League.LeagueBuilder("La Liga", "Spain").build();
-        Team team1 = new Team.TeamBuilder("Real Madrid", "Spain", league1).build();
-        Team team2 = new Team.TeamBuilder("FC Barcelona", "Spain", league1).build();
-
-        entityManager.persist(league1);
-        entityManager.persist(team1);
-        entityManager.persist(team2);
 
         manager1 = new Manager.ManagerBuilder(
                 "Jose Mourinho",
-                "Portugal",
+                NationalityEnum.Portugal,
                 "thespecialone@gmail.com")
-                .team(team1)
                 .build();
 
         manager2 = new Manager.ManagerBuilder(
                 "Pep Guardiola",
-                "Spain",
+                NationalityEnum.Spain,
                 "tikitaka@gmail.com")
-                .team(team2)
                 .build();
     }
 
@@ -218,4 +210,161 @@ public class ManagerDaoImplTest {
                 managers.contains(insertedTwo));
     }
 
+    @Test
+    public void fetchByNameManager() {
+        Manager insertedOne = manager1;
+        Manager insertedTwo = manager2;
+        entityManager.persist(insertedOne);
+        entityManager.persist(insertedTwo);
+
+        assertTrue("First manager should be retrieved from db",
+                insertedOne.equals(managerDao.fetchByName("Jose Mourinho")));
+    }
+
+    @Test
+    public void fetchByNameManagerNoResult() {
+        Manager insertedOne = manager1;
+        Manager insertedTwo = manager2;
+        entityManager.persist(insertedOne);
+        entityManager.persist(insertedTwo);
+
+        assertNull("Fetch should return null",
+                managerDao.fetchByName("Arsene Wenger"));
+    }
+
+    @Test
+    public void fetchByNationalityManager() {
+        Manager insertedOne = manager1;
+        Manager insertedTwo = manager2;
+        entityManager.persist(insertedOne);
+        entityManager.persist(insertedTwo);
+
+        List<Manager> managers = managerDao.fetchByNationality(NationalityEnum.Portugal);
+
+        assertTrue("Length of list retrieved from DAO does not equal 1",
+                managers != null && managers.size() == 1);
+
+        assertTrue("Manager in list does not equal to manager inserted to DB",
+                managers.contains(insertedOne));
+
+        assertTrue("Second manager should not be in list",
+                !managers.contains(insertedTwo));
+    }
+
+    @Test
+    public void fetchByNationalityManagerNoResult() {
+        Manager insertedOne = manager1;
+        Manager insertedTwo = manager2;
+        entityManager.persist(insertedOne);
+        entityManager.persist(insertedTwo);
+
+        List<Manager> managers = managerDao.fetchByNationality(NationalityEnum.CzechRepublic);
+
+        assertTrue("Length of list retrieved from DAO does not equal 0",
+                managers != null && managers.size() == 0);
+    }
+
+    @Test
+    public void fetchByEmailManager() {
+        Manager insertedOne = manager1;
+        Manager insertedTwo = manager2;
+        entityManager.persist(insertedOne);
+        entityManager.persist(insertedTwo);
+
+        assertTrue("Second manager should be retrieved from db",
+                insertedTwo.equals(managerDao.fetchByEmail("tikitaka@gmail.com")));
+    }
+
+    @Test
+    public void fetchByEmailManagerNoResult() {
+        Manager insertedOne = manager1;
+        Manager insertedTwo = manager2;
+        entityManager.persist(insertedOne);
+        entityManager.persist(insertedTwo);
+
+        assertNull("Fetch should return null",
+                managerDao.fetchByEmail("abcd@gmail.com"));
+    }
+
+    @Test
+    public void fetchByTeamManager() {
+        Manager insertedOne = manager1;
+        Manager insertedTwo = manager2;
+        entityManager.persist(insertedOne);
+        entityManager.persist(insertedTwo);
+
+        League league1 = new League.LeagueBuilder("La Liga", NationalityEnum.Spain).build();
+        Team team1 = new Team.TeamBuilder("Real Madrid", NationalityEnum.Spain, league1)
+                .manager(manager1)
+                .build();
+        Team team2 = new Team.TeamBuilder("FC Barcelona", NationalityEnum.Spain, league1)
+                .manager(manager2)
+                .build();
+        entityManager.persist(league1);
+        entityManager.persist(team1);
+        entityManager.persist(team2);
+
+        assertTrue("First manager should be retrieved from db",
+                insertedOne.equals(managerDao.fetchByTeam(team1)));
+    }
+
+    @Test
+    public void fetchByTeamManagerNoResult() {
+        Manager insertedOne = manager1;
+        Manager insertedTwo = manager2;
+        entityManager.persist(insertedOne);
+        entityManager.persist(insertedTwo);
+
+        League league1 = new League.LeagueBuilder("La Liga", NationalityEnum.Spain).build();
+        Team team1 = new Team.TeamBuilder("Real Madrid", NationalityEnum.Spain, league1)
+                .manager(manager1)
+                .build();
+        Team team2 = new Team.TeamBuilder("FC Barcelona", NationalityEnum.Spain, league1)
+                .manager(manager2)
+                .build();
+
+        Team team3 = new Team.TeamBuilder(
+                "Atletico Madrid",
+                NationalityEnum.Spain,
+                league1).build();
+
+        entityManager.persist(league1);
+        entityManager.persist(team3);
+        entityManager.persist(team2);
+        entityManager.persist(team1);
+
+        assertNull("Fetch should return null",
+                managerDao.fetchByTeam(team3));
+    }
+
+    @Test
+    public void fetchManagersWithoutTeam() {
+        Manager insertedOne = manager1;
+        Manager insertedTwo = manager2;
+        entityManager.persist(insertedOne);
+        entityManager.persist(insertedTwo);
+
+        League league1 = new League.LeagueBuilder("La Liga", NationalityEnum.Spain).build();
+
+        Team team1 = new Team.TeamBuilder("Real Madrid", NationalityEnum.Spain, league1)
+                .manager(manager1)
+                .build();
+        Team team2 = new Team.TeamBuilder("FC Barcelona", NationalityEnum.Spain, league1)
+                .build();
+        entityManager.persist(league1);
+        entityManager.persist(team1);
+        entityManager.persist(team2);
+
+        List<Manager> managers = managerDao.fetchManagersWithoutTeam();
+
+        assertTrue("Length of list retrieved from DAO does not equal 1",
+                managers != null && managers.size() == 1);
+
+        assertTrue("First manager should not be in list",
+                !managers.contains(insertedOne));
+
+        assertTrue("Second manager should be in list",
+                managers.contains(insertedTwo));
+
+    }
 }

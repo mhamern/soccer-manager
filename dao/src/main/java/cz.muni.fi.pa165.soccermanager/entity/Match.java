@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.soccermanager.entity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -18,12 +19,12 @@ public class Match {
 
     public static class MatchBuilder {
 
-        private Date date;
+        private LocalDate date;
         private String stadium;
         private final Team homeTeam;
         private final Team awayTeam;
 
-        public MatchBuilder(Team homeTeam, Team awayTeam, Date date) {
+        public MatchBuilder(Team homeTeam, Team awayTeam, LocalDate date) {
             this.homeTeam = homeTeam;
             this.awayTeam = awayTeam;
             this.date = date;
@@ -56,9 +57,10 @@ public class Match {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Temporal(TemporalType.DATE)
-    private Date date;
+    @Column(nullable = false)
+    private LocalDate date;
 
+    @Column(nullable = false)
     private String stadium;
 
     @ManyToOne
@@ -78,7 +80,7 @@ public class Match {
 
     public long getId() { return id; }
 
-    public void setId(long id) { this.id = id; }
+    public void setId(Long id) { this.id = id; }
 
     public int getAwayTeamGoals() { return awayTeamGoals; }
 
@@ -96,9 +98,9 @@ public class Match {
 
     public void setHomeTeam(Team homeTeam) { this.homeTeam = homeTeam; }
 
-    public Date getDate() { return date; }
+    public LocalDate getDate() { return date; }
 
-    public void setDate(Date date) { this.date = date; }
+    public void setDate(LocalDate date) { this.date = date; }
 
     public String getStadium() { return stadium; }
 

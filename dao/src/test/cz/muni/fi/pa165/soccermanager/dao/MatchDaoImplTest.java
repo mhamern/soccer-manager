@@ -6,6 +6,7 @@ import cz.muni.fi.pa165.soccermanager.entity.League;
 import cz.muni.fi.pa165.soccermanager.entity.Match;
 import cz.muni.fi.pa165.soccermanager.entity.Team;
 
+import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -44,13 +46,13 @@ public class MatchDaoImplTest {
 
     @Before
     public void setUp() {
-        League league1 = new League.LeagueBuilder("La Liga", "Spain").build();
-        Team team1 = new Team.TeamBuilder("Real Madrid", "Spain", league1).build();
-        Team team2 = new Team.TeamBuilder("FC Barcelona", "Spain", league1).build();
+        League league1 = new League.LeagueBuilder("La Liga", NationalityEnum.Spain).build();
+        Team team1 = new Team.TeamBuilder("Real Madrid", NationalityEnum.Spain, league1).build();
+        Team team2 = new Team.TeamBuilder("FC Barcelona", NationalityEnum.Spain, league1).build();
 
-        League league2 = new League.LeagueBuilder("Premier League", "England").build();
-        Team team3 = new Team.TeamBuilder("Arsenal FC", "England", league2).build();
-        Team team4 = new Team.TeamBuilder("Chelsea FC", "England", league2).build();
+        League league2 = new League.LeagueBuilder("Premier League", NationalityEnum.England).build();
+        Team team3 = new Team.TeamBuilder("Arsenal FC", NationalityEnum.England, league2).build();
+        Team team4 = new Team.TeamBuilder("Chelsea FC", NationalityEnum.England, league2).build();
         manager.persist(league1);
         manager.persist(team1);
         manager.persist(team2);
@@ -62,14 +64,14 @@ public class MatchDaoImplTest {
         match1 = new Match.MatchBuilder(
                 team1,
                 team2,
-                Date.from(Instant.now()))
+                LocalDate.now())
                 .stadium("Santiago Bernabeu")
                 .build();
 
         match2 = new Match.MatchBuilder(
                 team1,
                 team2,
-                Date.from(Instant.now()))
+                LocalDate.now())
                 .stadium("Stamford Bridge")
                 .build();
     }
