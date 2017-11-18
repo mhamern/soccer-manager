@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.soccermanager.entity;
 
+import cz.muni.fi.pa165.soccermanager.enums.StadiumEnum;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
@@ -21,17 +23,18 @@ public class Match {
     public static class MatchBuilder {
 
         private LocalDate date;
-        private String stadium;
+        private StadiumEnum stadium;
         private final Team homeTeam;
         private final Team awayTeam;
 
         public MatchBuilder(Team homeTeam, Team awayTeam, LocalDate date) {
             this.homeTeam = homeTeam;
             this.awayTeam = awayTeam;
+            this.stadium = homeTeam.getStadium();
             this.date = date;
         }
 
-        public MatchBuilder stadium(String stadium) {
+        public MatchBuilder stadium(StadiumEnum stadium) {
             this.stadium = stadium;
             return this;
         }
@@ -62,7 +65,7 @@ public class Match {
     private LocalDate date;
 
     @Column(nullable = false)
-    private String stadium;
+    private StadiumEnum stadium;
 
     @ManyToOne
     private Team homeTeam;
@@ -103,9 +106,9 @@ public class Match {
 
     public void setDate(LocalDate date) { this.date = date; }
 
-    public String getStadium() { return stadium; }
+    public StadiumEnum getStadium() { return stadium; }
 
-    public void setStadium(String stadium) { this.stadium = stadium; }
+    public void setStadium(StadiumEnum stadium) { this.stadium = stadium; }
 
     public boolean isFinished() { return finished; }
 
@@ -113,7 +116,6 @@ public class Match {
 
     /**
      * sets score of the match by some default values
-     * TODO: implement function that compute score of matches
      */
     public void playMatch() {
 

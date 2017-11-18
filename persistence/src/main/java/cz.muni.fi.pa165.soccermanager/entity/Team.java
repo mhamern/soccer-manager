@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.soccermanager.entity;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
+import cz.muni.fi.pa165.soccermanager.enums.StadiumEnum;
 
 import javax.persistence.*;
 import java.util.Collections;
@@ -20,18 +21,20 @@ public class Team {
 
     public static class TeamBuilder {
         private NationalityEnum origin;
-        private  String name;
-        private  League league;
+        private String name;
+        private League league;
         private int points = 0;
         private int goalsScored = 0;
         private int goalsConceded = 0;
         private Manager manager;
+        private StadiumEnum stadium;
         private Set<Player> players = new HashSet<>();
 
-        public TeamBuilder(String name, NationalityEnum origin, League league) {
+        public TeamBuilder(String name, NationalityEnum origin, StadiumEnum stadium, League league) {
             this.origin = origin;
             this.name = name;
             this.league = league;
+            this.stadium = stadium;
         }
 
         public TeamBuilder points(int points) {
@@ -74,6 +77,11 @@ public class Team {
             return this;
         }
 
+        public TeamBuilder stadium(StadiumEnum stadium) {
+            this.stadium = stadium;
+            return this;
+        }
+
         public Team build() {
             return new Team(this);
         }
@@ -88,6 +96,10 @@ public class Team {
 
     @Column(nullable = false,unique = true)
     private String name;
+
+    @Column(nullable = false)
+    private StadiumEnum stadium;
+
 
     private int points;
     private int goalsScored;
@@ -113,6 +125,7 @@ public class Team {
         manager = builder.manager;
         league = builder.league;
         points = builder.points;
+        stadium = builder.stadium;
         goalsConceded = builder.goalsConceded;
         goalsScored = builder.goalsScored;
     }
@@ -161,6 +174,14 @@ public class Team {
 
     public void setPoints(int points) {
         this.points = points;
+    }
+
+    public StadiumEnum getStadium() {
+        return this.stadium;
+    }
+
+    public void setStaduim(StadiumEnum stadium) {
+        this.stadium = stadium;
     }
 
     public int getGoalsScored() {

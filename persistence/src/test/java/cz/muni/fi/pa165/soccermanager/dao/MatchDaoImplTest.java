@@ -7,6 +7,7 @@ import cz.muni.fi.pa165.soccermanager.entity.Match;
 import cz.muni.fi.pa165.soccermanager.entity.Team;
 
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
+import cz.muni.fi.pa165.soccermanager.enums.StadiumEnum;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,12 +48,12 @@ public class MatchDaoImplTest {
     @Before
     public void setUp() {
         League league1 = new League.LeagueBuilder("La Liga", NationalityEnum.Spain).build();
-        Team team1 = new Team.TeamBuilder("Real Madrid", NationalityEnum.Spain, league1).build();
-        Team team2 = new Team.TeamBuilder("FC Barcelona", NationalityEnum.Spain, league1).build();
+        Team team1 = new Team.TeamBuilder("Real Madrid", NationalityEnum.Spain, StadiumEnum.San_Siro, league1).build();
+        Team team2 = new Team.TeamBuilder("FC Barcelona", NationalityEnum.Spain, StadiumEnum.Camp_Nou, league1).build();
 
         League league2 = new League.LeagueBuilder("Premier League", NationalityEnum.England).build();
-        Team team3 = new Team.TeamBuilder("Arsenal FC", NationalityEnum.England, league2).build();
-        Team team4 = new Team.TeamBuilder("Chelsea FC", NationalityEnum.England, league2).build();
+        Team team3 = new Team.TeamBuilder("Arsenal FC", NationalityEnum.England, StadiumEnum.Emirates_Stadium, league2).build();
+        Team team4 = new Team.TeamBuilder("Chelsea FC", NationalityEnum.England, StadiumEnum.Stamford_Bridge, league2).build();
         manager.persist(league1);
         manager.persist(team1);
         manager.persist(team2);
@@ -65,14 +66,12 @@ public class MatchDaoImplTest {
                 team1,
                 team2,
                 LocalDate.now())
-                .stadium("Santiago Bernabeu")
                 .build();
 
         match2 = new Match.MatchBuilder(
                 team1,
                 team2,
                 LocalDate.now())
-                .stadium("Stamford Bridge")
                 .build();
     }
 
@@ -105,7 +104,7 @@ public class MatchDaoImplTest {
         manager.persist(inserted);
 
         Match updated = manager.find(Match.class, inserted.getId());
-        updated.setStadium("Eden");
+        updated.setStadium(StadiumEnum.Friends_Arena);
         matchDao.update(updated);
 
         assertEquals("Match retrieved from DAO does not equal updated match",
@@ -121,7 +120,7 @@ public class MatchDaoImplTest {
         manager.persist(insertedTwo);
 
         Match updatedOne =  manager.find(Match.class, insertedOne.getId());
-        updatedOne.setStadium("San Siro");
+        updatedOne.setStadium(StadiumEnum.London_Stadium);
         matchDao.update(updatedOne);
 
         assertEquals("Match retrieved from DAO does not equal to first updated match",
@@ -131,7 +130,7 @@ public class MatchDaoImplTest {
                 insertedTwo, manager.find(Match.class, insertedTwo.getId()));
 
         Match updatedTwo = manager.find(Match.class, insertedTwo.getId());
-        updatedTwo.setStadium("Anfield Road");
+        updatedTwo.setStadium(StadiumEnum.San_Siro);
         matchDao.update(updatedTwo);
 
         assertEquals("Match retrieved from DAO does not equal to second updated match",

@@ -26,5 +26,6 @@ cz/muni/fi/pa165/soccermanager/entity/Match$1.class
 cz/muni/fi/pa165/soccermanager/entity/Manager$1.class
 cz/muni/fi/pa165/soccermanager/entity/Match.class
 cz/muni/fi/pa165/soccermanager/dao/TeamDao.class
+cz/muni/fi/pa165/soccermanager/enums/StadiumEnum.class
 cz/muni/fi/pa165/soccermanager/entity/Admin.class
 cz/muni/fi/pa165/soccermanager/enums/PositionEnum.class
