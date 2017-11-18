@@ -86,7 +86,7 @@ public class PlayerDaoImplTest {
     }
 
     @Test
-    public void updateTwoPlayeres() {
+    public void updateTwoPlayers() {
         Player insertedOne = getTestPlayerOne();
         Player insertedTwo = getTestPlayerTwo();
         manager.persist(insertedOne);
