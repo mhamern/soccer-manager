@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * @author 476368 Iman Mehmandoust
  * @version 10/27/2017.
- * Class representing leauges.
+ * Class representing leagues.
  * set of teams, country and name of the league
  * You should use LeagueBuilder to create instances of League.
  */
