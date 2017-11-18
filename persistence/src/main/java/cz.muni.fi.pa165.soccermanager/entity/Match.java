@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.soccermanager.entity;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Random;
 
 
 /**
@@ -115,9 +116,23 @@ public class Match {
      * TODO: implement function that compute score of matches
      */
     public void playMatch() {
-        setAwayTeamGoals(2);
-        setAwayTeamGoals(1);
-        setFinished(true);
+
+        if (!isFinished()) {
+
+            Random generator = new Random();
+
+            int homeGoals = generator.nextInt(3) + 1;
+            int awayGoals = generator.nextInt(3);
+
+            setHomeTeamGoals(homeGoals);
+            setAwayTeamGoals(awayGoals);
+            setFinished(true);
+
+            homeTeam.setGoalsScored(homeTeam.getGoalsScored() + homeGoals);
+            homeTeam.setGoalsConceded(homeTeam.getGoalsConceded() + awayGoals);
+            awayTeam.setGoalsScored(awayTeam.getGoalsScored() + awayGoals);
+            awayTeam.setGoalsConceded(awayTeam.getGoalsConceded() + homeGoals);
+        }
     }
 
     @Override
