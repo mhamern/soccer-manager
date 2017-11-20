@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: cz.muni.fi.pa165.soccermanager.dao.ManagerDaoImplTest
--------------------------------------------------------------------------------
-Tests run: 19, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 12.631 sec - in cz.muni.fi.pa165.soccermanager.dao.ManagerDaoImplTest
