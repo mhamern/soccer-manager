@@ -7,6 +7,7 @@ import cz.muni.fi.pa165.soccermanager.entity.Match;
 import cz.muni.fi.pa165.soccermanager.entity.Team;
 
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
+import cz.muni.fi.pa165.soccermanager.enums.StadiumEnum;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -294,10 +295,10 @@ public class ManagerDaoImplTest {
         entityManager.persist(insertedTwo);
 
         League league1 = new League.LeagueBuilder("La Liga", NationalityEnum.Spain).build();
-        Team team1 = new Team.TeamBuilder("Real Madrid", NationalityEnum.Spain, league1)
+        Team team1 = new Team.TeamBuilder("Real Madrid", NationalityEnum.Spain, StadiumEnum.Allianz_Arena, league1)
                 .manager(manager1)
                 .build();
-        Team team2 = new Team.TeamBuilder("FC Barcelona", NationalityEnum.Spain, league1)
+        Team team2 = new Team.TeamBuilder("FC Barcelona", NationalityEnum.Spain, StadiumEnum.PGE_Narodowy, league1)
                 .manager(manager2)
                 .build();
         entityManager.persist(league1);
@@ -316,16 +317,17 @@ public class ManagerDaoImplTest {
         entityManager.persist(insertedTwo);
 
         League league1 = new League.LeagueBuilder("La Liga", NationalityEnum.Spain).build();
-        Team team1 = new Team.TeamBuilder("Real Madrid", NationalityEnum.Spain, league1)
+        Team team1 = new Team.TeamBuilder("Real Madrid", NationalityEnum.Spain, StadiumEnum.Emirates_Stadium, league1)
                 .manager(manager1)
                 .build();
-        Team team2 = new Team.TeamBuilder("FC Barcelona", NationalityEnum.Spain, league1)
+        Team team2 = new Team.TeamBuilder("FC Barcelona", NationalityEnum.Spain, StadiumEnum.Ibrox_Stadium, league1)
                 .manager(manager2)
                 .build();
 
         Team team3 = new Team.TeamBuilder(
                 "Atletico Madrid",
                 NationalityEnum.Spain,
+                StadiumEnum.Friends_Arena,
                 league1).build();
 
         entityManager.persist(league1);
@@ -346,10 +348,10 @@ public class ManagerDaoImplTest {
 
         League league1 = new League.LeagueBuilder("La Liga", NationalityEnum.Spain).build();
 
-        Team team1 = new Team.TeamBuilder("Real Madrid", NationalityEnum.Spain, league1)
+        Team team1 = new Team.TeamBuilder("Real Madrid", NationalityEnum.Spain, StadiumEnum.Saint_Petersburg_Stadium, league1)
                 .manager(manager1)
                 .build();
-        Team team2 = new Team.TeamBuilder("FC Barcelona", NationalityEnum.Spain, league1)
+        Team team2 = new Team.TeamBuilder("FC Barcelona", NationalityEnum.Spain, StadiumEnum.Estadio_da_Luz, league1)
                 .build();
         entityManager.persist(league1);
         entityManager.persist(team1);
