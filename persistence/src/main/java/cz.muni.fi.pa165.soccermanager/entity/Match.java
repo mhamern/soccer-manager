@@ -4,7 +4,6 @@ import cz.muni.fi.pa165.soccermanager.enums.StadiumEnum;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Random;
 
 

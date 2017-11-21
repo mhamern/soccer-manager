@@ -1,7 +1,10 @@
 package cz.muni.fi.pa165.soccermanager.dao;
 
 import cz.muni.fi.pa165.soccermanager.entity.Match;
+import cz.muni.fi.pa165.soccermanager.entity.Team;
+import cz.muni.fi.pa165.soccermanager.enums.StadiumEnum;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -11,18 +14,6 @@ import java.util.List;
  * Data object access class of Match entity
  */
 public interface MatchDao {
-    /**
-     * finds match by its id
-     * @param matchId id of desired match
-     * @return match from database if exists, null otherwise
-     */
-    Match fetchById(long matchId);
-
-    /**
-     * Gets all matches from db
-     * @return list of all matches from db
-     */
-    List<Match> fetchAll();
 
     /**
      * Inserts new match in db
@@ -41,4 +32,42 @@ public interface MatchDao {
      * @param matchId id of match that should be deleted
      */
     void delete(long matchId);
+
+    /**
+     * finds match by its id
+     * @param matchId id of desired match
+     * @return match from database if exists, null otherwise
+     */
+    Match fetchById(long matchId);
+
+    /**
+     * Gets all matches from db
+     * @return list of all matches from db
+     */
+    List<Match> fetchAll();
+
+    /**
+     * Gets all matches played in specific date
+     * @return list of matches played in that date
+     */
+    List<Match> fetchByDate(LocalDate date);
+
+    /**
+     * Gets all played matches
+     * @return list of already played matches
+     */
+    List<Match> fetchFinishedMatches();
+
+    /**
+     * return matches of one team
+     * @return list of matches of one team
+     */
+    List<Match> fetchByTeam(Team team);
+
+    /**
+     * Gets all matches on one stadium
+     * @return list of matches played on one stadium
+     */
+    List<Match> fetchByStadium(StadiumEnum stadium);
+
 }
