@@ -69,8 +69,8 @@ public class MatchDaoImplTest {
                 .build();
 
         match2 = new Match.MatchBuilder(
-                team1,
-                team2,
+                team3,
+                team4,
                 LocalDate.now())
                 .build();
     }
@@ -225,5 +225,105 @@ public class MatchDaoImplTest {
         assertTrue("List does not contain second match",
                 matches.contains(insertedTwo));
     }
+
+    @Test
+    public void fetchFinishedMatches() {
+        Match finishedMatch = match1;
+        Match notFinishedMatch = match2;
+        finishedMatch.setFinished(true);
+        manager.persist(finishedMatch);
+        manager.persist(notFinishedMatch);
+
+        List<Match> matches = matchDao.fetchFinishedMatches();
+
+        assertTrue("Length of list retrieved from DAO does not equal 1",
+                matches != null && matches.size() == 1);
+
+        assertTrue("List does not contain finished match",
+                matches.contains(finishedMatch));
+
+        assertTrue("List does contain nonfinished match",
+                matches.contains(notFinishedMatch) == false);
+    }
+
+    @Test
+    public void fetchByStadium() {
+        Match matchOnStadium = match1;
+        Match matchOnDifferentStadium = match2;
+
+        StadiumEnum stadium = matchOnStadium.getStadium();
+
+        manager.persist(matchOnStadium);
+        manager.persist(matchOnDifferentStadium);
+
+        List<Match> matches = matchDao.fetchByStadium(stadium);
+
+        assertTrue("Length of list retrieved from DAO does not equal 1",
+                matches != null && matches.size() == 1);
+
+        assertTrue("List does not contain finished match",
+                matches.contains(matchOnStadium));
+
+        assertTrue("List does contain nonfinished match",
+                matches.contains(matchOnDifferentStadium) == false);
+    }
+
+    @Test
+    public void fetchByDate() {
+        Match matchRightDate = match1;
+        Match matchDifferentDate = match2;
+
+        LocalDate date = matchRightDate.getDate();
+        matchDifferentDate.setDate(date.minusDays(2));
+
+        manager.persist(matchRightDate);
+        manager.persist(matchDifferentDate);
+
+        List<Match> matches = matchDao.fetchByDate(date);
+
+        assertTrue("Length of list retrieved from DAO does not equal 1",
+                matches != null && matches.size() == 1);
+
+        assertTrue("List does not contain finished match",
+                matches.contains(matchRightDate));
+
+        assertTrue("List does contain nonfinished match",
+                matches.contains(matchDifferentDate) == false);
+    }
+
+    @Test
+    public void fetchMatchesByTeam() {
+        Match firstMatch = match1;
+        Match secondMatch = match2;
+
+        Team homeTeam = firstMatch.getHomeTeam();
+        Team awayTeam = firstMatch.getAwayTeam();
+
+        manager.persist(firstMatch);
+        manager.persist(secondMatch);
+
+        List<Match> matches1 = matchDao.fetchByTeam(homeTeam);
+        List<Match> matches2 = matchDao.fetchByTeam(awayTeam);
+
+        assertTrue("Retrieved null",
+                matches1 != null);
+        assertTrue("Length of list is zero",
+                matches1.size() != 0);
+        assertTrue("Length of list is two",
+                matches1.size() != 2);
+        assertTrue("Length of list retrieved from DAO home does not equal 1 ",
+                matches1.size() == 1);
+        assertTrue("Length of list retrieved from DAO away does not equal 1",
+                matches2 != null && matches2.size() == 1);
+
+        assertTrue("List does not contain expected match, search by homeTeam",
+                matches1.contains(firstMatch));
+
+        assertTrue("List does not contain expected match, search by awayTeam",
+                matches2.contains(firstMatch));
+    }
+
+
+
 
 }
