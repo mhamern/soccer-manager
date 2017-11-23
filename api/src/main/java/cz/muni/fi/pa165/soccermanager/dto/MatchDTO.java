@@ -47,7 +47,7 @@ public class MatchDTO {
         return (getDate() != match.getDate());
     }
 
-
+    
     @Override
     public int hashCode() {
         int result = getHomeTeam() != null ? getHomeTeam().hashCode() : 0;
