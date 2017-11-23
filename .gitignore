@@ -42,6 +42,9 @@ captures/
 .idea/*
 dao/.idea/*
 dao/target/*
+persistence/target/*
+api/target/*
+service/target/*
 
 # Keystore files
 *.jks

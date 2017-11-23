@@ -7,6 +7,8 @@ import cz.muni.fi.pa165.soccermanager.entity.Match;
 import cz.muni.fi.pa165.soccermanager.entity.Team;
 
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
+
+import cz.muni.fi.pa165.soccermanager.enums.StadiumEnum;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,12 +49,13 @@ public class MatchDaoImplTest {
     @Before
     public void setUp() {
         League league1 = new League.LeagueBuilder("La Liga", NationalityEnum.Spain).build();
-        Team team1 = new Team.TeamBuilder("Real Madrid", NationalityEnum.Spain, league1).build();
-        Team team2 = new Team.TeamBuilder("FC Barcelona", NationalityEnum.Spain, league1).build();
+        Team team1 = new Team.TeamBuilder("Real Madrid", NationalityEnum.Spain, StadiumEnum.San_Siro, league1).build();
+        Team team2 = new Team.TeamBuilder("FC Barcelona", NationalityEnum.Spain, StadiumEnum.Camp_Nou, league1).build();
 
         League league2 = new League.LeagueBuilder("Premier League", NationalityEnum.England).build();
-        Team team3 = new Team.TeamBuilder("Arsenal FC", NationalityEnum.England, league2).build();
-        Team team4 = new Team.TeamBuilder("Chelsea FC", NationalityEnum.England, league2).build();
+        Team team3 = new Team.TeamBuilder("Arsenal FC", NationalityEnum.England, StadiumEnum.Emirates_Stadium, league2).build();
+        Team team4 = new Team.TeamBuilder("Chelsea FC", NationalityEnum.England, StadiumEnum.Stamford_Bridge, league2).build();
+
         manager.persist(league1);
         manager.persist(team1);
         manager.persist(team2);
@@ -65,14 +68,12 @@ public class MatchDaoImplTest {
                 team1,
                 team2,
                 LocalDate.now())
-                .stadium("Santiago Bernabeu")
                 .build();
 
         match2 = new Match.MatchBuilder(
-                team1,
-                team2,
+                team3,
+                team4,
                 LocalDate.now())
-                .stadium("Stamford Bridge")
                 .build();
     }
 
@@ -105,7 +106,7 @@ public class MatchDaoImplTest {
         manager.persist(inserted);
 
         Match updated = manager.find(Match.class, inserted.getId());
-        updated.setStadium("Eden");
+        updated.setStadium(StadiumEnum.Friends_Arena);
         matchDao.update(updated);
 
         assertEquals("Match retrieved from DAO does not equal updated match",
@@ -121,7 +122,7 @@ public class MatchDaoImplTest {
         manager.persist(insertedTwo);
 
         Match updatedOne =  manager.find(Match.class, insertedOne.getId());
-        updatedOne.setStadium("San Siro");
+        updatedOne.setStadium(StadiumEnum.London_Stadium);
         matchDao.update(updatedOne);
 
         assertEquals("Match retrieved from DAO does not equal to first updated match",
@@ -131,7 +132,7 @@ public class MatchDaoImplTest {
                 insertedTwo, manager.find(Match.class, insertedTwo.getId()));
 
         Match updatedTwo = manager.find(Match.class, insertedTwo.getId());
-        updatedTwo.setStadium("Anfield Road");
+        updatedTwo.setStadium(StadiumEnum.San_Siro);
         matchDao.update(updatedTwo);
 
         assertEquals("Match retrieved from DAO does not equal to second updated match",
@@ -227,4 +228,100 @@ public class MatchDaoImplTest {
                 matches.contains(insertedTwo));
     }
 
+    @Test
+    public void fetchFinishedMatches() {
+        Match finishedMatch = match1;
+        Match notFinishedMatch = match2;
+        finishedMatch.setFinished(true);
+        manager.persist(finishedMatch);
+        manager.persist(notFinishedMatch);
+
+        List<Match> matches = matchDao.fetchFinishedMatches();
+
+        assertTrue("Length of list retrieved from DAO does not equal 1",
+                matches != null && matches.size() == 1);
+
+        assertTrue("List does not contain finished match",
+                matches.contains(finishedMatch));
+
+        assertTrue("List does contain nonfinished match",
+                matches.contains(notFinishedMatch) == false);
+    }
+
+    @Test
+    public void fetchByStadium() {
+        Match matchOnStadium = match1;
+        Match matchOnDifferentStadium = match2;
+
+        StadiumEnum stadium = matchOnStadium.getStadium();
+
+        manager.persist(matchOnStadium);
+        manager.persist(matchOnDifferentStadium);
+
+        List<Match> matches = matchDao.fetchByStadium(stadium);
+
+        assertTrue("Length of list retrieved from DAO does not equal 1",
+                matches != null && matches.size() == 1);
+
+        assertTrue("List does not contain finished match",
+                matches.contains(matchOnStadium));
+
+        assertTrue("List does contain nonfinished match",
+                matches.contains(matchOnDifferentStadium) == false);
+    }
+
+    @Test
+    public void fetchByDate() {
+        Match matchRightDate = match1;
+        Match matchDifferentDate = match2;
+
+        LocalDate date = matchRightDate.getDate();
+        matchDifferentDate.setDate(date.minusDays(2));
+
+        manager.persist(matchRightDate);
+        manager.persist(matchDifferentDate);
+
+        List<Match> matches = matchDao.fetchByDate(date);
+
+        assertTrue("Length of list retrieved from DAO does not equal 1",
+                matches != null && matches.size() == 1);
+
+        assertTrue("List does not contain finished match",
+                matches.contains(matchRightDate));
+
+        assertTrue("List does contain nonfinished match",
+                matches.contains(matchDifferentDate) == false);
+    }
+
+    @Test
+    public void fetchMatchesByTeam() {
+        Match firstMatch = match1;
+        Match secondMatch = match2;
+
+        Team homeTeam = firstMatch.getHomeTeam();
+        Team awayTeam = firstMatch.getAwayTeam();
+
+        manager.persist(firstMatch);
+        manager.persist(secondMatch);
+
+        List<Match> matches1 = matchDao.fetchByTeam(homeTeam);
+        List<Match> matches2 = matchDao.fetchByTeam(awayTeam);
+
+        assertTrue("Retrieved null",
+                matches1 != null);
+        assertTrue("Length of list is zero",
+                matches1.size() != 0);
+        assertTrue("Length of list is two",
+                matches1.size() != 2);
+        assertTrue("Length of list retrieved from DAO home does not equal 1 ",
+                matches1.size() == 1);
+        assertTrue("Length of list retrieved from DAO away does not equal 1",
+                matches2 != null && matches2.size() == 1);
+
+        assertTrue("List does not contain expected match, search by homeTeam",
+                matches1.contains(firstMatch));
+
+        assertTrue("List does not contain expected match, search by awayTeam",
+                matches2.contains(firstMatch));
+    }
 }

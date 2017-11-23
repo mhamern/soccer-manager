@@ -8,6 +8,7 @@ import cz.muni.fi.pa165.soccermanager.entity.Team;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 import cz.muni.fi.pa165.soccermanager.enums.PositionEnum;
 
+import cz.muni.fi.pa165.soccermanager.enums.StadiumEnum;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -87,6 +88,7 @@ public class PlayerDaoImplTest {
 
     @Test
     public void updateTwoPlayers() {
+
         Player insertedOne = getTestPlayerOne();
         Player insertedTwo = getTestPlayerTwo();
         manager.persist(insertedOne);
@@ -219,8 +221,8 @@ public class PlayerDaoImplTest {
 
         League league = new League.LeagueBuilder("Premier League", NationalityEnum.England).build();
         manager.persist(league);
-
-        Team team = new Team.TeamBuilder("Arsenal FC", NationalityEnum.England, league).build();
+      
+        Team team = new Team.TeamBuilder("Arsenal FC", NationalityEnum.England, StadiumEnum.Emirates_Stadium, league).build();
         team.addPlayer(insertedOne);
         team.addPlayer(insertedTwo);
         manager.persist(team);
@@ -248,8 +250,8 @@ public class PlayerDaoImplTest {
         League league = new League.LeagueBuilder("Premier League", NationalityEnum.England).build();
         manager.persist(league);
 
-        Team team = new Team.TeamBuilder("Arsenal FC", NationalityEnum.England, league).build();
-        Team team2 = new Team.TeamBuilder("Chelsea FC", NationalityEnum.England, league).build();
+        Team team = new Team.TeamBuilder("Arsenal FC", NationalityEnum.England, StadiumEnum.Emirates_Stadium, league).build();
+        Team team2 = new Team.TeamBuilder("Chelsea FC", NationalityEnum.England, StadiumEnum.Stamford_Bridge, league).build();
         team.addPlayer(insertedOne);
         team.addPlayer(insertedTwo);
         manager.persist(team);
@@ -271,7 +273,8 @@ public class PlayerDaoImplTest {
         League league = new League.LeagueBuilder("Premier League", NationalityEnum.England).build();
         manager.persist(league);
 
-        Team team = new Team.TeamBuilder("Arsenal FC", NationalityEnum.England, league).build();
+        Team team = new Team.TeamBuilder("Arsenal FC", NationalityEnum.England, StadiumEnum.Emirates_Stadium, league).build();
+
         team.addPlayer(insertedOne);
         manager.persist(team);
 
@@ -299,7 +302,7 @@ public class PlayerDaoImplTest {
         League league = new League.LeagueBuilder("Premier League", NationalityEnum.England).build();
         manager.persist(league);
 
-        Team team = new Team.TeamBuilder("Arsenal FC", NationalityEnum.England, league).build();
+        Team team = new Team.TeamBuilder("Arsenal FC", NationalityEnum.England, StadiumEnum.Emirates_Stadium, league).build();
         team.addPlayer(insertedOne);
         team.addPlayer(insertedTwo);
         manager.persist(team);
