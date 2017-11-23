@@ -63,7 +63,7 @@ public class Match {
     @Column(nullable = false)
     private LocalDate date;
 
-    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private StadiumEnum stadium;
 
     @ManyToOne
