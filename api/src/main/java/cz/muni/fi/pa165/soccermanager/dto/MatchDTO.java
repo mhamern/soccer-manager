@@ -46,7 +46,7 @@ public class MatchDTO {
         if (getAwayTeam() != match.getAwayTeam()) return false;
         return (getDate() != match.getDate());
     }
-    
+
 
     @Override
     public int hashCode() {
