@@ -19,7 +19,7 @@ public interface ManagerService {
     List<Manager> fetchByNationality(NationalityEnum nationalityEnum);
     List<Manager> fetchManagersWithoutTeam();
     List<Manager> fetchAll();
-    void create(Manager manager);
-    void update(Manager manager);
-    void remove(long managerId);
+    void createManager(Manager manager);
+    void updateManager(Manager manager);
+    void removeManager(long managerId);
 }
