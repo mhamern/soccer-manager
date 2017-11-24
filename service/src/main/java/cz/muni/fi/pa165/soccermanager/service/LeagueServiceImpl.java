@@ -5,7 +5,10 @@ import cz.muni.fi.pa165.soccermanager.entity.League;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+
 
 /**
  * Implementation of the LeagueService. The class is the part of implementation of
@@ -33,8 +36,9 @@ public class LeagueServiceImpl implements LeagueService {
     }
 
     @Override
-    public void insert(League league) {
+    public League insert(League league) {
         leagueDao.insert(league);
+        return league;
     }
 
     @Override
