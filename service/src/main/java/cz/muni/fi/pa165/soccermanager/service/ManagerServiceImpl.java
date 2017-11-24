@@ -55,19 +55,19 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public void create(Manager manager) {
+    public void createManager(Manager manager) {
         managerDao.insert(manager);
 
     }
 
     @Override
-    public void update(Manager manager) {
+    public void updateManager(Manager manager) {
         managerDao.update(manager);
 
     }
 
     @Override
-    public void remove(long managerId) {
+    public void removeManager(long managerId) {
         managerDao.delete(managerId);
 
     }
