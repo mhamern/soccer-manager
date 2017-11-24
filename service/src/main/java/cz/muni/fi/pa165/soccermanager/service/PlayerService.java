@@ -17,7 +17,7 @@ public interface PlayerService {
 
     List<Player> fetchAll();
 
-    void insert(Player player);
+    Player create(Player player);
 
     void update(Player player);
 
@@ -26,6 +26,7 @@ public interface PlayerService {
     List<Player> fetchByTeam(Team team);
 
     List<Player> fetchByPosition(PositionEnum position);
+
 
     List<Player> fetchByNationality(NationalityEnum nationality);
 

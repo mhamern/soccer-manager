@@ -31,8 +31,9 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public void insert(Player player) {
+    public Player create(Player player) {
         playerDao.insert(player);
+        return player;
     }
 
     @Override

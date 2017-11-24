@@ -180,7 +180,7 @@ public class Team {
         return this.stadium;
     }
 
-    public void setStaduim(StadiumEnum stadium) {
+    public void setStadium(StadiumEnum stadium) {
         this.stadium = stadium;
     }
 
@@ -219,31 +219,29 @@ public class Team {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Team)) return false;
 
         Team team = (Team) o;
 
-        if (players != null ? !players.equals(team.players) : team.players != null) return false;
-        if (origin != null ? !origin.equals(team.origin) : team.origin != null) return false;
-        if (name != null ? !name.equals(team.name) : team.name != null) return false;
-        return manager != null ? manager.equals(team.manager) : team.manager == null;
+        if (origin != team.origin) return false;
+        return name.equals(team.name);
     }
 
     @Override
     public int hashCode() {
-        int result = players != null ? players.hashCode() : 0;
-        result = 31 * result + (origin != null ? origin.hashCode() : 0);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (manager != null ? manager.hashCode() : 0);
+        int result = origin.hashCode();
+        result = 31 * result + name.hashCode();
         return result;
     }
 
     @Override
     public String toString() {
         return "Team{" +
+                "origin=" + origin +
                 ", name='" + name + '\'' +
-                "origin='" + origin + '\'' +
+                ", stadium=" + stadium +
                 ", manager=" + manager +
+                ", league=" + league +
                 '}';
     }
 }
