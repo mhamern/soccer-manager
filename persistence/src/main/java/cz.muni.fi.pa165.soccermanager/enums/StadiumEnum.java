@@ -75,6 +75,8 @@ public enum StadiumEnum {
     Fisht_Olympic_Stadium,
     Otkritie_Arena,
     Kazan_Arena,
-    Stamford_Bridge
+    Stamford_Bridge,
+    Za_Luzankami,
+    Generali_Arena
 
     }

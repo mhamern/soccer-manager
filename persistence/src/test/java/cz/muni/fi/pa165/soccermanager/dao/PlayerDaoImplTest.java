@@ -87,7 +87,8 @@ public class PlayerDaoImplTest {
     }
 
     @Test
-    public void updateTwoPlayeres() {
+    public void updateTwoPlayers() {
+
         Player insertedOne = getTestPlayerOne();
         Player insertedTwo = getTestPlayerTwo();
         manager.persist(insertedOne);
@@ -220,7 +221,7 @@ public class PlayerDaoImplTest {
 
         League league = new League.LeagueBuilder("Premier League", NationalityEnum.England).build();
         manager.persist(league);
-
+      
         Team team = new Team.TeamBuilder("Arsenal FC", NationalityEnum.England, StadiumEnum.Emirates_Stadium, league).build();
         team.addPlayer(insertedOne);
         team.addPlayer(insertedTwo);
@@ -273,6 +274,7 @@ public class PlayerDaoImplTest {
         manager.persist(league);
 
         Team team = new Team.TeamBuilder("Arsenal FC", NationalityEnum.England, StadiumEnum.Emirates_Stadium, league).build();
+
         team.addPlayer(insertedOne);
         manager.persist(team);
 

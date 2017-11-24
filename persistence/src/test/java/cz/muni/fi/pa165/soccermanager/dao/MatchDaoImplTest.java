@@ -7,6 +7,7 @@ import cz.muni.fi.pa165.soccermanager.entity.Match;
 import cz.muni.fi.pa165.soccermanager.entity.Team;
 
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
+
 import cz.muni.fi.pa165.soccermanager.enums.StadiumEnum;
 import org.junit.Before;
 import org.junit.Test;
@@ -54,6 +55,7 @@ public class MatchDaoImplTest {
         League league2 = new League.LeagueBuilder("Premier League", NationalityEnum.England).build();
         Team team3 = new Team.TeamBuilder("Arsenal FC", NationalityEnum.England, StadiumEnum.Emirates_Stadium, league2).build();
         Team team4 = new Team.TeamBuilder("Chelsea FC", NationalityEnum.England, StadiumEnum.Stamford_Bridge, league2).build();
+
         manager.persist(league1);
         manager.persist(team1);
         manager.persist(team2);
@@ -322,8 +324,4 @@ public class MatchDaoImplTest {
         assertTrue("List does not contain expected match, search by awayTeam",
                 matches2.contains(firstMatch));
     }
-
-
-
-
 }

@@ -6,6 +6,7 @@ import cz.muni.fi.pa165.soccermanager.entity.Manager;
 import cz.muni.fi.pa165.soccermanager.entity.Team;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 
+import cz.muni.fi.pa165.soccermanager.enums.StadiumEnum;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -317,6 +318,7 @@ public class TeamDaoImplTest {
         team.setGoalsConceded(3);
         team.setGoalsScored(4);
         team.setPoints(12);
+        team.setStaduim(StadiumEnum.Za_Luzankami);
         return team;
     }
 
@@ -327,6 +329,7 @@ public class TeamDaoImplTest {
         team.setGoalsConceded(10);
         team.setGoalsScored(0);
         team.setPoints(1);
+        team.setStaduim(StadiumEnum.Generali_Arena);
         return team;
     }
 
