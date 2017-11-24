@@ -24,42 +24,51 @@ public class MatchServiceImpl implements MatchService {
     private MatchDao matchDao;
 
     @Override
-    public Match findById(long matchId) {
+    public Match fetchById(long matchId) {
         return matchDao.fetchById(matchId);
     }
 
     @Override
-    public List<Match> findAll() {
+    public List<Match> fetchAll() {
         return matchDao.fetchAll();
     }
 
     @Override
-    public List<Match> findByDate(LocalDate date) {
+    public List<Match> fetchByDate(LocalDate date) {
         return matchDao.fetchByDate(date);
     }
 
     @Override
-    public List<Match> findByTeam(Team team) {
+    public List<Match> fetchByTeam(Team team) {
         return matchDao.fetchByTeam(team);
     }
 
     @Override
-    public List<Match> findByStadium(StadiumEnum stadium) {
+    public List<Match> fetchFinished() {return matchDao.fetchFinishedMatches();}
+
+    @Override
+    public List<Match> fetchByStadium(StadiumEnum stadium) {
         return matchDao.fetchByStadium(stadium);
     }
 
     @Override
-    public void create(Match match) {
+    public Match createMatch(Match match) {
         matchDao.insert(match);
+        return match;
     }
 
     @Override
-    public void update(Match match) {
+    public boolean isFinished(Match match) {
+        return match.isFinished();
+    }
+
+    @Override
+    public void updateMatch(Match match) {
         matchDao.update(match);
     }
 
     @Override
-    public void remove(Long matchId) {
+    public void removeMatch(Long matchId) {
         matchDao.delete(matchId);
 
     }

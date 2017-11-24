@@ -11,6 +11,7 @@ import java.util.List;
 public interface TeamService {
 
     Team fetchById(long teamId);
+    Team fetchByName(String name);
     List<Team> fetchAll();
     void insert(Team team);
     void update(Team team);
