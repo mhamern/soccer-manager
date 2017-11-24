@@ -318,7 +318,7 @@ public class TeamDaoImplTest {
         team.setGoalsConceded(3);
         team.setGoalsScored(4);
         team.setPoints(12);
-        team.setStaduim(StadiumEnum.Za_Luzankami);
+        team.setStadium(StadiumEnum.Za_Luzankami);
         return team;
     }
 
@@ -329,7 +329,7 @@ public class TeamDaoImplTest {
         team.setGoalsConceded(10);
         team.setGoalsScored(0);
         team.setPoints(1);
-        team.setStaduim(StadiumEnum.Generali_Arena);
+        team.setStadium(StadiumEnum.Generali_Arena);
         return team;
     }
 

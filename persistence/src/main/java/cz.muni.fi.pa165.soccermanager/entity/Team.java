@@ -180,7 +180,7 @@ public class Team {
         return this.stadium;
     }
 
-    public void setStaduim(StadiumEnum stadium) {
+    public void setStadium(StadiumEnum stadium) {
         this.stadium = stadium;
     }
 
