@@ -3,10 +3,10 @@ package cz.muni.fi.pa165.soccermanager.dao;
 import cz.muni.fi.pa165.soccermanager.PersistentContext;
 import cz.muni.fi.pa165.soccermanager.entity.League;
 import cz.muni.fi.pa165.soccermanager.entity.Manager;
-import cz.muni.fi.pa165.soccermanager.entity.Player;
 import cz.muni.fi.pa165.soccermanager.entity.Team;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
-import cz.muni.fi.pa165.soccermanager.enums.PositionEnum;
+
+import cz.muni.fi.pa165.soccermanager.enums.StadiumEnum;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -322,6 +318,7 @@ public class TeamDaoImplTest {
         team.setGoalsConceded(3);
         team.setGoalsScored(4);
         team.setPoints(12);
+        team.setStadium(StadiumEnum.Za_Luzankami);
         return team;
     }
 
@@ -332,6 +329,7 @@ public class TeamDaoImplTest {
         team.setGoalsConceded(10);
         team.setGoalsScored(0);
         team.setPoints(1);
+        team.setStadium(StadiumEnum.Generali_Arena);
         return team;
     }
 
