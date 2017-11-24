@@ -13,12 +13,14 @@ import java.util.List;
  * @version 11/23/2017.
  */
 public interface MatchService {
-    Match findById(long matchId);
-    List<Match> findAll();
-    List<Match> findByDate(LocalDate date);
-    List<Match> findByTeam(Team team);
-    List<Match> findByStadium(StadiumEnum stadium);
-    void create(Match match);
-    void update(Match match);
-    void remove(Long matchId);
+    Match fetchById(long matchId);
+    List<Match> fetchAll();
+    List<Match> fetchByDate(LocalDate date);
+    List<Match> fetchByTeam(Team team);
+    List<Match> fetchByStadium(StadiumEnum stadium);
+    List<Match> fetchFinished();
+    Match createMatch(Match match);
+    boolean isFinished(Match match);
+    void updateMatch(Match match);
+    void removeMatch(Long matchId);
 }
