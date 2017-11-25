@@ -9,7 +9,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-
 /**
  * Implementation of the LeagueService. The class is the part of implementation of
  * the business logic of the application.

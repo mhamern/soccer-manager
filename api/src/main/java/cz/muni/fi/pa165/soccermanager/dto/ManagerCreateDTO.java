@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
  * @author 456519  Filip Lux
  * @version 11/23/2017.
  */
-public class ManagerDTO {
+public class ManagerCreateDTO {
 
     @NotNull
     @Size(min = 3, max = 50)
@@ -47,9 +47,9 @@ public class ManagerDTO {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ManagerDTO)) return false;
+        if (!(o instanceof ManagerCreateDTO)) return false;
 
-        ManagerDTO manager = (ManagerDTO) o;
+        ManagerCreateDTO manager = (ManagerCreateDTO) o;
 
         if (!name.equals(manager.getName())) return false;
         if (!nationality.equals(manager.getNationality())) return false;
