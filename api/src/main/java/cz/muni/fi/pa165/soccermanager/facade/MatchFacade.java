@@ -11,13 +11,21 @@ import java.util.List;
  */
 public interface MatchFacade {
     public Long createMatch(CreateMatchDTO match);
+
     public List<MatchDTO> getMatchesByTeam(Long teamId);
+
     public List<MatchDTO> getMatchesByLeague(Long leagueId);
+
     public List<MatchDTO> getFinishedMatches();
+
     public MatchDTO getMatchById(Long id);
+
     public void addHomeTeam(Long matchId, Long teamId);
+
     public void addAwayTeam(Long matchId, Long teamId);
+
     public boolean isFinished(Long matchId);
+
     public void play(Long matchId);
 
 }
