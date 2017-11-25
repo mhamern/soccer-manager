@@ -7,10 +7,10 @@ import java.time.LocalDate;
 
 /**
  * @author 445720 Martin Hamernik
- * @version 11/16/2017.
+ * @version 11/24/2017.
  */
-public class PlayerDTO {
-    private Long id;
+public class CreatePlayerDTO {
+
     private String name;
     private PositionEnum position;
     private NationalityEnum nationality;
@@ -22,14 +22,6 @@ public class PlayerDTO {
     private int defence;
     private int strength;
     private int goalkeeping;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -124,13 +116,13 @@ public class PlayerDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PlayerDTO playerDTO = (PlayerDTO) o;
+        CreatePlayerDTO that = (CreatePlayerDTO) o;
 
-        if (number != playerDTO.number) return false;
-        if (!name.equals(playerDTO.name)) return false;
-        if (position != playerDTO.position) return false;
-        if (nationality != playerDTO.nationality) return false;
-        return birthDate.equals(playerDTO.birthDate);
+        if (number != that.number) return false;
+        if (!name.equals(that.name)) return false;
+        if (position != that.position) return false;
+        if (nationality != that.nationality) return false;
+        return birthDate.equals(that.birthDate);
     }
 
     @Override
@@ -145,7 +137,7 @@ public class PlayerDTO {
 
     @Override
     public String toString() {
-        return "PlayerDTO{" +
+        return "CreatePlayerDTO{" +
                 "name='" + name + '\'' +
                 ", position=" + position +
                 ", nationality=" + nationality +
