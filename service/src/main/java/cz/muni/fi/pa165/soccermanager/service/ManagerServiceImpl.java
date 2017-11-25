@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.soccermanager.dao.ManagerDao;
 import cz.muni.fi.pa165.soccermanager.entity.Manager;
 import cz.muni.fi.pa165.soccermanager.entity.Team;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
+import cz.muni.fi.pa165.soccermanager.service.exceptions.SoccerManagerServiceException;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -55,15 +56,25 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public void createManager(Manager manager) {
-        managerDao.insert(manager);
+    public Manager createManager(Manager manager) throws SoccerManagerServiceException {
 
+        if (managerDao.fetchAll().contains(manager)) {
+            throw new SoccerManagerServiceException(
+                    "Match " + manager.getName()  + " already exists");
+        } else {
+            managerDao.insert(manager);
+            return manager;
+        }
     }
 
     @Override
-    public void updateManager(Manager manager) {
-        managerDao.update(manager);
+    public void updateManager(Manager manager) throws SoccerManagerServiceException {
 
+        if (!managerDao.fetchAll().contains(manager)) {
+            throw new SoccerManagerServiceException(
+                    "Manager " + manager.getName() + " do not exists.");
+        }
+        managerDao.update(manager);
     }
 
     @Override

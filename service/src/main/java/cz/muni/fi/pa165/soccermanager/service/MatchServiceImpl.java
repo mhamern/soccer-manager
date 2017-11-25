@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.soccermanager.dao.MatchDao;
 import cz.muni.fi.pa165.soccermanager.entity.Match;
 import cz.muni.fi.pa165.soccermanager.entity.Team;
 import cz.muni.fi.pa165.soccermanager.enums.StadiumEnum;
+import cz.muni.fi.pa165.soccermanager.service.exceptions.SoccerManagerServiceException;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -52,19 +53,51 @@ public class MatchServiceImpl implements MatchService {
     }
 
     @Override
-    public Match createMatch(Match match) {
-        matchDao.insert(match);
-        return match;
+    public Match createMatch(Match match) throws SoccerManagerServiceException {
+
+        if (matchDao.fetchAll().contains(match)) {
+            throw new SoccerManagerServiceException(
+                    "Match " + match.getHomeTeam().getName() +
+                    " vs. " + match.getAwayTeam().getName() + " already exists");
+        }
+
+        Team homeTeam = match.getHomeTeam();
+        Team awayTeam = match.getAwayTeam();
+
+        if ( homeTeam.equals(awayTeam) ) {
+            throw new SoccerManagerServiceException(
+                    "It is not allowed to create match between two same teams "
+                            + homeTeam.getName() + ". ");
+        }
+        else {
+            matchDao.insert(match);
+            return match;
+        }
     }
 
     @Override
-    public boolean isFinished(Match match) {
+    public boolean isFinished(Match match) throws SoccerManagerServiceException {
+
+        if (!matchDao.fetchAll().contains(match)) {
+            throw new SoccerManagerServiceException(
+                    "Match " + match.getHomeTeam().getName() +
+                            " vs. " + match.getAwayTeam().getName() + " do not exists.");
+        }
+
         return match.isFinished();
     }
 
     @Override
-    public void updateMatch(Match match) {
+    public void updateMatch(Match match) throws SoccerManagerServiceException {
+
+        if (!matchDao.fetchAll().contains(match)) {
+            throw new SoccerManagerServiceException(
+                    "Match " + match.getHomeTeam().getName() +
+                    " vs. " + match.getAwayTeam().getName() + " do not exists.");
+        }
+
         matchDao.update(match);
+
     }
 
     @Override
