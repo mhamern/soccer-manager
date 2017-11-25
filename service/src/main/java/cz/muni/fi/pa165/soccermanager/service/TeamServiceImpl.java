@@ -18,14 +18,18 @@ import java.util.List;
 @Service
 public class TeamServiceImpl implements  TeamService {
 
-    @Inject
-    private TeamDao teamDao;
+    private final TeamDao teamDao;
+
+    private final PlayerDao playerDao;
+
+    private final MatchDao matchDao;
 
     @Inject
-    private PlayerDao playerDao;
-
-    @Inject
-    private MatchDao matchDao;
+    public TeamServiceImpl(TeamDao teamDao, PlayerDao playerDao, MatchDao matchDao) {
+        this.teamDao = teamDao;
+        this.playerDao = playerDao;
+        this.matchDao = matchDao;
+    }
 
     @Override
     public Team fetchById(long teamId) {
@@ -64,22 +68,30 @@ public class TeamServiceImpl implements  TeamService {
 
     @Override
     public Team create(Team team) throws SoccerManagerServiceException {
-        if (teamDao.fetchAll().contains(team)) {
-            throw new SoccerManagerServiceException(
-                    "Team " + team.getName() + " already exists");
+        if (team != null) {
+            if (teamDao.fetchAll().contains(team)) {
+                throw new SoccerManagerServiceException(
+                        "Team " + team.getName() + " already exists");
+            } else {
+                teamDao.insert(team);
+                return team;
+            }
         } else {
-            teamDao.insert(team);
-            return team;
+            throw new IllegalArgumentException("Team is null");
         }
     }
 
     @Override
     public void update(Team team) throws SoccerManagerServiceException {
-        if (teamDao.fetchAll().contains(team)) {
-            throw new SoccerManagerServiceException(
-                    "Team  " + team.getName() + "already exists");
+        if (team != null) {
+            if (teamDao.fetchAll().contains(team)) {
+                throw new SoccerManagerServiceException(
+                        "Team  " + team.getName() + " already exists");
+            } else {
+                teamDao.update(team);
+            }
         } else {
-            teamDao.insert(team);
+            throw new IllegalArgumentException("Team is null");
         }
     }
 
@@ -91,7 +103,8 @@ public class TeamServiceImpl implements  TeamService {
     @Override
     public void addPlayer(Player player, Team team) throws SoccerManagerServiceException {
         if (player != null && team != null) {
-            if (!playerDao.fetchByTeam(team).contains(player)) {
+            if (!playerDao.fetchByTeam(team).contains(player)
+                    && playerDao.fetchFreeAgents().contains(player)) {
                 team.addPlayer(player);
                 teamDao.update(team);
             } else {
@@ -121,11 +134,18 @@ public class TeamServiceImpl implements  TeamService {
     @Override
     public void assignManager(Manager manager, Team team) throws SoccerManagerServiceException {
         if (team != null && manager != null) {
-            if (!team.equals(teamDao.fetchByManager(manager))) {
-                team.setManager(manager);
+            if (teamDao.fetchTeamsWithoutManager().contains(team)) {
+                if (teamDao.fetchByManager(manager) == null) {
+                    team.setManager(manager);
+                    teamDao.update(team);
+                } else {
+                    throw new SoccerManagerServiceException(
+                            "Manager " + manager.getName() + " does already train team another team"
+                    );
+                }
             } else {
                 throw new SoccerManagerServiceException(
-                        "Manager " + manager.getName() + " does already train team " + team.getName()
+                        "Another manager already trains " + team.getName() + ". Remove manager first"
                 );
             }
         } else {
@@ -134,28 +154,25 @@ public class TeamServiceImpl implements  TeamService {
     }
 
     @Override
-    public void removeManager(Manager manager, Team team) throws SoccerManagerServiceException {
-        if (team != null && manager != null) {
-            if (teamDao.fetchByManager(manager).equals(team)) {
+    public void removeManager(Team team) throws SoccerManagerServiceException {
+        if (team != null) {
                 team.setManager(null);
-            } else {
-                throw new SoccerManagerServiceException(
-                        "Manager " + manager.getName() + " does not train team " + team.getName()
-                );
-            }
+                teamDao.update(team);
         } else {
-            throw new IllegalArgumentException("Manager or team is null");
+            throw new IllegalArgumentException("Team is null");
         }
     }
 
     @Override
     public void joinLeague(League league, Team team) throws SoccerManagerServiceException {
         if (team != null && league != null) {
-            if (!teamDao.fetchByLeague(league).contains(team)) {
+            if (team.getLeague() == null) {
                 team.setLeague(league);
+                teamDao.update(team);
             } else {
                 throw new SoccerManagerServiceException(
                         "Team " + team.getName() + " already participates in league " + league.getName()
+                                + ". Remove league first"
                 );
             }
         } else {
@@ -164,22 +181,17 @@ public class TeamServiceImpl implements  TeamService {
     }
 
     @Override
-    public void leaveLeague(League league, Team team) throws SoccerManagerServiceException {
-        if (team != null && league != null) {
-            if (teamDao.fetchByLeague(league).contains(team)) {
+    public void leaveLeague(Team team) {
+        if (team != null) {
                 team.setManager(null);
-            } else {
-                throw new SoccerManagerServiceException(
-                        "Team " + team.getName() + " does not participate in league " + league.getName()
-                );
-            }
+                teamDao.update(team);
         } else {
-            throw new IllegalArgumentException("League or team is null");
+            throw new IllegalArgumentException("Team is null");
         }
     }
 
     @Override
-    public Team calculatePointsAndGoals(Team team) throws SoccerManagerServiceException {
+    public Team calculatePointsAndGoals(Team team) {
         if (team != null) {
             List<Match> matches = matchDao.fetchByTeam(team);
             if (!matches.isEmpty()) {
@@ -189,16 +201,13 @@ public class TeamServiceImpl implements  TeamService {
                 team.setGoalsConceded(0);
 
                 for (Match match: matches) {
-                    addPoints(team, match);
+                    if (match.isFinished()) {
+                        addPoints(team, match);
+                    }
                 }
-
-                return team;
-
-            } else  {
-                throw new SoccerManagerServiceException(
-                        "Team " + team.getName() + " did not play any matches yet"
-                );
             }
+            return team;
+
         } else {
             throw new IllegalArgumentException("Team is null");
         }

@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.soccermanager.dto.PlayerDTO;
 import cz.muni.fi.pa165.soccermanager.entity.Player;
 import cz.muni.fi.pa165.soccermanager.service.PlayerServiceImpl;
 import cz.muni.fi.pa165.soccermanager.service.facade.PlayerFacadeImpl;
+import cz.muni.fi.pa165.soccermanager.service.facade.TeamFacadeImpl;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.dozer.loader.api.BeanMappingBuilder;
@@ -22,7 +23,7 @@ import cz.muni.fi.pa165.soccermanager.PersistentContext;
 
 @Configuration
 @Import(PersistentContext.class)
-@ComponentScan(basePackageClasses = {PlayerServiceImpl.class, PlayerFacadeImpl.class})
+@ComponentScan(basePackageClasses = {PlayerServiceImpl.class, TeamFacadeImpl.class})
 public class ServiceConfiguration {
 
     @Bean

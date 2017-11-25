@@ -36,9 +36,9 @@ public interface TeamFacade {
 
     public void assignManager(Long managerId, Long teamId);
 
-    public void removeManager(Long managerId, Long teamId);
+    public void removeManager(Long teamId);
 
     public void joinLeague(Long leagueId, Long teamId);
 
-    public void leaveLeague(Long leagueId, Long teamId);
+    public void leaveLeague(Long teamId);
 }

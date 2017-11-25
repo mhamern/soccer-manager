@@ -107,8 +107,8 @@ public class TeamFacadeImpl implements TeamFacade {
     }
 
     @Override
-    public void removeManager(Long managerId, Long teamId) {
-        teamService.removeManager(managerService.fetchById(managerId), teamService.fetchById(teamId));
+    public void removeManager(Long teamId) {
+        teamService.removeManager(teamService.fetchById(teamId));
     }
 
     @Override
@@ -117,7 +117,7 @@ public class TeamFacadeImpl implements TeamFacade {
     }
 
     @Override
-    public void leaveLeague(Long leagueId, Long teamId) {
-        teamService.joinLeague(leagueService.fetchById(leagueId), teamService.fetchById(teamId));
+    public void leaveLeague( Long teamId) {
+        teamService.leaveLeague(teamService.fetchById(teamId));
     }
 }

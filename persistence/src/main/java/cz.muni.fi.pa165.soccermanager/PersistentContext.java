@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.soccermanager;
 
+import cz.muni.fi.pa165.soccermanager.dao.TeamDao;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -13,7 +14,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
-@ComponentScan(basePackages = "cz.muni.fi.pa165.soccermanager")
+@ComponentScan(basePackageClasses = {TeamDao.class}, basePackages = "cz.muni.fi.pa165.soccermanager")
 @EnableTransactionManagement
 @Configuration
 public class PersistentContext {
