@@ -12,20 +12,15 @@ import cz.muni.fi.pa165.soccermanager.service.exceptions.SoccerManagerServiceExc
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.cglib.core.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Enumeration;
 import java.util.List;
 
 /**
@@ -100,7 +95,7 @@ public class TeamServiceTest {
     }
 
     @Test
-    public void fetchByIdTeamTest() {
+    public void fetchByIdTeam() {
         when(teamDao.fetchById(1)).thenReturn(team1);
 
         Team found = teamService.fetchById(1);
@@ -112,7 +107,7 @@ public class TeamServiceTest {
     }
 
     @Test
-    public void fetchByIdTeamTestNotFound() {
+    public void fetchByIdTeamNotFound() {
         when(teamDao.fetchById(1)).thenReturn(null);
 
         assertNull(teamService.fetchById(1),
@@ -120,7 +115,7 @@ public class TeamServiceTest {
     }
 
     @Test
-    public void fetchAllTeamsTest() {
+    public void fetchAllTeams() {
         when(teamDao.fetchAll()).thenReturn(Collections.singletonList(team1));
 
         List<Team> actualTeams = teamService.fetchAll();
