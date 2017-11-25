@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.soccermanager.service.facade;
 
-import cz.muni.fi.pa165.soccermanager.dto.ManagerCreateDTO;
 import cz.muni.fi.pa165.soccermanager.dto.ManagerDTO;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 import cz.muni.fi.pa165.soccermanager.facade.ManagerFacade;

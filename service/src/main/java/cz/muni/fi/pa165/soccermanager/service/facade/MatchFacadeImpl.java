@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.soccermanager.service.facade;
 
-import cz.muni.fi.pa165.soccermanager.dto.MatchCreateDTO;
+import cz.muni.fi.pa165.soccermanager.dto.CreateMatchDTO;
 import cz.muni.fi.pa165.soccermanager.dto.MatchDTO;
 import cz.muni.fi.pa165.soccermanager.entity.League;
 import cz.muni.fi.pa165.soccermanager.entity.Match;
@@ -13,7 +13,6 @@ import cz.muni.fi.pa165.soccermanager.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.inject.Inject;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,7 +34,7 @@ public class MatchFacadeImpl implements MatchFacade {
     private BeanMappingService beanMappingService;
 
     @Override
-    public Long createMatch(MatchCreateDTO match) {
+    public Long createMatch(CreateMatchDTO match) {
         Match mappedMatch = beanMappingService.mapTo(match, Match.class);
 
         Team homeTeam = teamService.fetchByName(match.getHomeTeamName());

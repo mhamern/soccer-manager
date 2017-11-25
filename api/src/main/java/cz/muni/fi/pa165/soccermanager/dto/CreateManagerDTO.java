@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.soccermanager.dto;
 
-import cz.muni.fi.pa165.soccermanager.entity.Manager;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 
 import javax.validation.constraints.NotNull;
@@ -11,7 +10,7 @@ import javax.validation.constraints.Size;
  * @author 456519  Filip Lux
  * @version 11/23/2017.
  */
-public class ManagerCreateDTO {
+public class CreateManagerDTO {
 
     @NotNull
     @Size(min = 3, max = 50)
@@ -47,9 +46,9 @@ public class ManagerCreateDTO {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ManagerCreateDTO)) return false;
+        if (!(o instanceof CreateManagerDTO)) return false;
 
-        ManagerCreateDTO manager = (ManagerCreateDTO) o;
+        CreateManagerDTO manager = (CreateManagerDTO) o;
 
         if (!name.equals(manager.getName())) return false;
         if (!nationality.equals(manager.getNationality())) return false;

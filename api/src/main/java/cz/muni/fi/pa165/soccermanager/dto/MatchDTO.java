@@ -1,10 +1,5 @@
 package cz.muni.fi.pa165.soccermanager.dto;
 
-import cz.muni.fi.pa165.soccermanager.entity.Match;
-import cz.muni.fi.pa165.soccermanager.entity.Team;
-import cz.muni.fi.pa165.soccermanager.enums.StadiumEnum;
-
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 /**
@@ -38,7 +33,7 @@ public class MatchDTO {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof MatchCreateDTO)) return false;
+        if (!(o instanceof CreateMatchDTO)) return false;
 
         MatchDTO match = (MatchDTO) o;
 
