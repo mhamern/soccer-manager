@@ -44,7 +44,7 @@ public class LeagueServiceImpl implements LeagueService {
 
 
             for (Team team: teams) {
-                calculatePointsAndGoals(league, team);
+                calculatePointsAndGoals(team);
             }
             Collections.sort(
                     teams,
