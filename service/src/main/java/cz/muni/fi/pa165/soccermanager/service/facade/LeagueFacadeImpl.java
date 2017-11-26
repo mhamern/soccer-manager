@@ -10,7 +10,7 @@ import java.util.List;
  * @author 476368 Iman Mehmandoust
  * @version 11/24/2017.
  */
-public class LeagueFacadeImpl implements LeagueFacade {
+public class    LeagueFacadeImpl implements LeagueFacade {
     @Override
     public List<LeagueDTO> getLeaguesByCountry(NationalityEnum country) {
         return null;
