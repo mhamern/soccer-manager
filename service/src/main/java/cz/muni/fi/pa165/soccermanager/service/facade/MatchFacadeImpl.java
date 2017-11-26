@@ -11,6 +11,8 @@ import cz.muni.fi.pa165.soccermanager.service.LeagueService;
 import cz.muni.fi.pa165.soccermanager.service.MatchService;
 import cz.muni.fi.pa165.soccermanager.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.Date;
@@ -20,6 +22,9 @@ import java.util.List;
  * @author 456519 Filip Lux
  * @version 11/20/2017
  */
+
+@Service
+@Transactional
 public class MatchFacadeImpl implements MatchFacade {
 
     @Inject

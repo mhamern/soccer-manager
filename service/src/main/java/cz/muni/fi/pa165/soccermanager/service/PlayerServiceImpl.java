@@ -17,8 +17,12 @@ import java.util.List;
 @Service
 public class PlayerServiceImpl implements PlayerService {
 
+    private final PlayerDao playerDao;
+
     @Inject
-    private PlayerDao playerDao;
+    public PlayerServiceImpl(PlayerDao playerDao) {
+        this.playerDao = playerDao;
+    }
 
     @Override
     public Player fetchById(long playerId) {
@@ -32,13 +36,21 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public Player create(Player player) {
-        playerDao.insert(player);
-        return player;
+        if (player != null) {
+            playerDao.insert(player);
+            return player;
+        } else {
+            throw new IllegalArgumentException("Player is null");
+        }
     }
 
     @Override
     public void update(Player player) {
-        playerDao.update(player);
+        if (player != null) {
+            playerDao.update(player);
+        } else {
+            throw new IllegalArgumentException("Player is null");
+        }
     }
 
     @Override

@@ -1,7 +1,10 @@
 package cz.muni.fi.pa165.soccermanager.dto;
+import cz.muni.fi.pa165.soccermanager.entity.League;
+import cz.muni.fi.pa165.soccermanager.entity.Manager;
 import cz.muni.fi.pa165.soccermanager.entity.Player;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 import cz.muni.fi.pa165.soccermanager.enums.StadiumEnum;
+import java.util.Set;
 
 /**
  * @author 445720 Martin Hamernik
@@ -16,7 +19,9 @@ public class TeamDTO {
     private int points;
     private int goalsScored;
     private int goalsConceded;
-
+    private League league;
+    private Manager manager;
+    private Set<Player> players;
     public Long getId() {
         return id;
     }
@@ -71,6 +76,30 @@ public class TeamDTO {
 
     public void setStadiumEnum(StadiumEnum stadiumEnum) {
         this.stadiumEnum = stadiumEnum;
+    }
+
+    public League getLeague() {
+        return league;
+    }
+
+    public void setLeague(League league) {
+        this.league = league;
+    }
+
+    public Manager getManager() {
+        return manager;
+    }
+
+    public void setManager(Manager manager) {
+        this.manager = manager;
+    }
+
+    public Set<Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(Set<Player> players) {
+        this.players = players;
     }
 
     @Override

@@ -9,6 +9,7 @@ import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 import cz.muni.fi.pa165.soccermanager.facade.TeamFacade;
 import cz.muni.fi.pa165.soccermanager.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -107,8 +108,8 @@ public class TeamFacadeImpl implements TeamFacade {
     }
 
     @Override
-    public void removeManager(Long managerId, Long teamId) {
-        teamService.removeManager(managerService.fetchById(managerId), teamService.fetchById(teamId));
+    public void removeManager(Long teamId) {
+        teamService.removeManager(teamService.fetchById(teamId));
     }
 
     @Override
@@ -117,7 +118,7 @@ public class TeamFacadeImpl implements TeamFacade {
     }
 
     @Override
-    public void leaveLeague(Long leagueId, Long teamId) {
-        teamService.joinLeague(leagueService.fetchById(leagueId), teamService.fetchById(teamId));
+    public void leaveLeague( Long teamId) {
+        teamService.leaveLeague(teamService.fetchById(teamId));
     }
 }
