@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.soccermanager.service;
 
 import cz.muni.fi.pa165.soccermanager.entity.League;
+import cz.muni.fi.pa165.soccermanager.entity.Team;
 
 import java.util.List;
 
@@ -10,8 +11,11 @@ import java.util.List;
  */
 public interface LeagueService {
     League fetchById(long leagueId);
+
     List<League> fetchAll();
     League insert(League league);
     void update(League league);
     void delete(long leagueId);
+
+    List<Team> calculateLeagues(League league);
 }
