@@ -9,9 +9,16 @@ import java.util.List;
  * @version 11/24x/2017.
  */
 public interface LeagueService {
+
     League fetchById(long leagueId);
+
+    League fetchByName(String leagueName);
+
     List<League> fetchAll();
+
     League insert(League league);
+
     void update(League league);
+
     void delete(long leagueId);
 }

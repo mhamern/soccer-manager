@@ -1,13 +1,16 @@
 package cz.muni.fi.pa165.soccermanager.service;
 
 import cz.muni.fi.pa165.soccermanager.dao.LeagueDao;
+import cz.muni.fi.pa165.soccermanager.dao.TeamDao;
 import cz.muni.fi.pa165.soccermanager.entity.League;
+import cz.muni.fi.pa165.soccermanager.entity.Team;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
 
 /**
  * Implementation of the LeagueService. The class is the part of implementation of
@@ -22,12 +25,45 @@ public class LeagueServiceImpl implements LeagueService {
 
     @Inject
     private LeagueDao leagueDao;
-
+    private TeamDao teamDao;
 
     @Override
     public League fetchById(long leagueId) {
         return leagueDao.fetchById(leagueId);
     }
+
+    @Override
+    public League fetchByName(String leagueName) {
+        return leagueDao.fetchByName(leagueName);
+    }
+
+    @Override
+    public List<Team> calculateLeagues(League league){
+        if(league != null){
+            List<Team> teams = teamDao.fetchByLeague(league);
+
+
+            for (Team team: teams) {
+                calculatePointsAndGoals(league, team);
+            }
+            Collections.sort(
+                    teams,
+                    Comparator.comparingInt(
+                            team -> team.getPoints())
+                            .thenComparingInt(
+                                    team -> team.getGoalsScored())
+                            .thenComparingInt(
+                                    team -> team.getGoalsConceded()));
+
+
+            return teams;
+        }
+        else{
+            throw new IllegalArgumentException("League is null");
+        }
+    }
+
+
 
     @Override
     public List<League> fetchAll() {
