@@ -2,8 +2,6 @@ package cz.muni.fi.pa165.soccermanager.facade;
 
 import cz.muni.fi.pa165.soccermanager.dto.CreateTeamDTO;
 import cz.muni.fi.pa165.soccermanager.dto.TeamDTO;
-import cz.muni.fi.pa165.soccermanager.entity.League;
-import cz.muni.fi.pa165.soccermanager.entity.Team;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 
 import java.util.List;

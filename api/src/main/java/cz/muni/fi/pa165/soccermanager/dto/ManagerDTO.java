@@ -2,8 +2,8 @@ package cz.muni.fi.pa165.soccermanager.dto;
 
 import cz.muni.fi.pa165.soccermanager.entity.Manager;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
+import org.jetbrains.annotations.NotNull;
 
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 

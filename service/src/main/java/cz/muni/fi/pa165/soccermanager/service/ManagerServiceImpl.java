@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.soccermanager.dao.ManagerDao;
 import cz.muni.fi.pa165.soccermanager.entity.Manager;
 import cz.muni.fi.pa165.soccermanager.entity.Team;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
+import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
  * @author 456519 Filip Lux
  * @version 11/16/2017.
  */
+@Service
 public class ManagerServiceImpl implements ManagerService {
 
     @Inject
