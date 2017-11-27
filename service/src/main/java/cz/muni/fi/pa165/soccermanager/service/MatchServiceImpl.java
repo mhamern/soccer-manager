@@ -22,8 +22,10 @@ import java.util.List;
 @Service
 public class MatchServiceImpl implements MatchService {
 
-    @Inject
     private MatchDao matchDao;
+
+    @Inject
+    public MatchServiceImpl(MatchDao matchDao) { this.matchDao = matchDao; }
 
     @Override
     public Match fetchById(long matchId) {
@@ -56,24 +58,32 @@ public class MatchServiceImpl implements MatchService {
     @Override
     public Match createMatch(Match match) throws SoccerManagerServiceException {
 
-        if (matchDao.fetchAll().contains(match)) {
-            throw new SoccerManagerServiceException(
-                    "Match " + match.getHomeTeam().getName() +
-                    " vs. " + match.getAwayTeam().getName() + " already exists");
-        }
+        if (match != null) {
+            if (matchDao.fetchAll().contains(match)) {
+                throw new SoccerManagerServiceException(
+                        "Match " + match.getHomeTeam().getName() +
+                                " vs. " + match.getAwayTeam().getName() + " already exists");
+            }
 
-        Team homeTeam = match.getHomeTeam();
-        Team awayTeam = match.getAwayTeam();
+            Team homeTeam = match.getHomeTeam();
+            Team awayTeam = match.getAwayTeam();
+            LocalDate date = match.getDate();
 
-        if ( homeTeam.equals(awayTeam) ) {
-            throw new SoccerManagerServiceException(
-                    "It is not allowed to create match between two same teams "
-                            + homeTeam.getName() + ". ");
+            if (homeTeam.equals(awayTeam)) {
+                throw new SoccerManagerServiceException(
+                        "It is not allowed to create match between two same teams "
+                                + homeTeam.getName() + ". ");
+            } else if (date.isBefore(LocalDate.now())) {
+                throw new SoccerManagerServiceException(
+                        "It is not allowed to create match in the past "
+                                + date + ". ");
+            } else {
+                matchDao.insert(match);
+                return match;
+            }
         }
-        else {
-            matchDao.insert(match);
-            return match;
-        }
+        else
+            throw new IllegalArgumentException();
     }
 
     @Override
@@ -85,7 +95,7 @@ public class MatchServiceImpl implements MatchService {
                             " vs. " + match.getAwayTeam().getName() + " do not exists.");
         }
 
-        return match.isFinished();
+        return matchDao.isFinished(match);
     }
 
     @Override
@@ -102,7 +112,7 @@ public class MatchServiceImpl implements MatchService {
     }
 
     @Override
-    public void removeMatch(Long matchId) {
+    public void deleteMatch(Long matchId) {
         matchDao.delete(matchId);
 
     }

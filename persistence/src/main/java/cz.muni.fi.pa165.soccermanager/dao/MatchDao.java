@@ -70,4 +70,10 @@ public interface MatchDao {
      */
     List<Match> fetchByStadium(StadiumEnum stadium);
 
+    /**
+     * Gets true if match is finished
+     * @return true if match is finished
+     */
+    Boolean isFinished(Match match);
+
 }
