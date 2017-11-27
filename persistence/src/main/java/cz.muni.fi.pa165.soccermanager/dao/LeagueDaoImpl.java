@@ -1,6 +1,8 @@
 package cz.muni.fi.pa165.soccermanager.dao;
 
 import cz.muni.fi.pa165.soccermanager.entity.League;
+import cz.muni.fi.pa165.soccermanager.entity.Match;
+import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -45,17 +47,22 @@ public class LeagueDaoImpl implements LeagueDao {
     }
 
     @Override
-    public League fetchByCountry(String country) {
+    public List<League> fetchByCountry(NationalityEnum country) {
 
         TypedQuery<League> query = manager.
                 createQuery("SELECT l FROM League l WHERE l.country = :leagueCountry",
                         League.class);
         query.setParameter("leagueCountry", country);
         try {
-            return query.getSingleResult();
+            return query.getResultList();
         } catch (NoResultException nre ) {
             return  null;
         }
+    }
+
+    @Override
+    public List<Match> fetchByLeague(League league) {
+        return null;
     }
 
     @Override

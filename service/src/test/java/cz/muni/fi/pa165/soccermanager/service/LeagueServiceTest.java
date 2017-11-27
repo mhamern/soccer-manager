@@ -1,12 +1,9 @@
 package cz.muni.fi.pa165.soccermanager.service;
 
 import cz.muni.fi.pa165.soccermanager.dao.LeagueDao;
-import cz.muni.fi.pa165.soccermanager.dao.MatchDao;
-import cz.muni.fi.pa165.soccermanager.dao.PlayerDao;
 import cz.muni.fi.pa165.soccermanager.entity.*;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 import cz.muni.fi.pa165.soccermanager.enums.StadiumEnum;
-import cz.muni.fi.pa165.soccermanager.service.config.ServiceConfiguration;
 import cz.muni.fi.pa165.soccermanager.service.exceptions.SoccerManagerServiceException;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,9 +29,6 @@ public class LeagueServiceTest {
 
     private LeagueDao leagueDao = mock(LeagueDao.class);
 
-    private PlayerDao playerDao = mock(PlayerDao.class);
-
-    private MatchDao matchDao = mock(MatchDao.class);
 
     @Autowired
     @InjectMocks
@@ -58,7 +52,6 @@ public class LeagueServiceTest {
 
     @Before
     public void setup() {
-       // leagueService = new LeagueServiceImpl(team, team,LocalDate date);
 
         futureDate = LocalDate.now().plusMonths(1);
 
@@ -83,7 +76,6 @@ public class LeagueServiceTest {
 
 
 
-        //2
         league2 = new League.LeagueBuilder(
                 "Super League",
                 NationalityEnum.Spain
@@ -114,7 +106,7 @@ public class LeagueServiceTest {
 
 
     }
-/**
+
 
     @Test
     public void fetchByIdLeagueS() {
@@ -292,9 +284,6 @@ public class LeagueServiceTest {
 
         leagueService.delete(10L);
     }
-*/
-
-
 
 
 

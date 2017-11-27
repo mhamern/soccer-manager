@@ -1,7 +1,11 @@
 package cz.muni.fi.pa165.soccermanager.service;
 
 import cz.muni.fi.pa165.soccermanager.entity.League;
+import cz.muni.fi.pa165.soccermanager.entity.Match;
+import cz.muni.fi.pa165.soccermanager.entity.Player;
 import cz.muni.fi.pa165.soccermanager.entity.Team;
+import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
+import cz.muni.fi.pa165.soccermanager.service.exceptions.SoccerManagerServiceException;
 
 import java.util.List;
 
@@ -12,6 +16,8 @@ import java.util.List;
 public interface LeagueService {
 
     League fetchById(long leagueId);
+
+    List<League> fetchByCountry(NationalityEnum country);
 
     List<League> fetchAll();
 
@@ -24,4 +30,11 @@ public interface LeagueService {
     League fetchByName(String leagueName);
 
     List<Team> calculateLeagues(League league);
+
+    public void addMatch(Match match, League league) throws SoccerManagerServiceException;
+
+    public void removeMatch(Match Match, League league) throws SoccerManagerServiceException;
+
+
+
 }

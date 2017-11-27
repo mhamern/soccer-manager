@@ -1,31 +1,17 @@
 package cz.muni.fi.pa165.soccermanager.dto;
-
-import cz.muni.fi.pa165.soccermanager.entity.Match;
+import cz.muni.fi.pa165.soccermanager.entity.League;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
-
-import java.util.List;
-import java.util.Set;
 
 /**
  * @author 476368 Iman Mehmandoust
  * @version 11/27/2017.
  */
+public class CreateLeagueDTO {
 
-public class LeagueDTO {
-
-    private Long id;
     private NationalityEnum country;
     private String name;
 
-    private List<Match> matches;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public NationalityEnum getCountry() {
         return country;
@@ -44,23 +30,16 @@ public class LeagueDTO {
     }
 
 
-    public List<Match> getMatches() {
-        return matches;
-    }
-
-    public void setMatches(List<Match> matches) {
-        this.matches = matches;
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof LeagueDTO)) return false;
 
-        LeagueDTO leagueDTO = (LeagueDTO) o;
+        CreateLeagueDTO that = (CreateLeagueDTO) o;
 
-        if (country != leagueDTO.country) return false;
-        return name == leagueDTO.name;
+        if (country != that.country) return false;
+        return name == that.name;
     }
 
     @Override
@@ -72,7 +51,7 @@ public class LeagueDTO {
 
     @Override
     public String toString() {
-        return "LeagueDTO{" +
+        return "CreateLeagueDTO{" +
                 "country=" + country +
                 ", name='" + name + '\'' +
                 '}';
