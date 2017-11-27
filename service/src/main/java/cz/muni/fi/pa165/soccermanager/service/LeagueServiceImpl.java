@@ -41,7 +41,7 @@ public class LeagueServiceImpl implements LeagueService {
     public List<Team> calculateLeagues(League league){
         if(league != null){
             List<Team> teams = teamDao.fetchByLeague(league);
-
+/**
 
             for (Team team: teams) {
                 calculatePointsAndGoals(team);
@@ -54,7 +54,7 @@ public class LeagueServiceImpl implements LeagueService {
                                     team -> team.getGoalsScored())
                             .thenComparingInt(
                                     team -> team.getGoalsConceded()));
-
+*/
 
             return teams;
         }
