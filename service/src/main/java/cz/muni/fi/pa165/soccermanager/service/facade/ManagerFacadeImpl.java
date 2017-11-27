@@ -20,7 +20,7 @@ import java.util.List;
 @Service
 @Transactional
 public class ManagerFacadeImpl implements ManagerFacade {
-    
+
     private MatchService matchService;
 
     private TeamService teamService;
