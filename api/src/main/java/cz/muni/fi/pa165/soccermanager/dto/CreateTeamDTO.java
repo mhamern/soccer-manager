@@ -1,4 +1,5 @@
 package cz.muni.fi.pa165.soccermanager.dto;
+import cz.muni.fi.pa165.soccermanager.entity.League;
 import cz.muni.fi.pa165.soccermanager.entity.Team;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 import cz.muni.fi.pa165.soccermanager.enums.StadiumEnum;
@@ -12,7 +13,15 @@ public class CreateTeamDTO {
     private NationalityEnum origin;
     private String name;
     private StadiumEnum stadium;
+    private League league;
 
+    public League getLeague() {
+        return league;
+    }
+
+    public void setLeague(League league) {
+        this.league = league;
+    }
 
     public NationalityEnum getOrigin() {
         return origin;

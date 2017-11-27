@@ -1,5 +1,4 @@
 package cz.muni.fi.pa165.soccermanager.dto;
-
 import java.time.LocalDate;
 
 /**

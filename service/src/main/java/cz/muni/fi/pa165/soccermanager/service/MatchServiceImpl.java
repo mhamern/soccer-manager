@@ -6,6 +6,7 @@ import cz.muni.fi.pa165.soccermanager.entity.Team;
 import cz.muni.fi.pa165.soccermanager.enums.StadiumEnum;
 import cz.muni.fi.pa165.soccermanager.service.exceptions.SoccerManagerServiceException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.time.LocalDate;

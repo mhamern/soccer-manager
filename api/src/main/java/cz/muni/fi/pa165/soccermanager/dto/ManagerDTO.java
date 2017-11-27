@@ -3,9 +3,6 @@ package cz.muni.fi.pa165.soccermanager.dto;
 import cz.muni.fi.pa165.soccermanager.entity.Manager;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 
 /**
  * @author 456519  Filip Lux
@@ -13,15 +10,10 @@ import javax.validation.constraints.Size;
  */
 public class ManagerDTO {
 
-    @NotNull
-    @Size(min = 3, max = 50)
     private String name;
 
-    @NotNull
     private NationalityEnum nationality;
 
-    @NotNull
-    @Size(min = 5, max = 254)
     private String email;
 
     public String getName() { return name; }

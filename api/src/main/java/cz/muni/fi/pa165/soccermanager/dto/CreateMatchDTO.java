@@ -1,6 +1,4 @@
 package cz.muni.fi.pa165.soccermanager.dto;
-
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 /**
@@ -9,13 +7,10 @@ import java.time.LocalDate;
  */
 public class CreateMatchDTO {
 
-    @NotNull
     private LocalDate date;
 
-    @NotNull
     private String homeTeamName;
 
-    @NotNull
     private String awayTeamName;
 
     public String getHomeTeamName() {

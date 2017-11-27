@@ -97,7 +97,7 @@ public class Team {
     @Column(nullable = false,unique = true)
     private String name;
 
-    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private StadiumEnum stadium;
 
 
@@ -137,7 +137,7 @@ public class Team {
     public void setId(Long id) { this.id = id; }
 
     public Set<Player> getPlayers() {
-        return Collections.unmodifiableSet(players);
+        return players;
     }
 
     public void setPlayers(Set<Player> players) {
@@ -224,6 +224,7 @@ public class Team {
         Team team = (Team) o;
 
         if (origin != team.origin) return false;
+        if (stadium != team.stadium) return false;
         return name.equals(team.name);
     }
 
@@ -231,6 +232,7 @@ public class Team {
     public int hashCode() {
         int result = origin.hashCode();
         result = 31 * result + name.hashCode();
+        result = 31 * result + stadium.hashCode();
         return result;
     }
 

@@ -7,7 +7,8 @@ import cz.muni.fi.pa165.soccermanager.entity.Team;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 import cz.muni.fi.pa165.soccermanager.facade.ManagerFacade;
 import cz.muni.fi.pa165.soccermanager.service.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -16,21 +17,18 @@ import java.util.List;
  * @author 456519 Filip Lux
  * @version 11/20/2017
  */
+@Service
+@Transactional
 public class ManagerFacadeImpl implements ManagerFacade {
-
-    @Inject
+    
     private MatchService matchService;
 
-    @Inject
     private TeamService teamService;
 
-    @Inject
     private LeagueService leagueService;
 
-    @Inject
     private ManagerService managerService;
 
-    @Autowired
     private BeanMappingService beanMappingService;
 
     @Override
