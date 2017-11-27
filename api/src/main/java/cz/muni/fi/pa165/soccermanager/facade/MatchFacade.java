@@ -28,4 +28,6 @@ public interface MatchFacade {
 
     public void play(Long matchId);
 
+    public void deleteMatch(Long matchId);
+
 }
