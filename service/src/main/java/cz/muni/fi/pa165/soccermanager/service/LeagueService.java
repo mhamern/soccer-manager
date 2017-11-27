@@ -12,7 +12,7 @@ import java.util.List;
 public interface LeagueService {
 
     League fetchById(long leagueId);
-    
+
     List<League> fetchAll();
 
     League insert(League league);

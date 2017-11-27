@@ -3,6 +3,8 @@ package cz.muni.fi.pa165.soccermanager.service.facade;
 import cz.muni.fi.pa165.soccermanager.dto.LeagueDTO;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 import cz.muni.fi.pa165.soccermanager.facade.LeagueFacade;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -10,7 +12,9 @@ import java.util.List;
  * @author 476368 Iman Mehmandoust
  * @version 11/24/2017.
  */
-public class    LeagueFacadeImpl implements LeagueFacade {
+@Service
+@Transactional
+public class LeagueFacadeImpl implements LeagueFacade {
     @Override
     public List<LeagueDTO> getLeaguesByCountry(NationalityEnum country) {
         return null;

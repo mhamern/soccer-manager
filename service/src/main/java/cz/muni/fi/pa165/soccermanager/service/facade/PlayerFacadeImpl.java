@@ -12,6 +12,7 @@ import cz.muni.fi.pa165.soccermanager.service.BeanMappingService;
 import cz.muni.fi.pa165.soccermanager.service.PlayerService;
 import cz.muni.fi.pa165.soccermanager.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,14 +28,18 @@ import java.util.List;
 @Transactional
 public class PlayerFacadeImpl implements PlayerFacade {
 
-    @Inject
-    private PlayerService playerService;
+    private final PlayerService playerService;
+
+    private final TeamService teamService;
+
+    private final BeanMappingService beanMappingService;
 
     @Inject
-    private TeamService teamService;
-
-    @Autowired
-    private BeanMappingService beanMappingService;
+    public PlayerFacadeImpl(PlayerService playerService, TeamService teamService, BeanMappingService beanMappingService) {
+        this.playerService = playerService;
+        this.teamService = teamService;
+        this.beanMappingService = beanMappingService;
+    }
 
     @Override
     public Long createPlayer(CreatePlayerDTO player) {

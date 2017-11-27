@@ -41,11 +41,11 @@ public interface TeamService {
 
     public void assignManager(Manager manager, Team team) throws SoccerManagerServiceException;
 
-    public void removeManager(Manager manager, Team team) throws SoccerManagerServiceException;
+    public void removeManager(Team team);
 
     public void joinLeague(League league, Team team) throws SoccerManagerServiceException;
 
-    public void leaveLeague(League league, Team team) throws SoccerManagerServiceException;
+    public void leaveLeague(Team team) throws SoccerManagerServiceException;
 
-    public Team calculatePointsAndGoals(Team team) throws SoccerManagerServiceException;
+    public Team calculatePointsAndGoals(Team team);
 }
