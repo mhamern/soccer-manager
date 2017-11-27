@@ -1,6 +1,9 @@
 package cz.muni.fi.pa165.soccermanager.service;
 
 import cz.muni.fi.pa165.soccermanager.dao.LeagueDao;
+import cz.muni.fi.pa165.soccermanager.dao.MatchDao;
+import cz.muni.fi.pa165.soccermanager.dao.PlayerDao;
+import cz.muni.fi.pa165.soccermanager.dao.TeamDao;
 import cz.muni.fi.pa165.soccermanager.entity.*;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 import cz.muni.fi.pa165.soccermanager.enums.StadiumEnum;
@@ -29,11 +32,16 @@ public class LeagueServiceTest {
 
     private LeagueDao leagueDao = mock(LeagueDao.class);
 
+    private TeamDao teamDao = mock(TeamDao.class);
+
+    private PlayerDao playerDao = mock(PlayerDao.class);
+
+    private MatchDao matchDao = mock(MatchDao.class);
 
     @Autowired
     @InjectMocks
     private LeagueService leagueService;
-
+    private TeamService teamService;
     private League league1;
     private League league2;
 
@@ -52,6 +60,9 @@ public class LeagueServiceTest {
 
     @Before
     public void setup() {
+
+
+        leagueService = new LeagueServiceImpl(teamService, leagueDao, teamDao ,matchDao);
 
         futureDate = LocalDate.now().plusMonths(1);
 
