@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.soccermanager.service;
 import cz.muni.fi.pa165.soccermanager.dao.LeagueDao;
 import cz.muni.fi.pa165.soccermanager.entity.League;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.Collections;

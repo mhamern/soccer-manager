@@ -1,10 +1,4 @@
 package cz.muni.fi.pa165.soccermanager.dto;
-
-import cz.muni.fi.pa165.soccermanager.entity.Match;
-import cz.muni.fi.pa165.soccermanager.entity.Team;
-import cz.muni.fi.pa165.soccermanager.enums.StadiumEnum;
-
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 /**
