@@ -28,14 +28,18 @@ import java.util.List;
 @Transactional
 public class PlayerFacadeImpl implements PlayerFacade {
 
-    @Inject
-    private PlayerService playerService;
+    private final PlayerService playerService;
+
+    private final TeamService teamService;
+
+    private final BeanMappingService beanMappingService;
 
     @Inject
-    private TeamService teamService;
-
-    @Autowired
-    private BeanMappingService beanMappingService;
+    public PlayerFacadeImpl(PlayerService playerService, TeamService teamService, BeanMappingService beanMappingService) {
+        this.playerService = playerService;
+        this.teamService = teamService;
+        this.beanMappingService = beanMappingService;
+    }
 
     @Override
     public Long createPlayer(CreatePlayerDTO player) {

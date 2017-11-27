@@ -1,9 +1,13 @@
 package cz.muni.fi.pa165.soccermanager.service;
 
 import cz.muni.fi.pa165.soccermanager.dto.PlayerDTO;
+import cz.muni.fi.pa165.soccermanager.dto.TeamDTO;
+import cz.muni.fi.pa165.soccermanager.entity.League;
 import cz.muni.fi.pa165.soccermanager.entity.Player;
+import cz.muni.fi.pa165.soccermanager.entity.Team;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 import cz.muni.fi.pa165.soccermanager.enums.PositionEnum;
+import cz.muni.fi.pa165.soccermanager.enums.StadiumEnum;
 import cz.muni.fi.pa165.soccermanager.service.config.ServiceConfiguration;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,32 +33,30 @@ public class BeanMappingServiceTest {
     @Autowired
     private BeanMappingService beanMappingService;
 
-    private List<Player> players = new ArrayList<>();
+    private List<Team>  teams = new ArrayList<>();
 
     @Before
     public void setUp() {
-        Player player1 = new Player.PlayerBuilder(
-                "Kylian Mbappe",
-                PositionEnum.ATTACKER,
-                NationalityEnum.France,
-                LocalDate.of(1997, 10, 20))
-                .build();
+        League league = new League.LeagueBuilder(
+                "Ligue 1",
+                NationalityEnum.France
+        ).build();
 
-        Player player2 = new Player.PlayerBuilder(
-                "Paul Pogba",
-                PositionEnum.MIDFIELDER,
-                NationalityEnum.France,
-                LocalDate.of(1994, 10, 21))
-                .build();
 
-        players.add(player1);
-        players.add(player2);
+
+        Team team1 = new Team.TeamBuilder(
+                "Paris Saint Germain",
+                NationalityEnum.France,
+                StadiumEnum.Parc_des_Princes,
+                league
+        ).build();
+        teams.add(team1);
     }
 
     @Test
     public void playerMap() {
-        List<PlayerDTO> result = beanMappingService.mapTo(players, PlayerDTO.class);
+        List<TeamDTO> result = beanMappingService.mapTo(teams, TeamDTO.class);
 
-        assertTrue(result.size() == 2);
+        assertTrue(result.size() == 1);
     }
 }

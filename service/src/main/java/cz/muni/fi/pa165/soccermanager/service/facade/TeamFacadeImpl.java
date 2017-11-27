@@ -8,8 +8,6 @@ import cz.muni.fi.pa165.soccermanager.entity.Team;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 import cz.muni.fi.pa165.soccermanager.facade.TeamFacade;
 import cz.muni.fi.pa165.soccermanager.service.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,24 +24,33 @@ import java.util.List;
 public class TeamFacadeImpl implements TeamFacade {
 
 
-    @Inject
-    private TeamService teamService;
+    private final TeamService teamService;
+
+    private final LeagueService leagueService;
+
+    private final ManagerService managerService;
+
+    private final PlayerService playerService;
+
+    private final BeanMappingService beanMappingService;
 
     @Inject
-    private LeagueService leagueService;
-
-    @Inject
-    private ManagerService managerService;
-
-    @Inject
-    private PlayerService playerService;
-
-    @Autowired
-    private BeanMappingService beanMappingService;
+    public TeamFacadeImpl(TeamService teamService,
+                          LeagueService leagueService,
+                          ManagerService managerService,
+                          PlayerService playerService,
+                          BeanMappingService beanMappingService) {
+        this.teamService = teamService;
+        this.leagueService = leagueService;
+        this.managerService = managerService;
+        this.playerService = playerService;
+        this.beanMappingService = beanMappingService;
+    }
 
     @Override
     public Long createTeam(CreateTeamDTO team) {
         Team mappedTeam = beanMappingService.mapTo(team, Team.class);
+
         mappedTeam.setName(team.getName());
         mappedTeam.setOrigin(team.getOrigin());
         mappedTeam.setStadium(team.getStadium());
@@ -51,6 +58,7 @@ public class TeamFacadeImpl implements TeamFacade {
         mappedTeam.setGoalsConceded(0);
         mappedTeam.setGoalsScored(0);
         Team newTeam = teamService.create(mappedTeam);
+
         return newTeam.getId();
     }
 
