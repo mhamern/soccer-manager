@@ -23,6 +23,8 @@ import java.util.List;
 @Service
 public class LeagueServiceImpl implements LeagueService {
 
+    TeamService teamService;
+
 
     @Inject
     private LeagueDao leagueDao;
@@ -32,33 +34,7 @@ public class LeagueServiceImpl implements LeagueService {
     public League fetchById(long leagueId) {
         return leagueDao.fetchById(leagueId);
     }
-
-
-    @Override
-    public List<Team> calculateLeagues(League league){
-        if(league != null){
-            List<Team> teams = teamDao.fetchByLeague(league);
-
-
-            for (Team team: teams) {
-                calculatePointsAndGoals(league, team);
-            }
-            Collections.sort(
-                    teams,
-                    Comparator.comparingInt(
-                            team -> team.getPoints())
-                            .thenComparingInt(
-                                    team -> team.getGoalsScored())
-                            .thenComparingInt(
-                                    team -> team.getGoalsConceded()));
-
-
-            return teams;
-        }
-        else{
-            throw new IllegalArgumentException("League is null");
-        }
-    }
+    
 
 
 
@@ -71,20 +47,17 @@ public class LeagueServiceImpl implements LeagueService {
     public List<Team> calculateLeagues(League league){
         if(league != null){
             List<Team> teams = teamDao.fetchByLeague(league);
-/**
+
 
             for (Team team: teams) {
-                calculatePointsAndGoals(team);
+                teamService.calculatePointsAndGoals(team);
             }
             Collections.sort(
                     teams,
-                    Comparator.comparingInt(
-                            team -> team.getPoints())
-                            .thenComparingInt(
-                                    team -> team.getGoalsScored())
-                            .thenComparingInt(
-                                    team -> team.getGoalsConceded()));
-*/
+                    Comparator.<Team> comparingInt(team -> team.getPoints())
+                            .thenComparingInt(team -> team.getGoalsScored())
+                            .thenComparingInt(team -> team.getGoalsConceded()));
+
 
             return teams;
         }
