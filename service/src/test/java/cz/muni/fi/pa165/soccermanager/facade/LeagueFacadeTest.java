@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.soccermanager.facade;
 
 import cz.muni.fi.pa165.soccermanager.dto.CreateLeagueDTO;
 import cz.muni.fi.pa165.soccermanager.dto.LeagueDTO;
+import cz.muni.fi.pa165.soccermanager.dto.TeamDTO;
 import cz.muni.fi.pa165.soccermanager.entity.League;
 import cz.muni.fi.pa165.soccermanager.entity.Match;
 import cz.muni.fi.pa165.soccermanager.entity.Team;
@@ -35,11 +36,14 @@ import static org.mockito.Mockito.when;
 public class LeagueFacadeTest {
 
 
-    private LeagueService LeagueService = mock(LeagueService.class);
+    private LeagueService leagueService = mock(LeagueService.class);
     private MatchService matchService = mock(MatchService.class);
+    private BeanMappingService mappingService = mock(BeanMappingService.class);
+    private BeanMappingService beanMappingService = mock(BeanMappingService.class);
 
     @InjectMocks
-    private LeagueFacade leagueFacade = new LeagueFacadeImpl();
+    private LeagueFacade leagueFacade = new LeagueFacadeImpl(leagueService, matchService, mappingService);
+
 
 
     private LeagueDTO leagueDTO1;
@@ -49,7 +53,6 @@ public class LeagueFacadeTest {
 
 
 
-    private LeagueService leagueService;
 
     private League league1;
     private League league2;
@@ -140,6 +143,8 @@ public class LeagueFacadeTest {
     public void findByIdLeague() {
         when(leagueService.fetchById(league1.getId())).thenReturn(league1);
         when(leagueService.fetchById(league2.getId())).thenReturn(league2);
+        when(beanMappingService.mapTo(league1, LeagueDTO.class)).thenReturn(leagueDTO1);
+        when(beanMappingService.mapTo(league2, LeagueDTO.class)).thenReturn(leagueDTO2);
 
         LeagueDTO firstFound = leagueFacade.getLeagueById(league1.getId());
         LeagueDTO secondFound = leagueFacade.getLeagueById(league2.getId());
@@ -158,6 +163,8 @@ public class LeagueFacadeTest {
         dtos.add(leagueDTO2);
 
         when(leagueService.fetchAll()).thenReturn(leagues);
+        when(beanMappingService.mapTo(leagues, LeagueDTO.class)).thenReturn(dtos);
+
 
         List<LeagueDTO> leagueDTOList = leagueFacade.getAllLeagues();
 
@@ -179,6 +186,8 @@ public class LeagueFacadeTest {
 
         when(leagueService.insert(league1)).thenReturn(league1);
         when(leagueService.fetchById(10L)).thenReturn(league1);
+        when(beanMappingService.mapTo(createLeagueDTO, League.class)).thenReturn(league1);
+
 
         Long leagueId = leagueFacade.CreateLeague(createLeagueDTO);
         League created = leagueService.fetchById(leagueId);
