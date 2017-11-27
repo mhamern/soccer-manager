@@ -209,31 +209,6 @@ public class LeagueServiceTest {
     }
 
 
-    @Test(expected = SoccerManagerServiceException.class)
-    public void createLeagueAlreadyCreatedS() {
-        List<League> leagues = new ArrayList<>();
-        leagues.add(league1);
-        leagues.add(league2);
-
-        when(leagueDao.fetchAll()).thenReturn(leagues);
-        doNothing().when(leagueDao).insert(league2);
-
-        leagueService.insert(league2);
-    }
-
-
-    @Test(expected = IllegalArgumentException.class)
-    public void createLeagueNullS() {
-        List<League> leagues = new ArrayList<>();
-        leagues.add(league1);
-        leagues.add(league2);
-
-        when(leagueDao.fetchAll()).thenReturn(leagues);
-        doNothing().when(leagueDao).insert(league2);
-
-        leagueService.insert(null);
-    }
-
 
     @Test
     public void updateLeagueS() {
@@ -252,40 +227,6 @@ public class LeagueServiceTest {
         toUpdate.setId(league2.getId());
         toUpdate.setName("Bundesliga");
         leagueService.update(toUpdate);
-    }
-
-
-    @Test(expected = SoccerManagerServiceException.class)
-    public void updateLeagueAlreadyExistsS() {
-        List<League> leagues = new ArrayList<>();
-        leagues.add(league1);
-        leagues.add(league2);
-
-        when(leagueDao.fetchAll()).thenReturn(leagues);
-        doNothing().when(leagueDao).update(league2);
-
-        League toUpdate = new League.LeagueBuilder(
-                league2.getName(),
-                league2.getCountry()
-
-        )
-                .build();
-
-        toUpdate.setId(58L);
-        leagueService.update(toUpdate);
-    }
-
-
-    @Test(expected = IllegalArgumentException.class)
-    public void updateLeagueNullS() {
-        List<League> leagues = new ArrayList<>();
-        leagues.add(league1);
-        leagues.add(league2);
-
-        when(leagueDao.fetchAll()).thenReturn(leagues);
-        doNothing().when(leagueDao).insert(null);
-
-        leagueService.update(null);
     }
 
 
