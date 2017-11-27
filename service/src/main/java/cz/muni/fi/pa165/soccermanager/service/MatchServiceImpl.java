@@ -101,13 +101,11 @@ public class MatchServiceImpl implements MatchService {
     @Override
     public void updateMatch(Match match) throws SoccerManagerServiceException {
 
-        if (!matchDao.fetchAll().contains(match)) {
+        if (match == null) {
             throw new SoccerManagerServiceException(
-                    "Match " + match.getHomeTeam().getName() +
-                    " vs. " + match.getAwayTeam().getName() + " do not exists.");
-        }
-
-        matchDao.update(match);
+                    "Updated match can not be null.");
+        } else
+            matchDao.update(match);
 
     }
 

@@ -246,15 +246,6 @@ public class MatchServiceTest {
         matchService.updateMatch(match12up);
     }
 
-    @Test(expected = SoccerManagerServiceException.class)
-    public void updateNotExistingMatch() {
-
-        when(matchDao.fetchAll()).thenReturn(Collections.singletonList(match13));
-        doNothing().when(matchDao).update(match12);
-
-        matchService.updateMatch(match12);
-    }
-
     @Test
     public void fetchByDateEmpty() {
         when(matchDao.fetchByDate(futureDate)).thenReturn(Collections.EMPTY_LIST);

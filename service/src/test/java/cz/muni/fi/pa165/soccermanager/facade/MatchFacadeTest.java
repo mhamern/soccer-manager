@@ -18,6 +18,7 @@ import cz.muni.fi.pa165.soccermanager.service.facade.TeamFacadeImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.time.LocalDate;
@@ -184,9 +185,12 @@ public class MatchFacadeTest {
 
         when(matchService.createMatch(newMatch)).thenReturn(newMatch);
         when(matchService.fetchById(10L)).thenReturn(newMatch);
-        when(beanMappingService.mapTo(createMatchDTO, Match.class)).thenReturn(match1);
+        when(beanMappingService.mapTo(createMatchDTO, Match.class)).thenReturn(newMatch);
 
-        matchFacade.createMatch(createMatchDTO);
+        Long matchId = matchFacade.createMatch(createMatchDTO);
+        Match created = matchService.fetchById(matchId);
+
+        assertEquals(newMatch, created);
     }
 
     @Test
