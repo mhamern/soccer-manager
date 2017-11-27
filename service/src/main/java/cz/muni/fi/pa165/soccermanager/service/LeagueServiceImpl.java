@@ -1,11 +1,14 @@
 package cz.muni.fi.pa165.soccermanager.service;
 
 import cz.muni.fi.pa165.soccermanager.dao.LeagueDao;
+import cz.muni.fi.pa165.soccermanager.dao.MatchDao;
 import cz.muni.fi.pa165.soccermanager.dao.TeamDao;
 import cz.muni.fi.pa165.soccermanager.entity.League;
+import cz.muni.fi.pa165.soccermanager.entity.Match;
 import cz.muni.fi.pa165.soccermanager.entity.Team;
+import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
+import cz.muni.fi.pa165.soccermanager.service.exceptions.SoccerManagerServiceException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.Collections;
@@ -20,22 +23,34 @@ import java.util.List;
  * @version 11/24/2017.
  */
 
+
 @Service
 public class LeagueServiceImpl implements LeagueService {
 
-    TeamService teamService;
+    private TeamService teamService;
 
-
-    @Inject
     private LeagueDao leagueDao;
     private TeamDao teamDao;
+    private MatchDao matchDao;
+
+    @Inject
+    public LeagueServiceImpl(TeamService teamService, LeagueDao leagueDao, TeamDao teamDao, MatchDao matchDao) {
+        this.teamService = teamService;
+        this.leagueDao = leagueDao;
+        this.teamDao = teamDao;
+        this.matchDao = matchDao;
+    }
 
     @Override
     public League fetchById(long leagueId) {
         return leagueDao.fetchById(leagueId);
     }
-    
 
+    @Override
+    public List<League> fetchByCountry(NationalityEnum country) {
+        return leagueDao.fetchByCountry(country);
+
+    }
 
 
     @Override
@@ -66,7 +81,39 @@ public class LeagueServiceImpl implements LeagueService {
         }
     }
 
+    @Override
+    public void addMatch(Match match, League league) throws SoccerManagerServiceException {
+        if (match != null && league != null) {
+            if (!matchDao.fetchAll().contains(match)) {
+                List<Match> matches = league.getMatches();
+                matches.add(match);
+                league.setMatches(matches);
+                leagueDao.update(league);
+            } else {
+                throw new SoccerManagerServiceException(
+                        "Match " + match.getAwayTeam() + " is already in league " + league.getName());
+            }
+        } else {
+            throw new IllegalArgumentException("Match or league is null");
+        }
+    }
 
+    @Override
+    public void removeMatch(Match match, League league) throws SoccerManagerServiceException {
+        if (match != null && league != null) {
+            if (matchDao.fetchAll().contains(match)) {
+                List<Match> matches = league.getMatches();
+                matches.remove(match);
+                league.setMatches(matches);
+                leagueDao.update(league);
+            } else {
+                throw new SoccerManagerServiceException(
+                        "Match " + match.getAwayTeam() + " is already in league " + league.getName());
+            }
+        } else {
+            throw new IllegalArgumentException("Match or League is null");
+        }
+    }
 
     @Override
     public List<League> fetchAll() {

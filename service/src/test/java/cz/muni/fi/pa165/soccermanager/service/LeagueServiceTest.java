@@ -3,10 +3,10 @@ package cz.muni.fi.pa165.soccermanager.service;
 import cz.muni.fi.pa165.soccermanager.dao.LeagueDao;
 import cz.muni.fi.pa165.soccermanager.dao.MatchDao;
 import cz.muni.fi.pa165.soccermanager.dao.PlayerDao;
+import cz.muni.fi.pa165.soccermanager.dao.TeamDao;
 import cz.muni.fi.pa165.soccermanager.entity.*;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 import cz.muni.fi.pa165.soccermanager.enums.StadiumEnum;
-import cz.muni.fi.pa165.soccermanager.service.config.ServiceConfiguration;
 import cz.muni.fi.pa165.soccermanager.service.exceptions.SoccerManagerServiceException;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,6 +32,8 @@ public class LeagueServiceTest {
 
     private LeagueDao leagueDao = mock(LeagueDao.class);
 
+    private TeamDao teamDao = mock(TeamDao.class);
+
     private PlayerDao playerDao = mock(PlayerDao.class);
 
     private MatchDao matchDao = mock(MatchDao.class);
@@ -39,7 +41,7 @@ public class LeagueServiceTest {
     @Autowired
     @InjectMocks
     private LeagueService leagueService;
-
+    private TeamService teamService;
     private League league1;
     private League league2;
 
@@ -58,7 +60,9 @@ public class LeagueServiceTest {
 
     @Before
     public void setup() {
-       // leagueService = new LeagueServiceImpl(team, team,LocalDate date);
+
+
+        leagueService = new LeagueServiceImpl(teamService, leagueDao, teamDao ,matchDao);
 
         futureDate = LocalDate.now().plusMonths(1);
 
@@ -83,7 +87,6 @@ public class LeagueServiceTest {
 
 
 
-        //2
         league2 = new League.LeagueBuilder(
                 "Super League",
                 NationalityEnum.Spain
@@ -114,7 +117,7 @@ public class LeagueServiceTest {
 
 
     }
-/**
+
 
     @Test
     public void fetchByIdLeagueS() {
@@ -206,31 +209,6 @@ public class LeagueServiceTest {
     }
 
 
-    @Test(expected = SoccerManagerServiceException.class)
-    public void createLeagueAlreadyCreatedS() {
-        List<League> leagues = new ArrayList<>();
-        leagues.add(league1);
-        leagues.add(league2);
-
-        when(leagueDao.fetchAll()).thenReturn(leagues);
-        doNothing().when(leagueDao).insert(league2);
-
-        leagueService.insert(league2);
-    }
-
-
-    @Test(expected = IllegalArgumentException.class)
-    public void createLeagueNullS() {
-        List<League> leagues = new ArrayList<>();
-        leagues.add(league1);
-        leagues.add(league2);
-
-        when(leagueDao.fetchAll()).thenReturn(leagues);
-        doNothing().when(leagueDao).insert(league2);
-
-        leagueService.insert(null);
-    }
-
 
     @Test
     public void updateLeagueS() {
@@ -252,49 +230,12 @@ public class LeagueServiceTest {
     }
 
 
-    @Test(expected = SoccerManagerServiceException.class)
-    public void updateLeagueAlreadyExistsS() {
-        List<League> leagues = new ArrayList<>();
-        leagues.add(league1);
-        leagues.add(league2);
-
-        when(leagueDao.fetchAll()).thenReturn(leagues);
-        doNothing().when(leagueDao).update(league2);
-
-        League toUpdate = new League.LeagueBuilder(
-                league2.getName(),
-                league2.getCountry()
-
-        )
-                .build();
-
-        toUpdate.setId(58L);
-        leagueService.update(toUpdate);
-    }
-
-
-    @Test(expected = IllegalArgumentException.class)
-    public void updateLeagueNullS() {
-        List<League> leagues = new ArrayList<>();
-        leagues.add(league1);
-        leagues.add(league2);
-
-        when(leagueDao.fetchAll()).thenReturn(leagues);
-        doNothing().when(leagueDao).insert(null);
-
-        leagueService.update(null);
-    }
-
-
     @Test
     public void deleteLeagueS() {
         doNothing().when(leagueDao).delete(10L);
 
         leagueService.delete(10L);
     }
-*/
-
-
 
 
 
