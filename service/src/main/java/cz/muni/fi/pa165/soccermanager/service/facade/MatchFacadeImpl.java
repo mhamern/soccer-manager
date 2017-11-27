@@ -1,21 +1,17 @@
 package cz.muni.fi.pa165.soccermanager.service.facade;
 
-import cz.muni.fi.pa165.soccermanager.dto.MatchCreateDTO;
+import cz.muni.fi.pa165.soccermanager.dto.CreateMatchDTO;
 import cz.muni.fi.pa165.soccermanager.dto.MatchDTO;
 import cz.muni.fi.pa165.soccermanager.entity.League;
 import cz.muni.fi.pa165.soccermanager.entity.Match;
 import cz.muni.fi.pa165.soccermanager.entity.Team;
 import cz.muni.fi.pa165.soccermanager.facade.MatchFacade;
-import cz.muni.fi.pa165.soccermanager.service.BeanMappingService;
-import cz.muni.fi.pa165.soccermanager.service.LeagueService;
-import cz.muni.fi.pa165.soccermanager.service.MatchService;
-import cz.muni.fi.pa165.soccermanager.service.TeamService;
+import cz.muni.fi.pa165.soccermanager.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,20 +23,29 @@ import java.util.List;
 @Transactional
 public class MatchFacadeImpl implements MatchFacade {
 
-    @Inject
     private MatchService matchService;
 
-    @Inject
     private TeamService teamService;
 
-    @Inject
     private LeagueService leagueService;
 
-    @Autowired
     private BeanMappingService beanMappingService;
 
+    @Inject
+    public MatchFacadeImpl(
+            LeagueService leagueService,
+            MatchService matchService,
+            TeamService teamService,
+            BeanMappingService beanMappingService
+    ) {
+        this.leagueService = leagueService;
+        this.matchService = matchService;
+        this.teamService = teamService;
+        this.beanMappingService = beanMappingService;
+    }
+
     @Override
-    public Long createMatch(MatchCreateDTO match) {
+    public Long createMatch(CreateMatchDTO match) {
         Match mappedMatch = beanMappingService.mapTo(match, Match.class);
 
         Team homeTeam = teamService.fetchByName(match.getHomeTeamName());
@@ -52,8 +57,9 @@ public class MatchFacadeImpl implements MatchFacade {
 
         //save Match
         Match newMatch = matchService.createMatch(mappedMatch);
+        Long id = mappedMatch.getId();
 
-        return newMatch.getId();
+        return id;
     }
 
     @Override
@@ -87,6 +93,12 @@ public class MatchFacadeImpl implements MatchFacade {
 
         Match match = matchService.fetchById(id);
         return beanMappingService.mapTo(match, MatchDTO.class);
+    }
+
+    @Override
+    public void deleteMatch(Long id) {
+
+        matchService.deleteMatch(id);
     }
 
     @Override

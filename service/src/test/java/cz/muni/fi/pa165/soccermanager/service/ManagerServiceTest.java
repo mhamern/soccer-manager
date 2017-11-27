@@ -3,8 +3,11 @@ package cz.muni.fi.pa165.soccermanager.service;
 import cz.muni.fi.pa165.soccermanager.entity.Match;
 import cz.muni.fi.pa165.soccermanager.entity.Team;
 import cz.muni.fi.pa165.soccermanager.service.config.ServiceConfiguration;
+import org.hibernate.service.spi.ServiceException;
+import org.junit.BeforeClass;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
@@ -23,8 +26,7 @@ public class ManagerServiceTest {
 
     @Autowired
     @InjectMocks
-    private MatchService managerService;
-
+    private MatchService matchService;
 
     @Test
     public void testFetchByTeam() {

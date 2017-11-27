@@ -77,4 +77,10 @@ public class MatchDaoImpl implements MatchDao {
     public void delete(long playerId) {
         manager.remove(fetchById(playerId));
     }
+
+    @Override
+    public Boolean isFinished(Match match)  {
+        long matchId = match.getId();
+        return manager.find(Match.class, matchId).isFinished();
+    }
 }

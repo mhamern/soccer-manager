@@ -7,7 +7,7 @@ import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
  * @author 456519  Filip Lux
  * @version 11/23/2017.
  */
-public class ManagerCreateDTO {
+public class CreateManagerDTO {
 
     private String name;
 
@@ -38,9 +38,9 @@ public class ManagerCreateDTO {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ManagerCreateDTO)) return false;
+        if (!(o instanceof CreateManagerDTO)) return false;
 
-        ManagerCreateDTO manager = (ManagerCreateDTO) o;
+        CreateManagerDTO manager = (CreateManagerDTO) o;
 
         if (!name.equals(manager.getName())) return false;
         if (!nationality.equals(manager.getNationality())) return false;

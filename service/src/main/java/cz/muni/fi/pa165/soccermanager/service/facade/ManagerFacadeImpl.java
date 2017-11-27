@@ -1,12 +1,16 @@
 package cz.muni.fi.pa165.soccermanager.service.facade;
 
-import cz.muni.fi.pa165.soccermanager.dto.ManagerCreateDTO;
 import cz.muni.fi.pa165.soccermanager.dto.ManagerDTO;
+import cz.muni.fi.pa165.soccermanager.entity.Manager;
+import cz.muni.fi.pa165.soccermanager.entity.Player;
+import cz.muni.fi.pa165.soccermanager.entity.Team;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 import cz.muni.fi.pa165.soccermanager.facade.ManagerFacade;
+import cz.muni.fi.pa165.soccermanager.service.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.inject.Inject;
 import java.util.List;
 
 /**
@@ -16,33 +20,50 @@ import java.util.List;
 @Service
 @Transactional
 public class ManagerFacadeImpl implements ManagerFacade {
-    @Override
-    public List<ManagerDTO> getManagersByNationality(NationalityEnum nationality) {
-        return null;
-    }
+
+    private MatchService matchService;
+
+    private TeamService teamService;
+
+    private LeagueService leagueService;
+
+    private ManagerService managerService;
+
+    private BeanMappingService beanMappingService;
 
     @Override
-    public List<ManagerDTO> getManagersByLeague(Long leagueId) {
-        return null;
+    public List<ManagerDTO> getManagersByNationality(NationalityEnum nationality) {
+
+        List<Manager> managerList = managerService.fetchByNationality(nationality);
+        return beanMappingService.mapTo(managerList, ManagerDTO.class);
     }
 
     @Override
     public ManagerDTO getManagerById(Long id) {
-        return null;
+
+        Manager manager = managerService.fetchById(id);
+        return beanMappingService.mapTo(manager, ManagerDTO.class);
     }
 
     @Override
     public ManagerDTO getManagerByName(String name) {
-        return null;
+
+        Manager manager = managerService.fetchByName(name);
+        return beanMappingService.mapTo(manager, ManagerDTO.class);
     }
 
     @Override
     public ManagerDTO getManagerByEmail(String email) {
-        return null;
+
+        Manager manager = managerService.fetchByName(email);
+        return beanMappingService.mapTo(manager, ManagerDTO.class);
     }
 
     @Override
     public ManagerDTO getManagerByTeam(Long teamId) {
-        return null;
+
+        Team team = teamService.fetchById(teamId);
+        Manager manager = managerService.fetchByTeam(team);
+        return beanMappingService.mapTo(manager, ManagerDTO.class);
     }
 }

@@ -5,7 +5,7 @@ import java.time.LocalDate;
  * @author 456519 Filip Lux
  * @version 11/23/2017.
  */
-public class MatchCreateDTO {
+public class CreateMatchDTO {
 
     private LocalDate date;
 
@@ -38,9 +38,9 @@ public class MatchCreateDTO {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof MatchCreateDTO)) return false;
+        if (!(o instanceof CreateMatchDTO)) return false;
 
-        MatchCreateDTO match= (MatchCreateDTO) o;
+        CreateMatchDTO match= (CreateMatchDTO) o;
 
         if (getHomeTeamName() != match.getHomeTeamName()) return false;
         if (getAwayTeamName() != match.getAwayTeamName()) return false;

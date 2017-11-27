@@ -22,5 +22,5 @@ public interface MatchService {
     Match createMatch(Match match);
     boolean isFinished(Match match);
     void updateMatch(Match match);
-    void removeMatch(Long matchId);
+    void deleteMatch(Long matchId);
 }

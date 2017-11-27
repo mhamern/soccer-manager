@@ -32,7 +32,7 @@ public class MatchDTO {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof MatchCreateDTO)) return false;
+        if (!(o instanceof CreateMatchDTO)) return false;
 
         MatchDTO match = (MatchDTO) o;
 
@@ -40,6 +40,7 @@ public class MatchDTO {
         if (getAwayTeam() != match.getAwayTeam()) return false;
         return (getDate() != match.getDate());
     }
+
 
     @Override
     public int hashCode() {
