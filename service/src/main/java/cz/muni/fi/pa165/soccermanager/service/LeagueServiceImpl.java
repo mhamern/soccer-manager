@@ -32,6 +32,35 @@ public class LeagueServiceImpl implements LeagueService {
         return leagueDao.fetchById(leagueId);
     }
 
+
+    @Override
+    public List<Team> calculateLeagues(League league){
+        if(league != null){
+            List<Team> teams = teamDao.fetchByLeague(league);
+
+
+            for (Team team: teams) {
+                calculatePointsAndGoals(league, team);
+            }
+            Collections.sort(
+                    teams,
+                    Comparator.comparingInt(
+                            team -> team.getPoints())
+                            .thenComparingInt(
+                                    team -> team.getGoalsScored())
+                            .thenComparingInt(
+                                    team -> team.getGoalsConceded()));
+
+
+            return teams;
+        }
+        else{
+            throw new IllegalArgumentException("League is null");
+        }
+    }
+
+
+
     @Override
     public League fetchByName(String leagueName) {
         return leagueDao.fetchByName(leagueName);

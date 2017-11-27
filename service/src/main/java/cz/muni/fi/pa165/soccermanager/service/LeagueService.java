@@ -12,11 +12,7 @@ import java.util.List;
 public interface LeagueService {
 
     League fetchById(long leagueId);
-
-    League fetchByName(String leagueName);
-
-    List<Team> calculateLeagues(League league);
-
+    
     List<League> fetchAll();
 
     League insert(League league);
@@ -24,4 +20,8 @@ public interface LeagueService {
     void update(League league);
 
     void delete(long leagueId);
+
+    League fetchByName(String leagueName);
+
+    List<Team> calculateLeagues(League league);
 }
