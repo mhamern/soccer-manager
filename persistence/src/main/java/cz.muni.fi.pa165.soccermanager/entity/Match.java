@@ -145,22 +145,14 @@ public class Match {
 
         if (getHomeTeam() != match.getHomeTeam()) return false;
         if (getAwayTeam() != match.getAwayTeam()) return false;
-        if (getDate() != match.getDate()) return false;
-        if (isFinished() != match.isFinished()) return false;
-        if (getStadium() != null ? !getStadium().equals(match.getStadium()) : match.getStadium() != null) return false;
-        if (getHomeTeamGoals() != match.getHomeTeamGoals()) return false;
-        return (getAwayTeamGoals() != match.getAwayTeamGoals());
+        return (getDate() != match.getDate());
     }
 
     @Override
     public int hashCode() {
         int result = getHomeTeam() != null ? getHomeTeam().hashCode() : 0;
         result = 51 * result + (getAwayTeam() != null ? getAwayTeam().hashCode() : 0);
-        result = 51 * result + (isFinished() ? 1 : 0);
-        result = 51 * result + getHomeTeamGoals();
-        result = 51 * result + getAwayTeamGoals();
         result = 51 * result + (getDate() != null ? getDate().hashCode() : 0);
-        result = 51 * result + (getStadium() != null ? getStadium().hashCode() : 0);
         return result;
     }
 
