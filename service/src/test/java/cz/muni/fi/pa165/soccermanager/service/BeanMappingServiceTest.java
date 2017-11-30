@@ -55,6 +55,7 @@ public class BeanMappingServiceTest {
 
     @Test
     public void playerMap() {
+
         List<TeamDTO> result = beanMappingService.mapTo(teams, TeamDTO.class);
 
         assertTrue(result.size() == 1);

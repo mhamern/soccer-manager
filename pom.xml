@@ -35,6 +35,8 @@
         <module>persistence</module>
         <module>api</module>
         <module>service</module>
+        <module>rest</module>
+        <module>springmvc</module>
     </modules>
 
     <dependencyManagement>

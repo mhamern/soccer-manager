@@ -10,11 +10,21 @@ import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
  */
 public class ManagerDTO {
 
+    private Long id;
+
     private String name;
 
     private NationalityEnum nationality;
 
     private String email;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() { return name; }
 
