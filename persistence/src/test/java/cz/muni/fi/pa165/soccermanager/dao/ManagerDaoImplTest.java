@@ -50,13 +50,15 @@ public class ManagerDaoImplTest {
         manager1 = new Manager.ManagerBuilder(
                 "Jose Mourinho",
                 NationalityEnum.Portugal,
-                "thespecialone@gmail.com")
+                "thespecialone@gmail.com",
+                false)
                 .build();
 
         manager2 = new Manager.ManagerBuilder(
                 "Pep Guardiola",
                 NationalityEnum.Spain,
-                "tikitaka@gmail.com")
+                "tikitaka@gmail.com",
+                true)
                 .build();
     }
 
@@ -313,6 +315,7 @@ public class ManagerDaoImplTest {
     public void fetchByTeamManagerNoResult() {
         Manager insertedOne = manager1;
         Manager insertedTwo = manager2;
+
         entityManager.persist(insertedOne);
         entityManager.persist(insertedTwo);
 
@@ -337,6 +340,27 @@ public class ManagerDaoImplTest {
 
         assertNull("Fetch should return null",
                 managerDao.fetchByTeam(team3));
+    }
+
+    @Test
+    public void fetchAdminsTest() {
+        Manager adminManager = manager1;
+        Manager notAdminManager = manager2;
+        adminManager.setAdmin(true);
+        notAdminManager.setAdmin(false);
+        entityManager.persist(adminManager);
+        entityManager.persist(notAdminManager);
+
+        List<Manager> managers = managerDao.fetchAdmins();
+
+        assertTrue("Length of list retrieved from DAO does not equal 1",
+                managers != null && managers.size() == 1);
+
+        assertTrue("First manager should not be in list",
+                !managers.contains(notAdminManager));
+
+        assertTrue("Second manager should be in list",
+                managers.contains(adminManager));
     }
 
     @Test

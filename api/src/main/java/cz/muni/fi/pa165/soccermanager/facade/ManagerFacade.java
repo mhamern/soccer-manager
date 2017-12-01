@@ -1,22 +1,62 @@
 package cz.muni.fi.pa165.soccermanager.facade;
 
+import cz.muni.fi.pa165.soccermanager.dto.CreateManagerDTO;
 import cz.muni.fi.pa165.soccermanager.dto.ManagerDTO;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 
 import java.util.List;
 
 /**
- * @author 445720 Martin Hamernik
- * @version 11/16/2017.
+ * @author 456519 Filip Lux
+ * @version 1/12/2017.
  */
 public interface ManagerFacade {
-    public List<ManagerDTO> getManagersByNationality(NationalityEnum nationality);
+    /**
+     * get list of all managers of chosen nationality
+     * @param nationality nationality from nationality enum
+     * @return list of registered managers
+     */
+    public List<ManagerDTO> findManagersByNationality(NationalityEnum nationality);
 
-    public ManagerDTO getManagerById(Long id);
+    /**
+     * find manager by manager ID
+     * @param id manager's ID
+     * @return data transfer object of Manager
+     */
+    public ManagerDTO findManagerById(Long id);
 
-    public ManagerDTO getManagerByName(String name);
+    /**
+     * find manager by name
+     * @param name manager's name
+     * @return data transfer object of Manager
+     */
+    public ManagerDTO findManagerByName(String name);
 
-    public ManagerDTO getManagerByEmail(String email);
+    /**
+     * find manager by registered email
+     * @param email manager's email
+     * @return data transfer object of Manager
+     */
+    public ManagerDTO findManagerByEmail(String email);
 
-    public ManagerDTO getManagerByTeam(Long teamId);
+    /**
+     * find manager by team
+     * @param teamId manager's email
+     * @return data transfer object of Manager
+     */
+    public ManagerDTO findManagerByTeam(Long teamId);
+
+    /**
+     * gets all admins
+     * @return list of all registered admins
+     */
+    public List<ManagerDTO> getAdmins();
+
+    /**
+     * register new manager
+     * @param manager information about manager
+     * @param unencryptedPassword password
+     */
+    public void registerManager(CreateManagerDTO manager, String unencryptedPassword);
+
 }

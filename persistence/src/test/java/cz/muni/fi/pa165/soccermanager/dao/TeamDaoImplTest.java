@@ -232,7 +232,8 @@ public class TeamDaoImplTest {
         Manager m = new Manager.ManagerBuilder(
                 "Jose Mourinho",
                 NationalityEnum.Portugal,
-                "onlyone@gmail.com")
+                "onlyone@gmail.com",
+                false)
                 .build();
         manager.persist(m);
         first.setManager(m);

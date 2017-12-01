@@ -25,18 +25,31 @@ public class Match {
         private StadiumEnum stadium;
         private final Team homeTeam;
         private final Team awayTeam;
+        private League league;
 
-        public MatchBuilder(Team homeTeam, Team awayTeam, LocalDate date) {
+        public MatchBuilder(Team homeTeam, Team awayTeam, LocalDate date, League league) {
             this.homeTeam = homeTeam;
             this.awayTeam = awayTeam;
             this.stadium = homeTeam.getStadium();
             this.date = date;
+            this.league = league;
         }
 
         public MatchBuilder stadium(StadiumEnum stadium) {
             this.stadium = stadium;
             return this;
         }
+
+        public MatchBuilder date(LocalDate date) {
+            this.date = date;
+            return this;
+        }
+
+        public MatchBuilder league(League league) {
+            this.league = league;
+            return this;
+        }
+
 
         public Match build() {
             return new Match(this);
@@ -51,6 +64,7 @@ public class Match {
         awayTeam = builder.awayTeam;
         date = builder.date;
         stadium = builder.stadium;
+        league = builder.league;
         finished = false;
         homeTeamGoals = 0;
         awayTeamGoals = 0;
@@ -72,6 +86,9 @@ public class Match {
     @ManyToOne
     private Team awayTeam;
 
+    @ManyToOne
+    private League league;
+
     @Column(nullable = false)
     private boolean finished;
 
@@ -84,6 +101,10 @@ public class Match {
     public long getId() { return id; }
 
     public void setId(Long id) { this.id = id; }
+
+    public League getLeague() { return league; }
+
+    public void setLeague(League league) { this.league = league; }
 
     public int getAwayTeamGoals() { return awayTeamGoals; }
 
@@ -145,22 +166,16 @@ public class Match {
 
         if (getHomeTeam() != match.getHomeTeam()) return false;
         if (getAwayTeam() != match.getAwayTeam()) return false;
-        if (getDate() != match.getDate()) return false;
-        if (isFinished() != match.isFinished()) return false;
-        if (getStadium() != null ? !getStadium().equals(match.getStadium()) : match.getStadium() != null) return false;
-        if (getHomeTeamGoals() != match.getHomeTeamGoals()) return false;
-        return (getAwayTeamGoals() != match.getAwayTeamGoals());
+        if (getLeague() != match.getLeague()) return false;
+        return (getDate() != match.getDate());
     }
 
     @Override
     public int hashCode() {
         int result = getHomeTeam() != null ? getHomeTeam().hashCode() : 0;
-        result = 51 * result + (getAwayTeam() != null ? getAwayTeam().hashCode() : 0);
-        result = 51 * result + (isFinished() ? 1 : 0);
-        result = 51 * result + getHomeTeamGoals();
-        result = 51 * result + getAwayTeamGoals();
-        result = 51 * result + (getDate() != null ? getDate().hashCode() : 0);
-        result = 51 * result + (getStadium() != null ? getStadium().hashCode() : 0);
+        result = 71 * result + (getAwayTeam() != null ? getAwayTeam().hashCode() : 0);
+        result = 71 * result + (getDate() != null ? getDate().hashCode() : 0);
+        result = 71 * result + (getLeague() != null ? getLeague().hashCode() : 0);
         return result;
     }
 
@@ -171,7 +186,8 @@ public class Match {
                 ", date=" + getDate() + '\'' +
                 "home team=" + getHomeTeam() +
                 ", away team=" + getAwayTeam() +
-                ", stadium=" + getStadium() + '\'';
+                ", stadium=" + getStadium() +
+                ", league=" + getLeague() + '\'';
         if (isFinished())
             string += "result=" + getHomeTeamGoals() + ':' + getAwayTeamGoals() + " }\'";
         else

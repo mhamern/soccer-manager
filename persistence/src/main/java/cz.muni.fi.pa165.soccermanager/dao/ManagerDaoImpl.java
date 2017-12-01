@@ -87,6 +87,13 @@ public class ManagerDaoImpl implements ManagerDao {
     }
 
     @Override
+    public List<Manager> fetchAdmins() {
+        return entityManager.createQuery(
+                "SELECT m FROM Manager m WHERE m.admin = 'true'", Manager.class)
+                .getResultList();
+    }
+
+    @Override
     public void insert(Manager manager) {
         entityManager.persist(manager);
     }

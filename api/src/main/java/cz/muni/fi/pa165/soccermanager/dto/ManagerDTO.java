@@ -25,6 +25,8 @@ public class ManagerDTO {
     public void setId(Long id) {
         this.id = id;
     }
+  
+    private boolean admin;
 
     public String getName() { return name; }
 
@@ -45,6 +47,10 @@ public class ManagerDTO {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public boolean isAdmin() { return admin; }
+
+    public void setAdmin(boolean admin) { this.admin = admin; }
 
     @Override
     public boolean equals(Object o) {

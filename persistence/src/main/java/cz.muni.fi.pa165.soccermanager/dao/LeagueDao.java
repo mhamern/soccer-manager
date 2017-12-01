@@ -73,4 +73,5 @@ public interface LeagueDao {
      * @param leagueId id of league that shall be deleted
      */
     void delete(long leagueId);
+
 }
