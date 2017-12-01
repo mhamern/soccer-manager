@@ -2,6 +2,9 @@ package cz.muni.fi.pa165.soccermanager.dao;
 
 import cz.muni.fi.pa165.soccermanager.entity.League;
 import cz.muni.fi.pa165.soccermanager.entity.Match;
+import cz.muni.fi.pa165.soccermanager.entity.Player;
+import cz.muni.fi.pa165.soccermanager.entity.Team;
+import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 
 import java.util.List;
 
@@ -41,7 +44,16 @@ public interface LeagueDao {
      * @param country name of league
      * @return league retrieved from db, null if no such league is in db
      */
-    League fetchByCountry(String country);
+    List<League> fetchByCountry(NationalityEnum country);
+
+
+    /**
+     * Retrieves all matches  in provided league
+     * @param league league of matches in db
+     * @return List of matches  for provided league, empty list if no such match is in db
+     */
+    List<Match> fetchByLeague(League league);
+
 
     /**
      * Inserts new league to db
