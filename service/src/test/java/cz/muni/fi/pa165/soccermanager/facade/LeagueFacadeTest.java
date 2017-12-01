@@ -116,8 +116,8 @@ public class LeagueFacadeTest {
 
 
 
-        match1 = new Match.MatchBuilder(team1,team2,futureDate).build();
-        match2 = new Match.MatchBuilder(team3,team4, futureDate).build();
+        match1 = new Match.MatchBuilder(team1,team2,futureDate, league1).build();
+        match2 = new Match.MatchBuilder(team3,team4, futureDate, league2).build();
 
 
         league1.setMatches(matches);
