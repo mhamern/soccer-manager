@@ -34,6 +34,12 @@ public interface ManagerDao {
     List<Manager> fetchManagersWithoutTeam();
 
     /**
+     * Retrieves all users with admin
+     * @return List of managers retrieved from db with admit rights
+     */
+    List<Manager> fetchAdmins();
+
+    /**
      * Retrieves manager matching provided name
      * @param name name of manager
      * @return Manager retrieved from db matching provided name, null if no such manager is in db

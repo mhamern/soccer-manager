@@ -50,13 +50,15 @@ public class ManagerDaoImplTest {
         manager1 = new Manager.ManagerBuilder(
                 "Jose Mourinho",
                 NationalityEnum.Portugal,
-                "thespecialone@gmail.com")
+                "thespecialone@gmail.com",
+                false)
                 .build();
 
         manager2 = new Manager.ManagerBuilder(
                 "Pep Guardiola",
                 NationalityEnum.Spain,
-                "tikitaka@gmail.com")
+                "tikitaka@gmail.com",
+                true)
                 .build();
     }
 

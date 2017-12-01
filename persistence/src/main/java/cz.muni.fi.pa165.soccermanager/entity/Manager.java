@@ -18,13 +18,26 @@ public class Manager {
         private String name;
         private NationalityEnum nationality;
         private String email;
+        private boolean admin;
 
         public ManagerBuilder() {}
 
-        public ManagerBuilder(String name, NationalityEnum nationality, String email) {
+        public ManagerBuilder(String name,
+                              NationalityEnum nationality,
+                              String email) {
             this.name = name;
             this.nationality = nationality;
             this.email = email;
+        }
+
+        public ManagerBuilder(String name,
+                              NationalityEnum nationality,
+                              String email,
+                              boolean admin) {
+            this.name = name;
+            this.nationality = nationality;
+            this.email = email;
+            this.admin = admin;
         }
 
         public ManagerBuilder name(String name) {
@@ -39,6 +52,11 @@ public class Manager {
 
         public ManagerBuilder email(String email) {
             this.email = email;
+            return this;
+        }
+
+        public ManagerBuilder admin(boolean admin) {
+            this.admin = admin;
             return this;
         }
 
@@ -61,6 +79,12 @@ public class Manager {
     @Column(nullable = false)
     private String email;
 
+    @Column(nullable = false)
+    private String passwordHash;
+
+    @Column(nullable = false)
+    private boolean admin;
+
     public Manager() {
 
     }
@@ -69,6 +93,8 @@ public class Manager {
             this.name = builder.name;
             this.nationality = builder.nationality;
             this.email = builder.email;
+            this.passwordHash = "";
+            this.admin = builder.admin;
     }
 
     public Long getId() {
@@ -101,6 +127,14 @@ public class Manager {
         this.email = email;
     }
 
+    public String getPasswordHash() { return passwordHash; }
+
+    public void setPasswordHash(String passwordHash) { this.passwordHash = passwordHash; }
+
+    public boolean isAdmin() { return admin; }
+
+    public void setAdmin(boolean admin) { this.admin = admin; }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -123,10 +157,13 @@ public class Manager {
 
     @Override
     public String toString() {
-        return "Manager{" +
+        String result =  "Manager{" +
                 "name='" + name + '\'' +
                 ", nationality='" + nationality + '\'' +
-                ", email='" + email + '\'' +
-                '}';
+                ", email='" + email + '\'';
+        if (isAdmin()) result += " , user is an admin. }";
+        else result +=  '}';
+        return result;
+
     }
 }

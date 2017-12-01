@@ -19,7 +19,8 @@ public interface ManagerService {
     List<Manager> fetchByNationality(NationalityEnum nationalityEnum);
     List<Manager> fetchManagersWithoutTeam();
     List<Manager> fetchAll();
-    Manager createManager(Manager manager);
-    void updateManager(Manager manager);
-    void removeManager(long managerId);
+    boolean isAdmin(Manager manager);
+    Manager create(Manager manager, String unecryptedPassword);
+    void update(Manager manager);
+    void remove(long managerId);
 }
