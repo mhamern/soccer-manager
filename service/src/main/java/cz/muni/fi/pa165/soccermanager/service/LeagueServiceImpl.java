@@ -82,40 +82,6 @@ public class LeagueServiceImpl implements LeagueService {
     }
 
     @Override
-    public void addMatch(Match match, League league) throws SoccerManagerServiceException {
-        if (match != null && league != null) {
-            if (!matchDao.fetchAll().contains(match)) {
-                List<Match> matches = league.getMatches();
-                matches.add(match);
-                league.setMatches(matches);
-                leagueDao.update(league);
-            } else {
-                throw new SoccerManagerServiceException(
-                        "Match " + match.getAwayTeam() + " is already in league " + league.getName());
-            }
-        } else {
-            throw new IllegalArgumentException("Match or league is null");
-        }
-    }
-
-    @Override
-    public void removeMatch(Match match, League league) throws SoccerManagerServiceException {
-        if (match != null && league != null) {
-            if (matchDao.fetchAll().contains(match)) {
-                List<Match> matches = league.getMatches();
-                matches.remove(match);
-                league.setMatches(matches);
-                leagueDao.update(league);
-            } else {
-                throw new SoccerManagerServiceException(
-                        "Match " + match.getAwayTeam() + " is already in league " + league.getName());
-            }
-        } else {
-            throw new IllegalArgumentException("Match or League is null");
-        }
-    }
-
-    @Override
     public List<League> fetchAll() {
         return leagueDao.fetchAll();
     }
@@ -129,6 +95,22 @@ public class LeagueServiceImpl implements LeagueService {
     @Override
     public void update(League league) {
         leagueDao.update(league);
+    }
+
+    @Override
+    public void addMatch(Match match,League league) throws SoccerManagerServiceException {
+        if (match != null && league != null) {
+
+            if (!matchDao.fetchByLeague(league).contains(match)) {
+                league.addMatch(match);
+                leagueDao.update(league);
+            } else {
+                throw new SoccerManagerServiceException(
+                        "In league " + league.getName() + " is already this match." + match.toString());
+            }
+        } else {
+            throw new IllegalArgumentException("Match or league is null");
+        }
     }
 
     @Override

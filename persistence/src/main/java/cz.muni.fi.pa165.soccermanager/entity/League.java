@@ -113,6 +113,10 @@ public class League {
         this.matches = matches;
     }
 
+    public void addMatch(Match match) { matches.add(match); }
+
+    public void removeMatch(Match match) { matches.remove(match); }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

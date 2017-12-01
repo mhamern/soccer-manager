@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * @author 476368 Iman Mehmandoust
- * @version 11/24x/2017.
+ * @version 11/24/2017.
  */
 public interface LeagueService {
 
@@ -30,10 +30,6 @@ public interface LeagueService {
 
     List<Team> calculateLeagues(League league);
 
-    public void addMatch(Match match, League league) throws SoccerManagerServiceException;
-
-    public void removeMatch(Match Match, League league) throws SoccerManagerServiceException;
-
-
+    void addMatch(Match match, League league) throws SoccerManagerServiceException;
 
 }

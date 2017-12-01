@@ -27,7 +27,5 @@ public interface LeagueFacade {
 
     public void deleteLeague(Long leagueId);
 
-    public void removeMatch(Long matchId, Long leagueId);
-
 
 }

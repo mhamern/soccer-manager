@@ -107,13 +107,15 @@ public class MatchFacadeTest {
         match1 = new Match.MatchBuilder(
                 team1,
                 team2,
-                futureDate
+                futureDate,
+                league
         ).build();
 
         match2 = new Match.MatchBuilder(
                 team3,
                 team4,
-                futureDate
+                futureDate,
+                league
         ).build();
 
         team1.setId(1L);
@@ -175,11 +177,51 @@ public class MatchFacadeTest {
     }
 
     @Test
+    public void findMatchesByLeague() {
+        List<Match> matches = new ArrayList<>();
+        matches.add(match1);
+        matches.add(match2);
+        List<MatchDTO> dtos = new ArrayList<>();
+        dtos.add(matchDTO1);
+        dtos.add(matchDTO2);
+
+        when(matchService.fetchByLeague(league)).thenReturn(matches);
+        when(beanMappingService.mapTo(matches, MatchDTO.class)).thenReturn(dtos);
+        when(leagueService.fetchById(league.getId())).thenReturn(league);
+
+        List<MatchDTO> matchDTOList = matchFacade.getMatchesByLeague(league.getId());
+
+        assertTrue(matchDTOList.size() == 2, "List should have size exactly 2");
+        assertTrue(matchDTOList.contains(matchDTO1), "List does not contain first match");
+        assertTrue(matchDTOList.contains(matchDTO2), "List does not contain second match");
+    }
+
+    @Test
+    public void findMatchesFinished() {
+        List<Match> matches = new ArrayList<>();
+        matches.add(match1);
+        matches.add(match2);
+        List<MatchDTO> dtos = new ArrayList<>();
+        dtos.add(matchDTO1);
+        dtos.add(matchDTO2);
+
+        when(matchService.fetchFinished()).thenReturn(matches);
+        when(beanMappingService.mapTo(matches, MatchDTO.class)).thenReturn(dtos);
+
+        List<MatchDTO> matchDTOList = matchFacade.getFinishedMatches();
+
+        assertTrue(matchDTOList.size() == 2, "List should have size exactly 2");
+        assertTrue(matchDTOList.contains(matchDTO1), "List does not contain first match");
+        assertTrue(matchDTOList.contains(matchDTO2), "List does not contain second match");
+    }
+
+    @Test
     public void createMatch() {
         Match newMatch= new Match.MatchBuilder(
                 match1.getHomeTeam(),
                 match1.getAwayTeam(),
-                match1.getDate()
+                match1.getDate(),
+                league
         ).build();
         newMatch.setId(10L);
 

@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.soccermanager.dao;
 
+import cz.muni.fi.pa165.soccermanager.entity.League;
 import cz.muni.fi.pa165.soccermanager.entity.Match;
 import cz.muni.fi.pa165.soccermanager.entity.Team;
 import cz.muni.fi.pa165.soccermanager.enums.StadiumEnum;
@@ -60,6 +61,14 @@ public class MatchDaoImpl implements MatchDao {
         TypedQuery<Match> query = manager
                 .createQuery("SELECT m FROM Match m WHERE m.stadium = :stadium", Match.class);
         query.setParameter("stadium", stadium);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Match> fetchByLeague(League league) {
+        TypedQuery<Match> query = manager
+                .createQuery("SELECT m FROM Match m WHERE m.league = :league", Match.class);
+        query.setParameter("league", league);
         return query.getResultList();
     }
 

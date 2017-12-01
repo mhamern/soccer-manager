@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.soccermanager.service;
 
+import cz.muni.fi.pa165.soccermanager.entity.League;
 import cz.muni.fi.pa165.soccermanager.entity.Match;
 import cz.muni.fi.pa165.soccermanager.entity.Team;
 import cz.muni.fi.pa165.soccermanager.enums.StadiumEnum;
@@ -17,6 +18,7 @@ public interface MatchService {
     List<Match> fetchAll();
     List<Match> fetchByDate(LocalDate date);
     List<Match> fetchByTeam(Team team);
+    List<Match> fetchByLeague(League league);
     List<Match> fetchByStadium(StadiumEnum stadium);
     List<Match> fetchFinished();
     Match createMatch(Match match);

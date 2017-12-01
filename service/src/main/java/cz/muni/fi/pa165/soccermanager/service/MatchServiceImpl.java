@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.soccermanager.service;
 
 import cz.muni.fi.pa165.soccermanager.dao.MatchDao;
+import cz.muni.fi.pa165.soccermanager.entity.League;
 import cz.muni.fi.pa165.soccermanager.entity.Match;
 import cz.muni.fi.pa165.soccermanager.entity.Team;
 import cz.muni.fi.pa165.soccermanager.enums.StadiumEnum;
@@ -49,6 +50,9 @@ public class MatchServiceImpl implements MatchService {
 
     @Override
     public List<Match> fetchFinished() {return matchDao.fetchFinishedMatches();}
+
+    @Override
+    public List<Match> fetchByLeague(League league) { return matchDao.fetchByLeague(league); }
 
     @Override
     public List<Match> fetchByStadium(StadiumEnum stadium) {

@@ -79,4 +79,5 @@ public class LeagueDaoImpl implements LeagueDao {
     public void delete(long leagueId) {
         manager.remove(fetchById(leagueId));
     }
+
 }
