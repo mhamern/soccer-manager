@@ -525,21 +525,6 @@ public class TeamServiceTest {
         teamService.assignManager(null, team1);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void assignManagerTeamNull() {
-        Manager manager = new Manager.ManagerBuilder(
-                "Jose Mourinho",
-                NationalityEnum.Portugal,
-                "onlyone@gmail.com")
-                .build();
-
-        when(teamDao.fetchByManager(manager)).thenReturn(null);
-        when(teamDao.fetchTeamsWithoutManager()).thenReturn(Collections.singletonList(team1));
-        doNothing().when(teamDao).update(team1);
-
-        teamService.assignManager(manager, null);
-    }
-
     @Test
     public void removeManagerTeam() {
 
@@ -604,25 +589,27 @@ public class TeamServiceTest {
 
     @Test
     public void calculatePointsAndGoalsTeam() {
-        Match match1 = new Match.MatchBuilder(team1, team2, LocalDate.of(2017, 10, 10)).build();
+
+        League league = new League.LeagueBuilder("Premier League", NationalityEnum.England).build();
+        Match match1 = new Match.MatchBuilder(team1, team2, LocalDate.of(2017, 10, 10), league).build();
         match1.setFinished(false);
 
-        Match match2 = new Match.MatchBuilder(team1, team2, LocalDate.of(2016, 10, 10)).build();
+        Match match2 = new Match.MatchBuilder(team1, team2, LocalDate.of(2016, 10, 10), league).build();
         match2.setFinished(true);
         match2.setHomeTeamGoals(2);
         match2.setAwayTeamGoals(1);
 
-        Match match3 = new Match.MatchBuilder(team1, team2, LocalDate.of(2015, 10, 10)).build();
+        Match match3 = new Match.MatchBuilder(team1, team2, LocalDate.of(2015, 10, 10), league).build();
         match3.setFinished(true);
         match3.setHomeTeamGoals(5);
         match3.setAwayTeamGoals(1);
 
-        Match match4 = new Match.MatchBuilder(team1, team2, LocalDate.of(2014, 10, 10)).build();
+        Match match4 = new Match.MatchBuilder(team1, team2, LocalDate.of(2014, 10, 10), league).build();
         match4.setFinished(true);
         match4.setHomeTeamGoals(1);
         match4.setAwayTeamGoals(1);
 
-        Match match5 = new Match.MatchBuilder(team1, team2, LocalDate.of(2013, 10, 10)).build();
+        Match match5 = new Match.MatchBuilder(team1, team2, LocalDate.of(2013, 10, 10), league).build();
         match5.setFinished(true);
         match5.setHomeTeamGoals(0);
         match5.setAwayTeamGoals(3);

@@ -107,13 +107,15 @@ public class MatchFacadeTest {
         match1 = new Match.MatchBuilder(
                 team1,
                 team2,
-                futureDate
+                futureDate,
+                league
         ).build();
 
         match2 = new Match.MatchBuilder(
                 team3,
                 team4,
-                futureDate
+                futureDate,
+                league
         ).build();
 
         team1.setId(1L);
@@ -179,7 +181,8 @@ public class MatchFacadeTest {
         Match newMatch= new Match.MatchBuilder(
                 match1.getHomeTeam(),
                 match1.getAwayTeam(),
-                match1.getDate()
+                match1.getDate(),
+                league
         ).build();
         newMatch.setId(10L);
 

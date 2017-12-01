@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.soccermanager.dao;
 
 import cz.muni.fi.pa165.soccermanager.entity.League;
+import cz.muni.fi.pa165.soccermanager.entity.Match;
 
 import java.util.List;
 
@@ -60,4 +61,5 @@ public interface LeagueDao {
      * @param leagueId id of league that shall be deleted
      */
     void delete(long leagueId);
+
 }

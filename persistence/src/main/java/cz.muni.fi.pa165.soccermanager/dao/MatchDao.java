@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.soccermanager.dao;
 
+import cz.muni.fi.pa165.soccermanager.entity.League;
 import cz.muni.fi.pa165.soccermanager.entity.Match;
 import cz.muni.fi.pa165.soccermanager.entity.Team;
 import cz.muni.fi.pa165.soccermanager.enums.StadiumEnum;
@@ -69,6 +70,12 @@ public interface MatchDao {
      * @return list of matches played on one stadium
      */
     List<Match> fetchByStadium(StadiumEnum stadium);
+
+    /**
+     * Gets all matches in a league
+     * @return list of matches from one league
+     */
+    List<Match> fetchByLeague(League league);
 
     /**
      * Gets true if match is finished

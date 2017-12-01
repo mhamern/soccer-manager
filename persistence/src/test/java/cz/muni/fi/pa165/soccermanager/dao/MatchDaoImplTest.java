@@ -67,13 +67,15 @@ public class MatchDaoImplTest {
         match1 = new Match.MatchBuilder(
                 team1,
                 team2,
-                LocalDate.now())
+                LocalDate.now(),
+                league1)
                 .build();
 
         match2 = new Match.MatchBuilder(
                 team3,
                 team4,
-                LocalDate.now())
+                LocalDate.now(),
+                league2)
                 .build();
     }
 

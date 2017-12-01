@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.soccermanager.dao;
 
 import cz.muni.fi.pa165.soccermanager.entity.League;
+import cz.muni.fi.pa165.soccermanager.entity.Match;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -72,4 +73,5 @@ public class LeagueDaoImpl implements LeagueDao {
     public void delete(long leagueId) {
         manager.remove(fetchById(leagueId));
     }
+
 }

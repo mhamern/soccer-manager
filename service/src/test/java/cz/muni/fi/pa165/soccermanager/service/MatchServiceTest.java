@@ -105,25 +105,29 @@ public class MatchServiceTest {
         match12 = new Match.MatchBuilder(
                 team1,
                 team2,
-                futureDate
+                futureDate,
+                league
         ).build();
 
         match21 = new Match.MatchBuilder(
                 team2,
                 team1,
-                futureDate
+                futureDate,
+                league
         ).build();
 
         match34 = new Match.MatchBuilder(
                 team3,
                 team4,
-                futureDate
+                futureDate,
+                league
         ).build();
 
         match13 = new Match.MatchBuilder(
                 team1,
                 team3,
-                futureDate.plusDays(3)
+                futureDate.plusDays(3),
+                league
         ).build();
     }
 
@@ -185,7 +189,8 @@ public class MatchServiceTest {
         matchUncorrect = new Match.MatchBuilder(
                 team1,
                 team1,
-                futureDate
+                futureDate,
+                league
         ).build();
 
         matchService.createMatch(matchUncorrect);
@@ -222,7 +227,8 @@ public class MatchServiceTest {
         matchUncorrect = new Match.MatchBuilder(
                 team1,
                 team2,
-                pastDate
+                pastDate,
+                league
         ).build();
 
         matchService.createMatch(matchUncorrect);
@@ -235,7 +241,8 @@ public class MatchServiceTest {
         Match match12up = new Match.MatchBuilder(
                 match12.getHomeTeam(),
                 match12.getAwayTeam(),
-                match12.getDate()
+                match12.getDate(),
+                league
         ).build();
 
         when(matchDao.fetchAll()).thenReturn(Collections.singletonList(match12up));
