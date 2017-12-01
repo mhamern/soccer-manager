@@ -36,7 +36,7 @@ public class PlayersController {
         return playerFacade.getAllPlayers();
     }
 
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value ="/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final PlayerDTO getPlayerById(@PathVariable("id") long id) {
         PlayerDTO playerDTO = playerFacade.getPlayerById(id);
         if (playerDTO == null) {
@@ -45,7 +45,7 @@ public class PlayersController {
         return playerDTO;
     }
 
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value ="/name/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final PlayerDTO getPlayerByName(@PathVariable("name") String name) {
         PlayerDTO playerDTO = playerFacade.getPlayerByName(name);
         if (playerDTO == null) {
@@ -75,7 +75,7 @@ public class PlayersController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value ="/team/{team_id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<PlayerDTO> getPlayersByTeam(@PathVariable("team_id") long teamId) {
         List<PlayerDTO> playerDTOSs = playerFacade.getPlayersByTeam(teamId);
         if (playerDTOSs.isEmpty()) {
@@ -84,7 +84,7 @@ public class PlayersController {
         return playerDTOSs;
     }
 
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value ="/nationality/{nationality}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<PlayerDTO> getPlayersByNationality(@PathVariable("nationality") NationalityEnum nationality) {
         List<PlayerDTO> playerDTOSs = playerFacade.getPlayersByNationality(nationality);
         if (playerDTOSs.isEmpty()) {
@@ -93,7 +93,7 @@ public class PlayersController {
         return playerDTOSs;
     }
 
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value ="position/{position}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<PlayerDTO> getPlayersByPosition(@PathVariable("position")PositionEnum position) {
         List<PlayerDTO> playerDTOSs = playerFacade.getPlayersByPosition(position);
         if (playerDTOSs.isEmpty()) {
@@ -102,7 +102,7 @@ public class PlayersController {
         return playerDTOSs;
     }
 
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value ="/freeAgents",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<PlayerDTO> getFreeAgents() {
         List<PlayerDTO> playerDTOSs = playerFacade.getFreeAgents();
         if (playerDTOSs.isEmpty()) {
@@ -111,7 +111,7 @@ public class PlayersController {
         return playerDTOSs;
     }
 
-    @RequestMapping(value = "/{id}/change_position", method = RequestMethod.POST,
+    @RequestMapping(value = "/{id}/change_position/{position}", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public final PlayerDTO changePlayerPosition(@PathVariable("position") PositionEnum positionEnum, @PathVariable("id") long id)
             throws InvalidParameterException {

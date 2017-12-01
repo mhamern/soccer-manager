@@ -6,11 +6,13 @@ import cz.muni.fi.pa165.rest.exceptions.ResourceAlreadyExistingException;
 import cz.muni.fi.pa165.rest.exceptions.ResourceNotFoundException;
 import cz.muni.fi.pa165.soccermanager.dto.*;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
+import cz.muni.fi.pa165.soccermanager.enums.StadiumEnum;
 import cz.muni.fi.pa165.soccermanager.facade.TeamFacade;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -34,7 +36,7 @@ public class TeamsController {
         return teamFacade.getAllTeams();
     }
 
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value ="/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final TeamDTO getTeamById(@PathVariable("id") long id) {
         TeamDTO teamDTO = teamFacade.getTeamById(id);
         if (teamDTO == null) {
@@ -43,7 +45,7 @@ public class TeamsController {
         return teamDTO;
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes =  MediaType.APPLICATION_JSON_VALUE,
+    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
         produces =  MediaType.APPLICATION_JSON_VALUE)
     public final TeamDTO createTeam(@RequestBody CreateTeamDTO team) throws ResourceAlreadyExistingException {
         try {
@@ -63,7 +65,7 @@ public class TeamsController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value ="/league/{league_id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<TeamDTO> getTeamsByLeagueId(@PathVariable("league_id") long leagueId) {
         List<TeamDTO> teamDTOSs = teamFacade.getTeamsByLeague(leagueId);
         if (teamDTOSs.isEmpty()) {
@@ -72,7 +74,7 @@ public class TeamsController {
         return teamDTOSs;
     }
 
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value ="/origin/{origin}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<TeamDTO> getTeamsByOrigin(@PathVariable("origin") NationalityEnum origin) {
         List<TeamDTO>  teamDTOS = teamFacade.getTeamsByOrigin(origin);
         if (teamDTOS.isEmpty()) {
@@ -81,7 +83,7 @@ public class TeamsController {
         return teamDTOS;
     }
 
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value ="/manager/{manager_id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final TeamDTO getTeamByManagerId(@PathVariable("manager_id") long managerId) {
         TeamDTO teamDTO = teamFacade.getTeamByManager(managerId);
         if (teamDTO == null) {
@@ -90,7 +92,7 @@ public class TeamsController {
         return teamDTO;
     }
 
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value ="name/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final TeamDTO getTeamByName(@PathVariable("name") String name) {
         TeamDTO teamDTO = teamFacade.getTeamByName(name);
         if (teamDTO == null) {
