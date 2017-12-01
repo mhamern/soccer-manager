@@ -15,7 +15,7 @@ public interface ManagerDao {
     Manager fetchById(long managerId);
 
     /**
-     * Retrieves all manager from db
+     * Retrieves all managers from db
      * @return List of managers retrieved from db
      */
     List<Manager> fetchAll();

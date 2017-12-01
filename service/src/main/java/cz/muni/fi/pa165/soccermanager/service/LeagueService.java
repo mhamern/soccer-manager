@@ -30,8 +30,6 @@ public interface LeagueService {
 
     List<Team> calculateLeagues(League league);
 
-    public void addMatch(Match match, League league) throws SoccerManagerServiceException;
-
-    public void removeMatch(Match Match, League league) throws SoccerManagerServiceException;
+    void addMatch(Match match, League league) throws SoccerManagerServiceException;
 
 }

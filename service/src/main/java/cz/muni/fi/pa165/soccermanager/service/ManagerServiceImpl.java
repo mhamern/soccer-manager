@@ -24,8 +24,10 @@ import java.util.List;
 @Service
 public class ManagerServiceImpl implements ManagerService {
 
+    private final ManagerDao managerDao;
+
     @Inject
-    private ManagerDao managerDao;
+    public ManagerServiceImpl(ManagerDao managerDao) { this.managerDao = managerDao; }
 
     @Override
     public Manager fetchById(long managerId) {
@@ -64,7 +66,7 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     public boolean isAdmin(Manager manager) {
-        return fetchById(manager.getId()).isAdmin();
+        return managerDao.fetchAdmins().contains(manager);
     }
 
     @Override

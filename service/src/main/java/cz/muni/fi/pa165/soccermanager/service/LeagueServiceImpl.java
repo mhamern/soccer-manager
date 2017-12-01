@@ -82,23 +82,6 @@ public class LeagueServiceImpl implements LeagueService {
     }
 
     @Override
-    public void removeMatch(Match match, League league) throws SoccerManagerServiceException {
-        if (match != null && league != null) {
-            if (matchDao.fetchAll().contains(match)) {
-                List<Match> matches = league.getMatches();
-                matches.remove(match);
-                league.setMatches(matches);
-                leagueDao.update(league);
-            } else {
-                throw new SoccerManagerServiceException(
-                        "Match " + match.getAwayTeam() + " is already in league " + league.getName());
-            }
-        } else {
-            throw new IllegalArgumentException("Match or League is null");
-        }
-    }
-
-    @Override
     public List<League> fetchAll() {
         return leagueDao.fetchAll();
     }
