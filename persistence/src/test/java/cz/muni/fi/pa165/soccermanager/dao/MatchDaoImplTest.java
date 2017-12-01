@@ -250,6 +250,8 @@ public class MatchDaoImplTest {
                 matches.contains(notFinishedMatch) == false);
     }
 
+
+
     @Test
     public void fetchByStadium() {
         Match matchOnStadium = match1;
@@ -270,6 +272,28 @@ public class MatchDaoImplTest {
 
         assertTrue("List does contain nonfinished match",
                 matches.contains(matchOnDifferentStadium) == false);
+    }
+
+    @Test
+    public void fetchByLeague() {
+        Match matchLeague1 = match1;
+        Match matchLeague2 = match2;
+
+        League league = match1.getLeague();
+
+        manager.persist(matchLeague1);
+        manager.persist(matchLeague2);
+
+        List<Match> matches = matchDao.fetchByLeague(league);
+
+        assertTrue("Length of list retrieved from DAO does not equal 1",
+                matches != null && matches.size() == 1);
+
+        assertTrue("List does not contain finished match",
+                matches.contains(matchLeague1));
+
+        assertTrue("List does contain nonfinished match",
+                !matches.contains(matchLeague2));
     }
 
     @Test
