@@ -77,7 +77,7 @@ public class MatchFacadeImpl implements MatchFacade {
     public List<MatchDTO> getMatchesByLeague(Long leagueId) {
 
         League league = leagueService.fetchById(leagueId);
-        List<MatchDTO> mappedMatches = beanMappingService.mapTo(league.getMatches(), MatchDTO.class);
+        List<MatchDTO> mappedMatches = beanMappingService.mapTo(matchService.fetchByLeague(league), MatchDTO.class);
         return mappedMatches;
     }
 
@@ -99,23 +99,6 @@ public class MatchFacadeImpl implements MatchFacade {
     public void deleteMatch(Long id) {
 
         matchService.deleteMatch(id);
-    }
-
-    @Override
-    public void addHomeTeam(Long matchId, Long teamId) {
-        Match match = matchService.fetchById(matchId);
-        Team homeTeam = teamService.fetchById(teamId);
-        match.setHomeTeam(homeTeam);
-        matchService.updateMatch(match);
-    }
-
-    @Override
-    public void addAwayTeam(Long matchId, Long teamId) {
-        Match match = matchService.fetchById(matchId);
-        Team awayTeam = teamService.fetchById(teamId);
-        match.setAwayTeam(awayTeam);
-        matchService.updateMatch(match);
-
     }
 
     @Override

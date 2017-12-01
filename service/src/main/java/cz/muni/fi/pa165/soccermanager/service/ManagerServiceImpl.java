@@ -60,6 +60,11 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
+    public List<Manager> fetchAdmins() {
+        return managerDao.fetchAdmins();
+    }
+
+    @Override
     public List<Manager> fetchAll() {
         return managerDao.fetchAll();
     }
