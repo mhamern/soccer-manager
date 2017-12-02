@@ -70,7 +70,7 @@ public class TeamController {
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String newTeam(Model model) {
-        model.addAttribute("teamCreate", new CreateTeamDTO());
+        model.addAttribute("createTeam", new CreateTeamDTO());
         return "team/new";
     }
 
