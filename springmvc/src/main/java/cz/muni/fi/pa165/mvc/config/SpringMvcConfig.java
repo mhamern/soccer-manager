@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.mvc.config;
 
-import cz.muni.fi.pa165.soccermanager.service.config.ServiceConfiguration;
+import cz.muni.fi.pa165.sampledata.SoccerManagerSampleDataConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -22,8 +22,7 @@ import javax.validation.Validator;
 
 @EnableWebMvc
 @Configuration
-//@Import({SampleData.class});
-@Import({ServiceConfiguration.class})
+@Import({SoccerManagerSampleDataConfiguration.class})
 @ComponentScan(basePackages = "cz.muni.fi.pa165.mvc.controllers")
 public class SpringMvcConfig implements WebMvcConfigurer {
 

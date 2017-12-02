@@ -16,7 +16,7 @@ import java.io.IOException;
  * @version 12/1/2017.
  */
 
-@WebFilter(urlPatterns =  {"/team/*", "/player/*", "/match/*", "/league/*", "/manager/*"})
+//@WebFilter(urlPatterns =  {"/team/*", "/player/*", "/match/*", "/league/*", "/manager/*"}) resolve problem with auth
 public class ProtectFilter implements Filter {
 
     @Override

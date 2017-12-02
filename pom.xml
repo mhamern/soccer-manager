@@ -37,6 +37,7 @@
         <module>service</module>
         <module>rest</module>
         <module>springmvc</module>
+        <module>sampledata</module>
     </modules>
 
     <dependencyManagement>

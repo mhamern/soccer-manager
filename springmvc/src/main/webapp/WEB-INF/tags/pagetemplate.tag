@@ -36,19 +36,19 @@
                 <div id="navbar" class="collapse navbar-collapse">>
                     <ul class="nav navbar-nav">
                  <!--       <li><<my:a href="/shopping/show">Soccer manager</my:a></li> -->
-                        <li><my:a href="/teams/list/all">Teams</my:a></li>
-                        <li><my:a href="/players/list/all">Players</my:a></li>
-                        <li><my:a href="/leagues/list/all">Leagues</my:a></li>
-                        <li><my:a href="/matches/list/all">Matches</my:a></li>
-                        <li><my:a href="/managers/list/all">Managers</my:a></li>
+                        <li><my:a href="/team/list/">Teams</my:a></li>
+                        <li><my:a href="/player/list/">Players</my:a></li>
+                        <li><my:a href="/league/list/">Leagues</my:a></li>
+                        <li><my:a href="/matche/list/">Matches</my:a></li>
+                        <li><my:a href="/manager/list/">Managers</my:a></li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administration><b class="caret"></b></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administration<b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><my:a href="/teams/list/all">Teams</my:a></li>
-                                <li><my:a href="/players/list/all">Players</my:a></li>
-                                <li><my:a href="/leagues/list/all">Leagues</my:a></li>
-                                <li><my:a href="/matches/list/all">Matches</my:a></li>
-                                <li><my:a href="/managers/list/all">Managers</my:a></li>
+                                <li><my:a href="/team/list/">Teams</my:a></li>
+                                <li><my:a href="/player/list/">Players</my:a></li>
+                                <li><my:a href="/league/list/">Leagues</my:a></li>
+                                <li><my:a href="/match/list/">Matches</my:a></li>
+                                <li><my:a href="/manager/list/">Managers</my:a></li>
                             </ul>
                         </li>
                     </ul>
