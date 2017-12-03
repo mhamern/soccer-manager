@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.soccermanager.entity.*;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 import cz.muni.fi.pa165.soccermanager.enums.PositionEnum;
 import cz.muni.fi.pa165.soccermanager.enums.StadiumEnum;
+import cz.muni.fi.pa165.soccermanager.facade.MatchFacade;
 import cz.muni.fi.pa165.soccermanager.service.*;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -163,6 +164,23 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         city.setManager(guardiola);
         teams.add(city);
 
+        Match unitedcity = new Match.MatchBuilder(
+                united,
+                city,
+                LocalDate.of(2017, 10, 10),
+                premierLeague).build();
+        matches.add(unitedcity);
+
+        Match unitedcityPlayed = new Match.MatchBuilder(
+                united,
+                city,
+                LocalDate.of(2017, 3, 2),
+                premierLeague)
+                .build();
+        unitedcityPlayed.playMatch();
+        matches.add(unitedcityPlayed);
+
+
         loadToDb(leagues, managers, players, teams, matches);
     }
 
@@ -177,7 +195,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         }
 
         for (Manager manager: managers) {
-            managerService.create(manager, manager.getName());
+            managerService.create(manager, manager.getEmail());
         }
 
         for (League league: leagues) {

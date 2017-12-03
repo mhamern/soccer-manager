@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.soccermanager.service.facade;
 
+import cz.muni.fi.pa165.soccermanager.dto.AuthenticateManagerDTO;
 import cz.muni.fi.pa165.soccermanager.dto.CreateManagerDTO;
 import cz.muni.fi.pa165.soccermanager.dto.ManagerDTO;
 import cz.muni.fi.pa165.soccermanager.entity.Manager;
@@ -64,8 +65,8 @@ public class ManagerFacadeImpl implements ManagerFacade {
     @Override
     public ManagerDTO findManagerByEmail(String email) {
 
-        Manager manager = managerService.fetchByName(email);
-        return beanMappingService.mapTo(manager, ManagerDTO.class);
+        Manager manager = managerService.fetchByEmail(email);
+        return (manager == null) ? null : beanMappingService.mapTo(manager, ManagerDTO.class);
     }
 
     @Override
@@ -89,5 +90,15 @@ public class ManagerFacadeImpl implements ManagerFacade {
         Manager managerEntity = beanMappingService.mapTo(managerDTO, Manager.class);
         managerService.create(managerEntity, unencryptedPassword);
 
+    }
+
+    @Override
+    public boolean authenticate(AuthenticateManagerDTO manager) {
+        return managerService.authenticate(managerService.fetchByEmail(manager.getMail()), manager.getPassword());
+    }
+
+    @Override
+    public boolean isAdmin(ManagerDTO manager) {
+        return managerService.isAdmin(beanMappingService.mapTo(manager, Manager.class));
     }
 }

@@ -9,18 +9,13 @@
 
 <my:pagetemplate title="Teams">
     <jsp:attribute name="body">
-        <my:a href ="/team/new" class="btn btn-primary">
-        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-        New team
-        </my:a>
-
         <table class="table">
             <thead>
             <tr>
-                <th>name</th>
-                <th>country</th>
-                <th>league</th>
-                <th>manager</th>
+                <th>Name</th>
+                <th>Country</th>
+                <th>League</th>
+                <th>Manager</th>
             </tr>
             </thead>
             <tbody>
@@ -30,10 +25,8 @@
                     <td>${team.origin}</td>
                     <td>${team.league.name}</td>
                     <td>${team.manager.name}</td>
+                    <td><my:a href ="/team/view/${team.id}" class="btn btn-primary">View details</my:a></td>
                 </tr>
-                <td>
-                    <my:a href ="/team/view/${team.id} class=btn btn-primary">View</my:a>
-                </td>
             </c:forEach>
             </tbody>
         </table>

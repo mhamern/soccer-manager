@@ -70,11 +70,13 @@ public class TeamFacadeTest {
                 "Ligue 1",
                 NationalityEnum.France
         ).build();
+        league1.setId(1L);
 
         league2 = new League.LeagueBuilder(
                 "Premier League",
                 NationalityEnum.England
         ).build();
+        league2.setId(2L);
 
         team1 = new Team.TeamBuilder(
                 "Paris Saint Germain",
@@ -97,7 +99,7 @@ public class TeamFacadeTest {
         createTeamDTO.setName("Arsenal FC");
         createTeamDTO.setOrigin(NationalityEnum.England);
         createTeamDTO.setStadium(StadiumEnum.Emirates_Stadium);
-        createTeamDTO.setLeague(league2);
+        createTeamDTO.setLeagueId(league2.getId());
 
         teamDTO1 = new TeamDTO();
         teamDTO1.setName(team1.getName());
@@ -159,6 +161,7 @@ public class TeamFacadeTest {
 
         when(teamService.create(team)).thenReturn(team);
         when(teamService.fetchById(10L)).thenReturn(team);
+        when(leagueService.fetchById(2L)).thenReturn(league2);
         when(beanMappingService.mapTo(createTeamDTO, Team.class)).thenReturn(team);
 
         Long teamId = teamFacade.createTeam(createTeamDTO);

@@ -2,7 +2,6 @@ package cz.muni.fi.pa165.mvc.controllers;
 
 import cz.muni.fi.pa165.mvc.forms.CreatePlayerDTOValidator;
 import cz.muni.fi.pa165.soccermanager.dto.CreatePlayerDTO;
-import cz.muni.fi.pa165.soccermanager.dto.CreateTeamDTO;
 import cz.muni.fi.pa165.soccermanager.dto.PlayerDTO;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 import cz.muni.fi.pa165.soccermanager.enums.PositionEnum;

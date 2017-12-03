@@ -20,9 +20,9 @@ public class CreateTeamDTOValidator implements Validator {
     public void validate(Object target, Errors errors) {
         CreateTeamDTO createTeamDTO = (CreateTeamDTO) target;
 
-        if (createTeamDTO.getName() == null) errors.rejectValue("name", "Team name is null");
-        if (createTeamDTO.getOrigin() == null) errors.rejectValue("origin", "Team origin is null");
-        if (createTeamDTO.getLeague() == null) errors.rejectValue("league", "League is null");
-        if (createTeamDTO.getStadium() == null) errors.rejectValue("stadium", "stadium is null");
+        if (createTeamDTO.getName() == null || createTeamDTO.getName().isEmpty()) errors.rejectValue("name", "nameNull");
+        if (createTeamDTO.getOrigin() == null) errors.rejectValue("origin", "originNull");
+        if (createTeamDTO.getLeagueId() == null) errors.rejectValue("league", "leagueNull");
+        if (createTeamDTO.getStadium() == null) errors.rejectValue("stadium", "stadiumNull");
     }
 }

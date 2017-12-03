@@ -103,6 +103,11 @@ public class ManagerServiceImpl implements ManagerService {
 
     }
 
+    @Override
+    public boolean authenticate(Manager manager, String unecryptedPassword) {
+        return validatePassword(unecryptedPassword, manager.getPasswordHash());
+    }
+
     //see  https://crackstation.net/hashing-security.htm#javasourcecode
     private static String createHash(String password) {
         final int SALT_BYTE_SIZE = 24;

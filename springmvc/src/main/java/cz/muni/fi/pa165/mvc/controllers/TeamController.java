@@ -1,21 +1,19 @@
 package cz.muni.fi.pa165.mvc.controllers;
 
 import cz.muni.fi.pa165.mvc.forms.CreateTeamDTOValidator;
-import cz.muni.fi.pa165.soccermanager.dto.CreatePlayerDTO;
 import cz.muni.fi.pa165.soccermanager.dto.CreateTeamDTO;
 import cz.muni.fi.pa165.soccermanager.dto.LeagueDTO;
 import cz.muni.fi.pa165.soccermanager.dto.TeamDTO;
-import cz.muni.fi.pa165.soccermanager.entity.League;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 import cz.muni.fi.pa165.soccermanager.enums.StadiumEnum;
 import cz.muni.fi.pa165.soccermanager.facade.LeagueFacade;
+import cz.muni.fi.pa165.soccermanager.facade.MatchFacade;
 import cz.muni.fi.pa165.soccermanager.facade.PlayerFacade;
 import cz.muni.fi.pa165.soccermanager.facade.TeamFacade;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -38,10 +36,16 @@ public class TeamController {
 
     private final LeagueFacade leagueFacade;
 
+    private final PlayerFacade playerFacade;
+
+    private final MatchFacade matchFacade;
+
     @Inject
-    TeamController(TeamFacade teamFacade, LeagueFacade leagueFacade) {
+    TeamController(TeamFacade teamFacade, LeagueFacade leagueFacade, PlayerFacade playerFacade, MatchFacade matchFacade) {
         this.teamFacade = teamFacade;
         this.leagueFacade = leagueFacade;
+        this.playerFacade = playerFacade;
+        this.matchFacade = matchFacade;
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -65,6 +69,8 @@ public class TeamController {
     @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
     public String view(@PathVariable long id, Model model) {
         model.addAttribute("team", teamFacade.getTeamById(id));
+        model.addAttribute("players", playerFacade.getPlayersByTeam(id));
+        model.addAttribute("matches", matchFacade.getMatchesByTeam(id));
         return "team/view";
     }
 
@@ -97,7 +103,7 @@ public class TeamController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(@Valid @ModelAttribute("teamCreate") CreateTeamDTO form,
+    public String create(@Valid @ModelAttribute("createTeam") CreateTeamDTO form,
                          BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes,
                          UriComponentsBuilder uriBuilder) {
         if (bindingResult.hasErrors()) {
@@ -109,6 +115,6 @@ public class TeamController {
 
         Long id = teamFacade.createTeam(form);
         redirectAttributes.addFlashAttribute("alert_success", " Team " + form.getName() + " was created");
-        return "redirect:" + uriBuilder.path("team/view/{id}").buildAndExpand(id).encode().toUriString();
+        return "redirect:" + uriBuilder.path("/team/view/{id}").buildAndExpand(id).encode().toUriString();
     }
 }

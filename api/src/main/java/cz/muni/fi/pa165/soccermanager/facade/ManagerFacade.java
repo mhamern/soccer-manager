@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.soccermanager.facade;
 
+import cz.muni.fi.pa165.soccermanager.dto.AuthenticateManagerDTO;
 import cz.muni.fi.pa165.soccermanager.dto.CreateManagerDTO;
 import cz.muni.fi.pa165.soccermanager.dto.ManagerDTO;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
@@ -58,5 +59,9 @@ public interface ManagerFacade {
      * @param unencryptedPassword password
      */
     public void registerManager(CreateManagerDTO manager, String unencryptedPassword);
+
+    public boolean authenticate(AuthenticateManagerDTO manager);
+
+    public boolean isAdmin(ManagerDTO manager);
 
 }

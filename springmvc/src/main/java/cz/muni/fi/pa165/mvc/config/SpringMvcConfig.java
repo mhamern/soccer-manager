@@ -1,10 +1,12 @@
 package cz.muni.fi.pa165.mvc.config;
 
 import cz.muni.fi.pa165.sampledata.SoccerManagerSampleDataConfiguration;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
@@ -25,6 +27,9 @@ import javax.validation.Validator;
 @Import({SoccerManagerSampleDataConfiguration.class})
 @ComponentScan(basePackages = "cz.muni.fi.pa165.mvc.controllers")
 public class SpringMvcConfig implements WebMvcConfigurer {
+
+
+    public static final String TEXTS = "Texts";
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
@@ -47,5 +52,12 @@ public class SpringMvcConfig implements WebMvcConfigurer {
     @Bean
     public Validator validator() {
         return new LocalValidatorFactoryBean();
+    }
+
+    @Bean
+    public MessageSource messageSource() {
+        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+        messageSource.setBasename(TEXTS);
+        return messageSource;
     }
 }

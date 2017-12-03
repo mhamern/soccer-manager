@@ -16,48 +16,24 @@ import java.io.IOException;
  * @version 12/1/2017.
  */
 
-//@WebFilter(urlPatterns =  {"/team/*", "/player/*", "/match/*", "/league/*", "/manager/*"}) resolve problem with auth
+@WebFilter(urlPatterns =  {"/team/new", "/player/new", "/match/new", "/league/new", "/manager/new",
+                         "/team/delete", "/player/delete", "/match/delete", "/league/delete", "/manager/delete",
+                        "/team/create", "/player/create", "/match/create", "/league/create", "/manager/create"})
 public class ProtectFilter implements Filter {
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+            throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-        String auth = request.getHeader("Authorization");
-        if (auth == null) {
-            response401(response);
+        ManagerDTO manager = (ManagerDTO) request.getSession().getAttribute("authenticadedUser");
+
+        if (manager == null) {
+            response.sendRedirect("/login");
             return;
         }
 
-        String[] creds = parseAuthHeader(auth);
-        String logname = creds[0];
-        String password = creds[1];
-
-        ManagerFacade managerFacade = WebApplicationContextUtils
-                .getWebApplicationContext(request.getServletContext()).getBean(ManagerFacade.class);
-        ManagerDTO matchingManager = managerFacade.findManagerByEmail(logname);
-
-        if (matchingManager == null) {
-            response401(response);
-            return;
-        }
-
-//        ManagerAuthenticateDTO managerAuthenticateDTO = new ManagerAuthenticateDTO();
-//        managerAuthenticateDTO.setId(matchingManager.getId());
-//        managerAuthenticateDTO.setPassword(password);
-//
-//        if (!managerFacade.isAdmin(matchingManager)) {
-//            response401(response);
-//            return;
-//        }
-//
-//        if (!managerFacade.authenticate(managerAuthenticateDTO)) {
-//            response401(response);
-//            return;
-//        }
-
-        request.setAttribute("authenticatedUser", matchingManager);
         filterChain.doFilter(request, response);
     }
 
@@ -71,13 +47,4 @@ public class ProtectFilter implements Filter {
 
     }
 
-    private String[] parseAuthHeader(String auth) {
-        return new String(DatatypeConverter.parseBase64Binary(auth.split(" ")[1])).split(":", 2);
-    }
-
-    private void response401(HttpServletResponse response) throws IOException {
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        response.setHeader("WWW-Authenticate", "Basic realm=\"type email and password\"");
-        response.getWriter().println("<html><body><h1>401 Unauthorized</h1> Go away ...</body></html>");
-    }
 }

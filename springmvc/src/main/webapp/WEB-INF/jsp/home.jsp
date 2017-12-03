@@ -9,8 +9,16 @@
     <jsp:attribute name="body">
         <div class="jumbotron">
             <h1>Welcome to Soccer Manager!</h1>
-            <p><a class="btn btn-lg btn-success" href="${pageContext.request.contextPath}/matches/all"
-                  role="button">Start playing now!</a></p>
+            <c:if test="${not empty authenticatedUser}">
+                <h4>You are logged in as <c:out value="${authenticatedUser.name}"/>.</h4>
+                <p><a class="btn btn-lg btn-success" href="${pageContext.request.contextPath}/matches/all"
+                        role="button">Start playing now!</a></p>
+            </c:if>
+            <c:if test="${empty authenticatedUser}">
+                <h4>Login to play.</h4>
+                <p><a class="btn btn-lg btn-success" href="${pageContext.request.contextPath}/auth/login"
+                  role="button">Login</a></p>
+            </c:if>
         </div>
     </jsp:attribute>
 </my:pagetemplate>
