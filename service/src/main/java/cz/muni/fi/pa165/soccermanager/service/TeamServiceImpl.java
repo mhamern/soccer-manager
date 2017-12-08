@@ -184,7 +184,7 @@ public class TeamServiceImpl implements  TeamService {
     @Override
     public void leaveLeague(Team team) {
         if (team != null) {
-                team.setManager(null);
+                team.setLeague(null);
                 teamDao.update(team);
         } else {
             throw new IllegalArgumentException("Team is null");

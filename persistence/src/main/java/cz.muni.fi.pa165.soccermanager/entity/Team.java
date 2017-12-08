@@ -105,13 +105,13 @@ public class Team {
     private int goalsScored;
     private int goalsConceded;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Manager manager;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<Player> players;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private League league;
 
 

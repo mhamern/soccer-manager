@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" session="false" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
@@ -11,7 +11,7 @@
             <h1>Welcome to Soccer Manager!</h1>
             <c:if test="${not empty authenticatedUser}">
                 <h4>You are logged in as <c:out value="${authenticatedUser.name}"/>.</h4>
-                <p><a class="btn btn-lg btn-success" href="${pageContext.request.contextPath}/matches/all"
+                <p><a class="btn btn-lg btn-success" href="${pageContext.request.contextPath}/match/list"
                         role="button">Start playing now!</a></p>
             </c:if>
             <c:if test="${empty authenticatedUser}">

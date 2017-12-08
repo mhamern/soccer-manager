@@ -31,10 +31,10 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <c:if test="${not empty authenticatedUser && authenticatedUser.admin}">
+                    <c:if test="${not empty authenticatedUser && authenticatedUser.isAdmin()}">
                         <a class="navbar-brand" href="${pageContext.request.contextPath}">Soccer Manager Administration</a>
                     </c:if>
-                    <c:if test="${empty authenticatedUser || !authenticatedUser.admin}">
+                    <c:if test="${empty authenticatedUser || !authenticatedUser.isAdmin()}">
                         <a class="navbar-brand" href="${pageContext.request.contextPath}">Soccer Manager</a>
                     </c:if>
                 </div>
@@ -43,7 +43,7 @@
                             <li><my:a href="/team/list/">Teams</my:a></li>
                             <li><my:a href="/player/list/">Players</my:a></li>
                             <li><my:a href="/league/list/">Leagues</my:a></li>
-                            <li><my:a href="/matche/list/">Matches</my:a></li>
+                            <li><my:a href="/match/list/">Matches</my:a></li>
                             <li><my:a href="/manager/list/">Managers</my:a></li>
                         <c:if test="${empty authenticatedUser}">
                             <li><my:a href="/auth/login">Login</my:a></li>

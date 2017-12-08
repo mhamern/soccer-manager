@@ -3,6 +3,7 @@ package cz.muni.fi.pa165;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import cz.muni.fi.pa165.sampledata.SoccerManagerSampleDataConfiguration;
 import cz.muni.fi.pa165.soccermanager.service.config.ServiceConfiguration;
 import org.springframework.context.annotation.*;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -21,7 +22,7 @@ import java.util.Locale;
 
 @EnableWebMvc
 @Configuration
-@Import({ServiceConfiguration.class}) //sample data?
+@Import({ServiceConfiguration.class, SoccerManagerSampleDataConfiguration.class})
 @ComponentScan(basePackages = {"cz.muni.fi.pa165.rest.controllers"}) //assemblers?
 public class RootWebContext implements WebMvcConfigurer {
 

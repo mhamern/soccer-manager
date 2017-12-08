@@ -70,7 +70,7 @@ public class League {
     private NationalityEnum country;
 
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "league", orphanRemoval = true)
     private List<Match> matches;
 
 

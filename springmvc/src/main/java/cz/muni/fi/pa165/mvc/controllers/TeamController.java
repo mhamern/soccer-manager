@@ -18,8 +18,8 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -49,7 +49,7 @@ public class TeamController {
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(Model model) {
+    public String list(Model model, HttpServletRequest request) {
         model.addAttribute("teams", teamFacade.getAllTeams());
         return "team/list";
     }
@@ -78,6 +78,18 @@ public class TeamController {
     public String newTeam(Model model) {
         model.addAttribute("createTeam", new CreateTeamDTO());
         return "team/new";
+    }
+
+    @RequestMapping(value = "/{teamId}/manage/{managerId}", method = RequestMethod.GET)
+    public String manageTeam(@PathVariable long teamId, @PathVariable long managerId, Model model ) {
+        teamFacade.assignManager(managerId, teamId);
+        return "team/list";
+    }
+
+    @RequestMapping(value = "/{teamId}/removemanager/", method = RequestMethod.GET)
+    public String unasignManager(@PathVariable long teamId, @PathVariable long managerId, Model model ) {
+        teamFacade.removeManager(teamId);
+        return "team/list";
     }
 
     @ModelAttribute("countries")
