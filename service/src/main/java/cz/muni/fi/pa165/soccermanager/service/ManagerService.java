@@ -21,6 +21,7 @@ public interface ManagerService {
     List<Manager> fetchAdmins();
     List<Manager> fetchAll();
     boolean isAdmin(Manager manager);
+    boolean authenticate(Manager manager, String password);
     Manager create(Manager manager, String unecryptedPassword);
     void update(Manager manager);
     void remove(long managerId);

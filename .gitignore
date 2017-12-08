@@ -45,6 +45,7 @@ dao/target/*
 persistence/target/*
 api/target/*
 service/target/*
+rest/target/*
 
 # Keystore files
 *.jks
