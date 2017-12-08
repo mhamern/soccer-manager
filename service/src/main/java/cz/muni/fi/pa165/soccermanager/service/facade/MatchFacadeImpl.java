@@ -114,4 +114,19 @@ public class MatchFacadeImpl implements MatchFacade {
         matchService.updateMatch(match);
 
     }
+
+    @Override
+    public void removeMatch(Long matchId, Long leagueId) {
+        Match removedMatch = matchService.fetchById(matchId);
+        League league = leagueService.fetchById(leagueId);
+        leagueService.removeMatch(removedMatch, league);
+    }
+
+    @Override
+    public void addMatch(Long matchId, Long leagueId) {
+        Match addedMatch = matchService.fetchById(matchId);
+        League league = leagueService.fetchById(leagueId);
+        leagueService.addMatch(addedMatch, league);
+
+    }
 }
