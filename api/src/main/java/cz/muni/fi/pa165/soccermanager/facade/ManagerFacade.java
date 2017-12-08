@@ -63,5 +63,4 @@ public interface ManagerFacade {
     public boolean authenticate(AuthenticateManagerDTO manager);
 
     public boolean isAdmin(ManagerDTO manager);
-
 }
