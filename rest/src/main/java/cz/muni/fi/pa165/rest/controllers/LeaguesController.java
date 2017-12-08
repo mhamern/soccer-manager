@@ -34,7 +34,7 @@ public class LeaguesController {
         return leagueFacade.getAllLeagues();
     }
 
-    @RequestMapping(value ="/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final LeagueDTO getLeagueById(@PathVariable("id") long id) {
         LeagueDTO leagueDTO = leagueFacade.getLeagueById(id);
         if (leagueDTO == null) {
@@ -44,7 +44,7 @@ public class LeaguesController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces =  MediaType.APPLICATION_JSON_VALUE)
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public final LeagueDTO createLeague(@RequestBody CreateLeagueDTO league) throws ResourceAlreadyExistingException {
         try {
             Long id = leagueFacade.CreateLeague(league);
@@ -64,9 +64,9 @@ public class LeaguesController {
     }
 
 
-    @RequestMapping(value ="/country/{country}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/country/{country}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<LeagueDTO> getLeaguesByOrigin(@PathVariable("country") NationalityEnum country) {
-        List<LeagueDTO>  leagueDTOS = leagueFacade.getLeaguesByCountry(country);
+        List<LeagueDTO> leagueDTOS = leagueFacade.getLeaguesByCountry(country);
         if (leagueDTOS.isEmpty()) {
             throw new ResourceNotFoundException();
         }
@@ -74,7 +74,7 @@ public class LeaguesController {
     }
 
 
-    @RequestMapping(value ="name/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "name/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final LeagueDTO getLeagueByName(@PathVariable("name") String name) {
         LeagueDTO leagueDTO = leagueFacade.getLeagueByName(name);
         if (leagueDTO == null) {
@@ -100,10 +100,11 @@ public class LeaguesController {
     public final LeagueDTO removeMatch(@PathVariable("id") long id, @RequestBody MatchDTO match)
             throws InvalidParameterException {
         try {
-            leagueFacade.removeMatch(id, match.getId());
+           // leagueFacade.removeMatch(id, match.getId());
             return leagueFacade.getLeagueById(id);
         } catch (Exception ex) { //specify?
             throw new InvalidParameterException();
         }
     }
+}
 
