@@ -45,6 +45,9 @@ dao/target/*
 persistence/target/*
 api/target/*
 service/target/*
+rest/target/*
+sampledata/target/*
+springmvc/target/*
 
 # Keystore files
 *.jks
