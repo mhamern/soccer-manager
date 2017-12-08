@@ -75,11 +75,6 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public boolean authenticate(Manager manager, String password) {
-        return   validatePassword(password, manager.getPasswordHash());
-    }
-
-    @Override
     public Manager create(Manager manager, String unencryptedPassword) throws SoccerManagerServiceException {
 
         if (managerDao.fetchAll().contains(manager)) {

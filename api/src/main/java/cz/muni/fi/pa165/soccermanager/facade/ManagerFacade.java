@@ -60,7 +60,15 @@ public interface ManagerFacade {
      */
     public void registerManager(CreateManagerDTO manager, String unencryptedPassword);
 
+    /**
+     * authenticate manager
+     * @param manager information about manager
+     */
     public boolean authenticate(AuthenticateManagerDTO manager);
 
+    /**
+     * @param manager DTO object of manager
+     * @return true if manager is admin
+     */
     public boolean isAdmin(ManagerDTO manager);
 }
