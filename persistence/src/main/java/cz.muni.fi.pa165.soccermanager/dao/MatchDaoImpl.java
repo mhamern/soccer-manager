@@ -44,15 +44,15 @@ public class MatchDaoImpl implements MatchDao {
 
     @Override
     public List<Match> fetchFinishedMatches() {
-        TypedQuery<Match> query = manager.createQuery("SELECT m FROM Match m WHERE m.finished = 'true'", Match.class);
+        TypedQuery<Match> query = manager.createQuery("SELECT m FROM Match m WHERE m.finished = TRUE", Match.class);
         return query.getResultList();
     }
 
     @Override
     public List<Match> fetchByTeam(Team team) {
        TypedQuery<Match> query = manager
-                .createQuery("SELECT m FROM Match m WHERE m.homeTeam.name = :teamName OR m.awayTeam.name = :teamName", Match.class);
-       query.setParameter("teamName", team.getName());
+                .createQuery("SELECT m FROM Match m WHERE m.homeTeam.id = :teamId OR m.awayTeam.id = :teamId", Match.class);
+       query.setParameter("teamId", team.getId());
        return query.getResultList();
     }
 

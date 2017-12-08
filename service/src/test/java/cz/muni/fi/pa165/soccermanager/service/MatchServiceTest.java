@@ -221,7 +221,7 @@ public class MatchServiceTest {
         matchService.createMatch(null);
     }
 
-    @Test (expected = SoccerManagerServiceException.class)
+/*    @Test (expected = SoccerManagerServiceException.class)
     public void testCreateMatchPastDate() {
 
         matchUncorrect = new Match.MatchBuilder(
@@ -233,7 +233,7 @@ public class MatchServiceTest {
 
         matchService.createMatch(matchUncorrect);
 
-    }
+    }*/
 
     @Test
     public void updateMatch() {

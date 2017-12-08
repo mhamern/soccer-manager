@@ -13,14 +13,14 @@ public class CreateTeamDTO {
     private NationalityEnum origin;
     private String name;
     private StadiumEnum stadium;
-    private League league;
+    private Long leagueId;
 
-    public League getLeague() {
-        return league;
+    public Long getLeagueId() {
+        return leagueId;
     }
 
-    public void setLeague(League league) {
-        this.league = league;
+    public void setLeagueId(Long leagueId) {
+        this.leagueId = leagueId;
     }
 
     public NationalityEnum getOrigin() {

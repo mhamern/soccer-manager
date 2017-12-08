@@ -54,6 +54,7 @@ public class TeamFacadeImpl implements TeamFacade {
         mappedTeam.setName(team.getName());
         mappedTeam.setOrigin(team.getOrigin());
         mappedTeam.setStadium(team.getStadium());
+        mappedTeam.setLeague(leagueService.fetchById(team.getLeagueId()));
         mappedTeam.setPoints(0);
         mappedTeam.setGoalsConceded(0);
         mappedTeam.setGoalsScored(0);

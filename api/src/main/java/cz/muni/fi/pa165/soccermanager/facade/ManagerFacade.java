@@ -60,10 +60,7 @@ public interface ManagerFacade {
      */
     public void registerManager(CreateManagerDTO manager, String unencryptedPassword);
 
-    /**
-     * try to authenticate manager
-     * @param manager information about manager
-     */
     public boolean authenticate(AuthenticateManagerDTO manager);
 
+    public boolean isAdmin(ManagerDTO manager);
 }

@@ -1,15 +1,20 @@
 package cz.muni.fi.pa165.soccermanager.dto;
 
+/**
+ * @author 445720 Martin Hamernik
+ * @version 12/3/2017.
+ */
 public class AuthenticateManagerDTO {
-    private Long id;
+
+    private String mail;
     private String password;
 
-    public Long getId() {
-        return id;
+    public String getMail() {
+        return mail;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     public String getPassword() {
