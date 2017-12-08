@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.soccermanager.service;
 
+import cz.muni.fi.pa165.soccermanager.dto.ManagerDTO;
 import cz.muni.fi.pa165.soccermanager.entity.Manager;
 import cz.muni.fi.pa165.soccermanager.entity.Team;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
@@ -21,7 +22,7 @@ public interface ManagerService {
     List<Manager> fetchAdmins();
     List<Manager> fetchAll();
     boolean isAdmin(Manager manager);
-    boolean authenticate(Manager manager, String password);
+    boolean authenticate(Manager manager, String unecryptedPassword);
     Manager create(Manager manager, String unecryptedPassword);
     void update(Manager manager);
     void remove(long managerId);

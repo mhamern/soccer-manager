@@ -31,26 +31,26 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="${pageContext.request.contextPath}">Soccer Manager</a>
+                    <c:if test="${not empty authenticatedUser && authenticatedUser.admin}">
+                        <a class="navbar-brand" href="${pageContext.request.contextPath}">Soccer Manager Administration</a>
+                    </c:if>
+                    <c:if test="${empty authenticatedUser || !authenticatedUser.admin}">
+                        <a class="navbar-brand" href="${pageContext.request.contextPath}">Soccer Manager</a>
+                    </c:if>
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">>
                     <ul class="nav navbar-nav">
-                 <!--       <li><<my:a href="/shopping/show">Soccer manager</my:a></li> -->
-                        <li><my:a href="/teams/list/all">Teams</my:a></li>
-                        <li><my:a href="/players/list/all">Players</my:a></li>
-                        <li><my:a href="/leagues/list/all">Leagues</my:a></li>
-                        <li><my:a href="/matches/list/all">Matches</my:a></li>
-                        <li><my:a href="/managers/list/all">Managers</my:a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administration><b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><my:a href="/teams/list/all">Teams</my:a></li>
-                                <li><my:a href="/players/list/all">Players</my:a></li>
-                                <li><my:a href="/leagues/list/all">Leagues</my:a></li>
-                                <li><my:a href="/matches/list/all">Matches</my:a></li>
-                                <li><my:a href="/managers/list/all">Managers</my:a></li>
-                            </ul>
-                        </li>
+                            <li><my:a href="/team/list/">Teams</my:a></li>
+                            <li><my:a href="/player/list/">Players</my:a></li>
+                            <li><my:a href="/league/list/">Leagues</my:a></li>
+                            <li><my:a href="/matche/list/">Matches</my:a></li>
+                            <li><my:a href="/manager/list/">Managers</my:a></li>
+                        <c:if test="${empty authenticatedUser}">
+                            <li><my:a href="/auth/login">Login</my:a></li>
+                        </c:if>
+                        <c:if test="${not empty authenticatedUser}">
+                        <li><my:a href="/auth/logout">Logout</my:a></li>
+                        </c:if>
                     </ul>
                 </div>
             </div>
@@ -67,7 +67,7 @@
                     <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
                         <div class="panel panel-default">
                             <div class="panel-body">
-                                <c:out value="${authenticatedUser.givenName} ${authenticatedUser.surname}"/>
+                                <c:out value="${authenticatedUser.name}"/>
                             </div>
                         </div>
                     </div>

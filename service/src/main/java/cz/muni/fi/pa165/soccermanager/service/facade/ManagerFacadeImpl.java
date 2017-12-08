@@ -65,8 +65,8 @@ public class ManagerFacadeImpl implements ManagerFacade {
     @Override
     public ManagerDTO findManagerByEmail(String email) {
 
-        Manager manager = managerService.fetchByName(email);
-        return beanMappingService.mapTo(manager, ManagerDTO.class);
+        Manager manager = managerService.fetchByEmail(email);
+        return (manager == null) ? null : beanMappingService.mapTo(manager, ManagerDTO.class);
     }
 
     @Override
@@ -86,15 +86,18 @@ public class ManagerFacadeImpl implements ManagerFacade {
     }
 
     @Override
-    public boolean authenticate(AuthenticateManagerDTO m) {
-        Manager manager = managerService.fetchById(m.getId());
-        return managerService.authenticate(manager, m.getPassword());
-    }
-
-    @Override
     public void registerManager(CreateManagerDTO managerDTO, String unencryptedPassword) {
         Manager managerEntity = beanMappingService.mapTo(managerDTO, Manager.class);
         managerService.create(managerEntity, unencryptedPassword);
+    }
 
+    @Override
+    public boolean authenticate(AuthenticateManagerDTO manager) {
+        return managerService.authenticate(managerService.fetchByEmail(manager.getMail()), manager.getPassword());
+    }
+
+    @Override
+    public boolean isAdmin(ManagerDTO manager) {
+        return managerService.isAdmin(beanMappingService.mapTo(manager, Manager.class));
     }
 }

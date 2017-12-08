@@ -162,12 +162,12 @@ public class Match {
         if (this == o) return true;
         if (!(o instanceof Match)) return false;
 
-        Match match= (Match) o;
+        Match match = (Match) o;
 
-        if (getHomeTeam() != match.getHomeTeam()) return false;
-        if (getAwayTeam() != match.getAwayTeam()) return false;
-        if (getLeague() != match.getLeague()) return false;
-        return (getDate() != match.getDate());
+        if (!date.equals(match.date)) return false;
+        if (!homeTeam.equals(match.homeTeam)) return false;
+        if (!awayTeam.equals(match.awayTeam)) return false;
+        return league.equals(match.league);
     }
 
     @Override
