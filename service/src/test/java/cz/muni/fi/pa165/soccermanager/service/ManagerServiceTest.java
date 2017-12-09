@@ -222,6 +222,5 @@ public class ManagerServiceTest {
         assertTrue(!adminManager3, "Manager should not be an admin.");
     }
 
-
 }
 
