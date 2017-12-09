@@ -1,11 +1,8 @@
 package cz.muni.fi.pa165.sampledata;
-
-import cz.muni.fi.pa165.sampledata.SampleDataLoadingFacade;
 import cz.muni.fi.pa165.soccermanager.entity.*;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 import cz.muni.fi.pa165.soccermanager.enums.PositionEnum;
 import cz.muni.fi.pa165.soccermanager.enums.StadiumEnum;
-import cz.muni.fi.pa165.soccermanager.facade.MatchFacade;
 import cz.muni.fi.pa165.soccermanager.service.*;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
