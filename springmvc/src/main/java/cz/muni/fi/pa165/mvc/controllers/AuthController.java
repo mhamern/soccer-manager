@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.mvc.controllers;
 
+import cz.muni.fi.pa165.mvc.forms.AuthValidator;
 import cz.muni.fi.pa165.soccermanager.dto.AuthenticateManagerDTO;
 import cz.muni.fi.pa165.soccermanager.dto.ManagerDTO;
 import cz.muni.fi.pa165.soccermanager.facade.ManagerFacade;
@@ -7,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,6 +33,13 @@ public class AuthController {
     @Inject
     AuthController(ManagerFacade managerFacade) {
         this.managerFacade = managerFacade;
+    }
+
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        if (binder.getTarget() instanceof AuthenticateManagerDTO) {
+            binder.addValidators(new AuthValidator());
+        }
     }
 
     @RequestMapping(value = "/auth/login", method = RequestMethod.GET)

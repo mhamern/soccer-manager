@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <my:pagetemplate title="New team">
 <jsp:attribute name="body">
@@ -11,14 +12,14 @@
     <form:form method="post" action="${pageContext.request.contextPath}/team/create"
                modelAttribute="createTeam" cssClass="form-horizontal">
         <div class="form-group ${name_error?'has-error':''}">
-            <form:label path="name" cssClass="col-sm-2 control-label">Name</form:label>
+            <form:label path="name" cssClass="col-sm-2 control-label"><f:message key="name"/></form:label>
             <div class="col-sm-10">
                 <form:input path="name" cssClass="form-control"/>
                 <form:errors path="name" cssClass="help-block"/>
             </div>
         </div>
         <div class="form-group">
-            <form:label path="origin" cssClass="col-sm-2 control-label">Origin</form:label>
+            <form:label path="origin" cssClass="col-sm-2 control-label"><f:message key="origin"/></form:label>
             <div class="col-sm-10">
                 <form:select path="origin" cssClass="form-control">
                     <c:forEach items="${countries}" var="c">
@@ -29,7 +30,7 @@
             </div>
         </div>
         <div class="form-group">
-            <form:label path="stadium" cssClass="col-sm-2 control-label">Stadium</form:label>
+            <form:label path="stadium" cssClass="col-sm-2 control-label"><f:message key="stadium"/></form:label>
             <div class="col-sm-10">
                 <form:select path="stadium" cssClass="form-control">
                     <c:forEach items="${stadiums}" var="s">
@@ -40,7 +41,7 @@
             </div>
         </div>
         <div class="form-group">
-            <form:label path="leagueId" cssClass="col-sm-2 control-label">League</form:label>
+            <form:label path="leagueId" cssClass="col-sm-2 control-label"><f:message key="league"/></form:label>
             <div class="col-sm-10">
                 <form:select path="leagueId" cssClass="form-control">
                     <c:forEach items="${leagues}" var="l">
@@ -50,7 +51,7 @@
                 <form:errors path="leagueId" cssClass="error"/>
             </div>
         </div>
-        <button class="btn btn-primary" type="submit">Create team</button>
+        <button class="btn btn-primary" type="submit"><f:message key="createTeam"/></button>
     </form:form>
 
 </jsp:attribute>

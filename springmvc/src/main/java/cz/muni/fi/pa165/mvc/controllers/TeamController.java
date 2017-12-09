@@ -87,7 +87,7 @@ public class TeamController {
     }
 
     @RequestMapping(value = "/{teamId}/removemanager/", method = RequestMethod.GET)
-    public String unasignManager(@PathVariable long teamId, @PathVariable long managerId, Model model ) {
+    public String unassignManager(@PathVariable long teamId, @PathVariable long managerId, Model model ) {
         teamFacade.removeManager(teamId);
         return "team/list";
     }

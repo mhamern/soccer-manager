@@ -4,20 +4,21 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>
+<%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <my:pagetemplate>
     <jsp:attribute name="body">
         <div class="jumbotron">
-            <h1>Welcome to Soccer Manager!</h1>
+            <h1><f:message key="home.welcome"/></h1>
             <c:if test="${not empty authenticatedUser}">
-                <h4>You are logged in as <c:out value="${authenticatedUser.name}"/>.</h4>
+                <h4><f:message key="home.loggedinname"/>  <c:out value="${authenticatedUser.name}"/>.</h4>
                 <p><a class="btn btn-lg btn-success" href="${pageContext.request.contextPath}/match/list"
-                        role="button">Start playing now!</a></p>
+                        role="button"><f:message key="home.loggedintext"/></a></p>
             </c:if>
             <c:if test="${empty authenticatedUser}">
-                <h4>Login to play.</h4>
+                <h4><f:message key="home.notloggedintext"/></h4>
                 <p><a class="btn btn-lg btn-success" href="${pageContext.request.contextPath}/auth/login"
-                  role="button">Login</a></p>
+                  role="button"><f:message key="navigation.login"/></a></p>
             </c:if>
         </div>
     </jsp:attribute>
