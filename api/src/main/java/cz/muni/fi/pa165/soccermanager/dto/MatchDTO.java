@@ -17,6 +17,12 @@ public class MatchDTO {
 
     private TeamDTO awayTeam;
 
+    private int homeTeamGoals;
+
+    private int awayTeamGoals;
+
+    private boolean finished;
+
     public Long getId() {
         return id;
     }
@@ -37,6 +43,17 @@ public class MatchDTO {
 
     public void setDate(LocalDate date) { this.date = date; }
 
+    public int getHomeTeamGoals() { return homeTeamGoals; }
+
+    public void setHomeTeamGoals(int homeTeamGoals) { this.homeTeamGoals = homeTeamGoals; }
+
+    public int getAwayTeamGoals() { return awayTeamGoals; }
+
+    public void setAwayTeamGoals(int awaytTeamGoals) { this.awayTeamGoals = awaytTeamGoals; }
+
+    public boolean isFinished() { return finished; }
+
+    public void setFinished(boolean finished) { this.finished = finished; }
 
     @Override
     public boolean equals(Object o) {
@@ -45,6 +62,9 @@ public class MatchDTO {
 
         MatchDTO matchDTO = (MatchDTO) o;
 
+        if (homeTeamGoals != matchDTO.homeTeamGoals) return false;
+        if (awayTeamGoals != matchDTO.awayTeamGoals) return false;
+        if (finished != matchDTO.finished) return false;
         if (date != null ? !date.equals(matchDTO.date) : matchDTO.date != null) return false;
         if (homeTeam != null ? !homeTeam.equals(matchDTO.homeTeam) : matchDTO.homeTeam != null) return false;
         return awayTeam != null ? awayTeam.equals(matchDTO.awayTeam) : matchDTO.awayTeam == null;
@@ -55,6 +75,25 @@ public class MatchDTO {
         int result = date != null ? date.hashCode() : 0;
         result = 31 * result + (homeTeam != null ? homeTeam.hashCode() : 0);
         result = 31 * result + (awayTeam != null ? awayTeam.hashCode() : 0);
+        result = 31 * result + homeTeamGoals;
+        result = 31 * result + awayTeamGoals;
+        result = 31 * result + (finished ? 1 : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "MatchDTO{" +
+                "date=" + date +
+                ", homeTeam=" + homeTeam +
+                ", awayTeam=" + awayTeam +
+                ", homeTeamGoals=" + homeTeamGoals +
+                ", awayTeamGoals=" + awayTeamGoals +
+                ", finished=" + finished +
+                '}';
+    }
+
+    public String getBasicDescription() {
+        return homeTeam.getName() + " vs. " + awayTeam.getName() + "; " + date.toString();
     }
 }

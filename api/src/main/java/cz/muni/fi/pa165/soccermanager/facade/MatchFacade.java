@@ -18,6 +18,12 @@ public interface MatchFacade {
     public Long createMatch(CreateMatchDTO match);
 
     /**
+     * gets all matches
+     * @return list of all matches
+     */
+    public List<MatchDTO> getAllMatches();
+
+    /**
      * gets all matches played by specific team
      * @param teamId id of team
      * @return list of all matches played by the specified team
