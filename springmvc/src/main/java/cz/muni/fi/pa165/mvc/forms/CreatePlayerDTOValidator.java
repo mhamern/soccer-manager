@@ -19,17 +19,41 @@ public class CreatePlayerDTOValidator implements Validator {
     public void validate(Object target, Errors errors) {
         CreatePlayerDTO createPlayerDTO = (CreatePlayerDTO) target;
 
-        if (createPlayerDTO.getName() == null) errors.rejectValue("name", "Players name is null");
-        if (createPlayerDTO.getBirthDate() == null) errors.rejectValue("birthdate", "Players birthdate is null");
-        if (createPlayerDTO.getNationality() == null) errors.rejectValue("nationality", "Players nationality is null");
-        if (createPlayerDTO.getPosition() == null) errors.rejectValue("position", "Players position is null");
-        if (createPlayerDTO.getNumber() == 0) errors.rejectValue("number", "Players number is 0");
-        if (createPlayerDTO.getSpeed() == 0) errors.rejectValue("speed", "Players speed is 0");
-        if (createPlayerDTO.getShooting() == 0) errors.rejectValue("shooting", "Players shooting is 0");
-        if (createPlayerDTO.getStrength() == 0) errors.rejectValue("strength", "Players strength is 0");
-        if (createPlayerDTO.getDefence() == 0) errors.rejectValue("defence", "Players defence is 0");
-        if (createPlayerDTO.getPassing() == 0) errors.rejectValue("passing", "Players passing is 0");
-        if (createPlayerDTO.getGoalkeeping() == 0) errors.rejectValue("goalkeeping", "Players goalkeeping is 0");
+        if (createPlayerDTO.getName() == null || createPlayerDTO.getName().isEmpty())
+            errors.rejectValue("name", "nameNull");
+
+        if (createPlayerDTO.getName() != null && !createPlayerDTO.getName().matches("[a-zA-Z_]+"))
+            errors.rejectValue("name", "nameFormat");
+
+        if (createPlayerDTO.getBirthDate() == null)
+            errors.rejectValue("birthdate", "birthdateNull");
+
+        if (createPlayerDTO.getNationality() == null)
+            errors.rejectValue("nationality", "nationalityNull");
+
+        if (createPlayerDTO.getPosition() == null)
+            errors.rejectValue("position", "positionNull");
+
+        if (createPlayerDTO.getNumber() >= 0 || createPlayerDTO.getNumber() <= 100)
+            errors.rejectValue("number", "numberFormat");
+
+        if (createPlayerDTO.getSpeed() > 0 || createPlayerDTO.getSpeed() < 100)
+            errors.rejectValue("speed", "speedFormat");
+
+        if (createPlayerDTO.getShooting() > 0 || createPlayerDTO.getShooting() < 100)
+            errors.rejectValue("shooting", "shootingFormat");
+
+        if (createPlayerDTO.getStrength() > 0 || createPlayerDTO.getStrength() < 100)
+            errors.rejectValue("strength", "strengthFormat");
+
+        if (createPlayerDTO.getDefence() > 0 || createPlayerDTO.getDefence() < 100)
+            errors.rejectValue("defence", "defenceFormat");
+
+        if (createPlayerDTO.getPassing() > 0 || createPlayerDTO.getPassing() < 100)
+            errors.rejectValue("passing", "passingFormat");
+
+        if (createPlayerDTO.getGoalkeeping() > 0 || createPlayerDTO.getGoalkeeping() < 100)
+            errors.rejectValue("goalkeeping", "goalkeepingFormat");
     }
 
 }
