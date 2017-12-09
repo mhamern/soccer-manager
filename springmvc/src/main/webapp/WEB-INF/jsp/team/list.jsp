@@ -13,7 +13,7 @@
         <c:if test="${not empty authenticatedUser && authenticatedUser.isAdmin()}">
             <td><my:a href="/team/new" class="btn btn-success"><f:message key="create"/></my:a></td>
         </c:if>
-        <table class="table">
+        <table class="table table-striped">
             <thead>
             <tr>
                 <th><f:message key="name"/></th>

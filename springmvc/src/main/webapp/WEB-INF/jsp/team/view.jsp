@@ -26,7 +26,7 @@
             </tbody>
         </table>
         <h2><f:message key="navigation.players"/></h2>
-        <table class="table">
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <td><b><f:message key="name"/></b></td>
@@ -66,7 +66,7 @@
             </thead>
             <tbody>
             <c:forEach items="${matches}" var="match">
-                <tr>
+                <tr> <!-- add contextual based on result of match-->
                     <td>${match.homeTeam.name}</td>
                     <td>${match.awayTeam.name}</td>
                     <td>${match.date}</td>

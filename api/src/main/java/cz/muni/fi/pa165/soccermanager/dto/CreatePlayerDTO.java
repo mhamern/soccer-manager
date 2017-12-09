@@ -22,6 +22,15 @@ public class CreatePlayerDTO {
     private int defence;
     private int strength;
     private int goalkeeping;
+    private Long teamId;
+
+    public Long getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(Long teamId) {
+        this.teamId = teamId;
+    }
 
     public String getName() {
         return name;
