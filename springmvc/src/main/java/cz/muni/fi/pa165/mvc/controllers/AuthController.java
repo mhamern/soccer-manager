@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.mvc.forms.AuthValidator;
 import cz.muni.fi.pa165.soccermanager.dto.AuthenticateManagerDTO;
 import cz.muni.fi.pa165.soccermanager.dto.ManagerDTO;
 import cz.muni.fi.pa165.soccermanager.facade.ManagerFacade;
+import cz.muni.fi.pa165.soccermanager.facade.TeamFacade;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,10 +30,12 @@ import javax.validation.Valid;
 public class AuthController {
 
     private final ManagerFacade managerFacade;
+    private final TeamFacade teamFacade;
 
     @Inject
-    AuthController(ManagerFacade managerFacade) {
+    AuthController(ManagerFacade managerFacade, TeamFacade teamFacade) {
         this.managerFacade = managerFacade;
+        this.teamFacade = teamFacade;
     }
 
     @InitBinder
@@ -75,6 +78,13 @@ public class AuthController {
         }
 
         request.getSession().setAttribute("authenticatedUser", found);
+        if (! found.isAdmin()) {
+            request.getSession().setAttribute("usersTeam", teamFacade.getTeamByManager(found.getId()));
+        }
+
+        if (! found.isAdmin()) {
+            request.getSession().setAttribute("usersTeam", teamFacade.getTeamByManager(found.getId()));
+        }
 
         redirectAttributes.addFlashAttribute("alert_success", "Logged in successfully");
         return "redirect:" + uriBuilder.path("/").toUriString();
@@ -83,6 +93,7 @@ public class AuthController {
     @RequestMapping(value = "/auth/logout", method = RequestMethod.GET)
     public String logout(Model model, HttpServletRequest request) {
         request.getSession().removeAttribute("authenticatedUser");
+        request.getSession().removeAttribute("usersTeam");
         return "redirect:/";
     }
 

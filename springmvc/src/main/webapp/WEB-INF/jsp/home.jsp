@@ -11,7 +11,7 @@
         <div class="jumbotron">
             <h1><f:message key="home.welcome"/></h1>
             <c:if test="${not empty authenticatedUser}">
-                <h4><f:message key="home.loggedinname"/>  <c:out value="${authenticatedUser.name}"/>.</h4>
+                <h4><f:message key="home.loggedinname"/><c:out value=" ${authenticatedUser.name}"/>.</h4>
                 <p><a class="btn btn-lg btn-success" href="${pageContext.request.contextPath}/match/list"
                         role="button"><f:message key="home.loggedintext"/></a></p>
             </c:if>

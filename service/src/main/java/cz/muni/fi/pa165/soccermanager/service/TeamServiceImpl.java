@@ -102,6 +102,11 @@ public class TeamServiceImpl implements  TeamService {
     }
 
     @Override
+    public Team fetchByPlayer(Player player) {
+        return teamDao.fetchByPlayer(player);
+    }
+
+    @Override
     public void addPlayer(Player player, Team team) throws SoccerManagerServiceException {
         if (player != null && team != null) {
             if (!playerDao.fetchByTeam(team).contains(player)

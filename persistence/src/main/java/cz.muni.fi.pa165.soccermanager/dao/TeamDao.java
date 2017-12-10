@@ -59,6 +59,13 @@ public interface TeamDao {
     List<Team> fetchByLeague(League league);
 
     /**
+     * Retrieves team by player playing for this team
+     * @param player player plaiying for team
+     * @return Team if player plays for team, null otherwise
+     */
+    Team fetchByPlayer(Player player);
+
+    /**
      * Retrieves teams currently without manager
      * @return List of teams retrieved from db without manager, empty list if no such team is in db
      */

@@ -51,16 +51,16 @@ public class TeamsController {
         try {
             Long id = teamFacade.createTeam(team);
             return teamFacade.getTeamById(id);
-        } catch (Exception ex) { //specify?
+        } catch (Exception ex) {
             throw new ResourceAlreadyExistingException();
         }
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "{id}/delete/", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     public final void deleteTeam(@PathVariable("id") long id) throws ResourceNotFoundException {
         try {
             teamFacade.deleteTeam(id);
-        } catch (Exception ex) { //specify?
+        } catch (Exception ex) {
             throw new ResourceNotFoundException();
         }
     }
@@ -108,7 +108,7 @@ public class TeamsController {
         try {
             teamFacade.addPlayer(id, player.getId());
             return teamFacade.getTeamById(id);
-        } catch (Exception ex) { //specify?
+        } catch (Exception ex) {
             throw new InvalidParameterException();
         }
     }
@@ -120,7 +120,7 @@ public class TeamsController {
         try {
             teamFacade.removePlayer(id, player.getId());
             return teamFacade.getTeamById(id);
-        } catch (Exception ex) { //specify?
+        } catch (Exception ex) {
             throw new InvalidParameterException();
         }
     }
@@ -132,7 +132,7 @@ public class TeamsController {
         try {
             teamFacade.assignManager(id, manager.getId());
             return teamFacade.getTeamById(id);
-        } catch (Exception ex) { //specify?
+        } catch (Exception ex) {
             throw new InvalidParameterException();
         }
     }
@@ -144,31 +144,31 @@ public class TeamsController {
         try {
             teamFacade.removeManager(id);
             return teamFacade.getTeamById(id);
-        } catch (Exception ex) { //specify?
+        } catch (Exception ex) {
             throw new InvalidParameterException();
         }
     }
 
     @RequestMapping(value = "/{id}/join_league", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final TeamDTO addPlayer(@PathVariable("id") long id, @RequestBody LeagueDTO league)
+    public final TeamDTO joinLeague(@PathVariable("id") long id, @RequestBody LeagueDTO league)
             throws InvalidParameterException {
         try {
             teamFacade.joinLeague(id, league.getId());
             return teamFacade.getTeamById(id);
-        } catch (Exception ex) { //specify?
+        } catch (Exception ex) {
             throw new InvalidParameterException();
         }
     }
 
     @RequestMapping(value = "/{id}/leave_league", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final TeamDTO removePlayer(@PathVariable("id") long id)
+    public final TeamDTO leaveLeague(@PathVariable("id") long id)
             throws InvalidParameterException {
         try {
             teamFacade.leaveLeague(id);
             return teamFacade.getTeamById(id);
-        } catch (Exception ex) { //specify?
+        } catch (Exception ex) {
             throw new InvalidParameterException();
         }
     }
