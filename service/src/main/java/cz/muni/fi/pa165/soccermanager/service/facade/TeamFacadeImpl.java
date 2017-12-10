@@ -115,6 +115,12 @@ public class TeamFacadeImpl implements TeamFacade {
     }
 
     @Override
+    public TeamDTO getTeamByPlayer(Long id) {
+        Player player = playerService.fetchById(id);
+        return beanMappingService.mapTo(teamService.fetchByPlayer(player), TeamDTO.class);
+    }
+
+    @Override
     public void addPlayer(Long playerId, Long teamId) {
         teamService.addPlayer(playerService.fetchById(playerId), teamService.fetchById(teamId));
     }
