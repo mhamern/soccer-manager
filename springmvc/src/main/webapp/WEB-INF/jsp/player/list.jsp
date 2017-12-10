@@ -21,7 +21,6 @@
             <tr>
                 <th><f:message key="name"/></th>
                 <th><f:message key="nationality"/></th>
-                <th><f:message key="team"/></th>
                 <th><f:message key="born"/></th>
                 <th><f:message key="position"/></th>
                 <th><f:message key="number"/></th>
@@ -32,11 +31,10 @@
                 <tr>
                     <td>${player.name}</td>
                     <td>${player.nationality}</td>
-                    <td>TODO</td>
                     <td>${player.birthDate}</td>
                     <td>${player.position}</td>
                     <td>#${player.number}</td>
-                    <td><my:a href="/team/view/${player.id}" class="btn btn-primary"><f:message key="view"/></my:a></td>
+                    <td><my:a href="/player/view/${player.id}" class="btn btn-primary"><f:message key="view"/></my:a></td>
                     <c:if test="${not empty authenticatedUser && authenticatedUser.isAdmin()}">
                         <td><my:a href="javascript:deletePlayer(${player.id})" class="btn btn-danger"><f:message key="delete"/></my:a></td>
                     </c:if>

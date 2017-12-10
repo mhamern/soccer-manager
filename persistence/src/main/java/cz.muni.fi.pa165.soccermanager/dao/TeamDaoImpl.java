@@ -93,6 +93,19 @@ public class TeamDaoImpl implements TeamDao {
     }
 
     @Override
+    public Team fetchByPlayer(Player player) {
+        TypedQuery<Team> query = manager.
+                createQuery("SELECT t FROM Team t, Player p WHERE p.name = :name AND p MEMBER of t.players",
+                        Team.class);
+        query.setParameter("name", player.getName());
+        try {
+            return query.getSingleResult();
+        } catch (NoResultException nre ) {
+            return  null;
+        }
+    }
+
+    @Override
     public List<Team> fetchTeamsWithoutManager() {
         return manager
                 .createQuery("SELECT t FROM Team t WHERE manager IS NULL", Team.class).getResultList();

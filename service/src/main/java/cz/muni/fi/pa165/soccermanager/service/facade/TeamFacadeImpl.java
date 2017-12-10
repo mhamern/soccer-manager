@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.soccermanager.dto.TeamDTO;
 import cz.muni.fi.pa165.soccermanager.dto.CreateTeamDTO;
 import cz.muni.fi.pa165.soccermanager.entity.League;
 import cz.muni.fi.pa165.soccermanager.entity.Manager;
+import cz.muni.fi.pa165.soccermanager.entity.Player;
 import cz.muni.fi.pa165.soccermanager.entity.Team;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 import cz.muni.fi.pa165.soccermanager.facade.TeamFacade;
@@ -99,6 +100,12 @@ public class TeamFacadeImpl implements TeamFacade {
     @Override
     public TeamDTO getTeamByName(String name) {
         return beanMappingService.mapTo(teamService.fetchByName(name), TeamDTO.class);
+    }
+
+    @Override
+    public TeamDTO getTeamByPlayer(Long id) {
+        Player player = playerService.fetchById(id);
+        return beanMappingService.mapTo(teamService.fetchByPlayer(player), TeamDTO.class);
     }
 
     @Override

@@ -27,7 +27,9 @@ public interface TeamService {
 
     List<Team> fetchByLeague(League league);
 
-    public List<Team> fetchTeamsWithoutManager();
+    Team fetchByPlayer(Player player);
+
+    List<Team> fetchTeamsWithoutManager();
 
     Team create(Team team)throws SoccerManagerServiceException;
 
@@ -35,17 +37,17 @@ public interface TeamService {
 
     void delete(long teamId);
 
-    public void addPlayer(Player player, Team team) throws SoccerManagerServiceException;
+    void addPlayer(Player player, Team team) throws SoccerManagerServiceException;
 
-    public void removePlayer(Player player, Team team) throws SoccerManagerServiceException;
+    void removePlayer(Player player, Team team) throws SoccerManagerServiceException;
 
-    public void assignManager(Manager manager, Team team) throws SoccerManagerServiceException;
+    void assignManager(Manager manager, Team team) throws SoccerManagerServiceException;
 
-    public void removeManager(Team team);
+    void removeManager(Team team);
 
-    public void joinLeague(League league, Team team) throws SoccerManagerServiceException;
+    void joinLeague(League league, Team team) throws SoccerManagerServiceException;
 
-    public void leaveLeague(Team team) throws SoccerManagerServiceException;
+    void leaveLeague(Team team) throws SoccerManagerServiceException;
 
-    public Team calculatePointsAndGoals(Team team);
+    Team calculatePointsAndGoals(Team team);
 }
