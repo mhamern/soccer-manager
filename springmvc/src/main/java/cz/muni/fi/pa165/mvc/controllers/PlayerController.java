@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.mvc.controllers;
 
 import cz.muni.fi.pa165.mvc.forms.CreatePlayerDTOValidator;
 import cz.muni.fi.pa165.soccermanager.dto.CreatePlayerDTO;
+import cz.muni.fi.pa165.soccermanager.dto.ManagerDTO;
 import cz.muni.fi.pa165.soccermanager.dto.PlayerDTO;
 import cz.muni.fi.pa165.soccermanager.dto.TeamDTO;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
@@ -19,7 +20,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -65,6 +65,7 @@ public class PlayerController {
     @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
     public String view(@PathVariable long id, Model model) {
         model.addAttribute("player", playerFacade.getPlayerById(id));
+        model.addAttribute("playersTeam", teamFacade.getTeamByPlayer(id));
         return "player/view";
     }
 
@@ -72,6 +73,21 @@ public class PlayerController {
     public String newPlayer(Model model) {
         model.addAttribute("createPlayer", new CreatePlayerDTO());
         return "player/new";
+    }
+
+    @RequestMapping(value ="/{id}/addtouserteam", method = RequestMethod.GET)
+    public String addToUserTeam(@PathVariable long playerId,
+                                @ModelAttribute("authenticatedUser") ManagerDTO manager,
+                                UriComponentsBuilder uriBuilder,
+                                RedirectAttributes redirectAttributes) {
+
+            TeamDTO team = teamFacade.getTeamByManager(manager.getId());
+            PlayerDTO player = playerFacade.getPlayerById(playerId);
+            teamFacade.addPlayer(player.getId(), team.getId());
+
+        redirectAttributes.addFlashAttribute("alert_success", "Player " + player.getName() + " was added to " +
+                "team " + team.getName());
+        return "redirect:" + uriBuilder.path("/team/" + team.getId() + "/view").toUriString();
     }
 
     @ModelAttribute("countries")
@@ -90,6 +106,12 @@ public class PlayerController {
         teams.add(null);
         return teams;
     }
+
+    @ModelAttribute("freeagents")
+    public List<PlayerDTO> freeagents() {
+        return playerFacade.getFreeAgents();
+    }
+
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {

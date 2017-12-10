@@ -12,31 +12,33 @@ import java.util.List;
  */
 public interface TeamFacade {
 
-    public Long createTeam(CreateTeamDTO team);
+    Long createTeam(CreateTeamDTO team);
 
-    public void deleteTeam(Long teamId);
+    void deleteTeam(Long teamId);
 
-    public List<TeamDTO> getAllTeams();
+    List<TeamDTO> getAllTeams();
 
-    public List<TeamDTO> getTeamsByLeague(Long leagueId);
+    List<TeamDTO> getTeamsByLeague(Long leagueId);
 
-    public List<TeamDTO> getTeamsByOrigin(NationalityEnum nationality);
+    List<TeamDTO> getTeamsByOrigin(NationalityEnum nationality);
 
-    public TeamDTO getTeamByManager(Long managerId);
+    TeamDTO getTeamByManager(Long managerId);
 
-    public TeamDTO getTeamById(Long id);
+    TeamDTO getTeamById(Long id);
 
-    public TeamDTO getTeamByName(String name);
+    TeamDTO getTeamByName(String name);
 
-    public void addPlayer( Long playerId, Long teamId);
+    TeamDTO getTeamByPlayer(Long id);
 
-    public void removePlayer(Long playerId, Long teamId);
+    void addPlayer( Long playerId, Long teamId);
 
-    public void assignManager(Long managerId, Long teamId);
+    void removePlayer(Long playerId, Long teamId);
 
-    public void removeManager(Long teamId);
+    void assignManager(Long managerId, Long teamId);
 
-    public void joinLeague(Long leagueId, Long teamId);
+    void removeManager(Long teamId);
 
-    public void leaveLeague(Long teamId);
+    void joinLeague(Long leagueId, Long teamId);
+
+    void leaveLeague(Long teamId);
 }

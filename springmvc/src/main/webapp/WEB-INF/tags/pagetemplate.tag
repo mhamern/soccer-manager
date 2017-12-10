@@ -51,6 +51,12 @@
                             <li><my:a href="/auth/login"><f:message key="navigation.login"/></my:a></li>
                         </c:if>
                         <c:if test="${not empty authenticatedUser}">
+                            <c:if test="${not authenticatedUser.isAdmin() && not empty usersTeam}">
+                                <li><my:a href="/team/view/${usersTeam.id}"><c:out value="${authenticatedUser.name}"/></my:a></li>
+                            </c:if>
+                            <c:if test="${authenticatedUser.isAdmin()}">
+                        <li><my:a href="/team/list/"><c:out value="${authenticatedUser.name}"/></my:a></li>
+                            </c:if>
                         <li><my:a href="/auth/logout"><f:message key="navigation.logout"/></my:a></li>
                         </c:if>
                     </ul>
@@ -61,18 +67,6 @@
             <c:if test="${not empty title}">
                 <div class="page-header">
                     <h1><c:out value="${title}"/></h1>
-                </div>
-            </c:if>
-            <c:if test="${not empty authenticatedUser}">
-                <div class="row">
-                    <div class="col-xs-6 col-sm-8 col-md-9 col-lg-10"></div>
-                    <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <c:out value="${authenticatedUser.name}"/>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </c:if>
             <jsp:invoke fragment="body"/>
