@@ -44,15 +44,18 @@
                     <td>#${player.number}</td>
                     <td><my:a href ="/player/view/${player.id}" class="btn btn-primary"><f:message key="view"/></my:a></td>
                     <c:if test="${not empty authenticatedUser && authenticatedUser.isAdmin()}">
-                        <td><my:a href="javascript:deletePlayer(${player.id})" class="btn btn-danger"><f:message key="delete"/></my:a></td>
+                        <td>
+                            <form method="post" action="${pageContext.request.contextPath}/player/delete/${player.id}">
+                                <button type="submit" class="btn btn-danger">
+                                    <f:message key="delete"></f:message>
+                                </button>
+                            </form>
+                        </td>
                     </c:if>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
-        <c:if test="${not empty authenticatedUser && authenticatedUser.isAdmin()}">
-            <my:a href="javascript:createPlayer()" class="btn btn-success"><f:message key="createPlayer"/></my:a>
-        </c:if>
         <h2><f:message key="navigation.matches"/></h2>
         <table class="table">
             <thead>
@@ -66,40 +69,50 @@
             </thead>
             <tbody>
             <c:forEach items="${matches}" var="match">
-                <tr> <!-- add contextual based on result of match-->
+                <c:choose>
+                    <c:when test="${(match.homeTeam == team && match.homeTeamGoals > match.awayTeamGoals)
+                    || (match.awayTeam == team && match.awayTeamGoals > match.homeTeamGoals)}">
+                        <tr class="success">
+                    </c:when>
+                    <c:when test="${(match.homeTeam == team && match.homeTeamGoals < match.awayTeamGoals)
+                    || (match.awayTeam == team && match.awayTeamGoals < match.homeTeamGoals)}">
+                        <tr class="danger">
+                    </c:when>
+                    <c:when test="${not match.finished}">
+                        <tr>
+                    </c:when>
+                    <c:otherwise>
+                        <tr class="active">
+                    </c:otherwise>
+                </c:choose>
+
                     <td>${match.homeTeam.name}</td>
                     <td>${match.awayTeam.name}</td>
                     <td>${match.date}</td>
                     <td>${match.homeTeam.stadium}</td>
-                    <td>1-1</td> <!-- CHANGE TO match result-->
-                    <c:if test="${not empty authenticatedUser && not authenticatedUser.isAdmin() && not empty match}"> <!-- CHANGE TO if finished-->
-                        <td><my:a href ="/match/play/${match.id}" class="btn btn-primary"><f:message key="play"/></my:a></td>
+                    <td>${match.homeTeamGoals}-${match.awayTeamGoals}</td>
+                    <c:if test="${not empty authenticatedUser && not authenticatedUser.isAdmin() && not match.finished}">
+                    <td>
+                        <form method="post" action="${pageContext.request.contextPath}/match/play/${match.id}">
+                            <button type="submit" class="btn btn-primary">
+                                <f:message key="play"></f:message>
+                            </button>
+                        </form>
+                    </td>
+
                     </c:if>
                     <c:if test="${not empty authenticatedUser && authenticatedUser.isAdmin()}">
-                        <td><my:a href="javascript:deleteMatch(${match.id})" class="btn btn-danger"><f:message key="delete"/></my:a></td>
+                        <td>
+                            <form method="post" action="${pageContext.request.contextPath}/match/delete/${match.id}">
+                                <button type="submit" class="btn btn-danger">
+                                    <f:message key="delete"></f:message>
+                                </button>
+                            </form>
+                            </td>
                     </c:if>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
-        <c:if test="${not empty authenticatedUser && authenticatedUser.isAdmin()}">
-            <my:a href="javascript:createMatch()" class="btn btn-success"><f:message key="createMatch"/></my:a>
-        </c:if>
-            <script language="javascript">
-                function deleteMatch(id) {
-                    $.post("/pa165/match/delete/" + id);
-                }
-
-                function deletePlayer(id) {
-                    $.post("/pa165/player/delete/" + id);
-                }
-
-                function createPlayer() {
-                    $.post("/pa165/player/new");
-                }
-                function createMatch() {
-                    $.post("/pa165/match/new");
-                }
-            </script>
     </jsp:attribute>
 </my:pagetemplate>

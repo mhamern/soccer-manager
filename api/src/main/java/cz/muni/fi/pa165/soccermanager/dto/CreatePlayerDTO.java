@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.soccermanager.dto;
 
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 import cz.muni.fi.pa165.soccermanager.enums.PositionEnum;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -15,6 +16,8 @@ public class CreatePlayerDTO {
     private PositionEnum position;
     private NationalityEnum nationality;
     private int number;
+
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate birthDate;
     private int shooting;
     private int passing;

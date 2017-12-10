@@ -43,7 +43,7 @@
         <div class="form-group ${birthDate_error?'has-error':''}">
             <form:label path="birthDate" cssClass="col-sm-2 control-label"><f:message key="birthdate"/></form:label>
             <div class="col-sm-10">
-                <form:input path="birthDate" placeholder="DD/MM/YYYY" cssClass="form-control"/>
+                <form:input path="birthDate" placeholder="DD-MM-YYYY" cssClass="form-control"/>
                 <form:errors path="birthDate" cssClass="help-block"/>
             </div>
         </div>

@@ -2,7 +2,6 @@ package cz.muni.fi.pa165.mvc.controllers;
 
 import cz.muni.fi.pa165.mvc.forms.CreatePlayerDTOValidator;
 import cz.muni.fi.pa165.soccermanager.dto.CreatePlayerDTO;
-import cz.muni.fi.pa165.soccermanager.dto.ManagerDTO;
 import cz.muni.fi.pa165.soccermanager.dto.PlayerDTO;
 import cz.muni.fi.pa165.soccermanager.dto.TeamDTO;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
@@ -19,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -75,19 +75,42 @@ public class PlayerController {
         return "player/new";
     }
 
-    @RequestMapping(value ="/{id}/addtouserteam", method = RequestMethod.GET)
-    public String addToUserTeam(@PathVariable long playerId,
-                                @ModelAttribute("authenticatedUser") ManagerDTO manager,
+    @RequestMapping(value ="/{id}/addtouserteam", method = RequestMethod.POST)
+    public String addToUserTeam(@PathVariable long id, HttpServletRequest request,
                                 UriComponentsBuilder uriBuilder,
                                 RedirectAttributes redirectAttributes) {
 
-            TeamDTO team = teamFacade.getTeamByManager(manager.getId());
-            PlayerDTO player = playerFacade.getPlayerById(playerId);
+            TeamDTO team = (TeamDTO)request.getSession().getAttribute("usersTeam");
+            if (team == null) {
+                redirectAttributes.addFlashAttribute("alert_waring", "Manager does not train any team");
+                return "redirect:" + uriBuilder.path("/player/freeagents").toUriString();
+            }
+
+            PlayerDTO player = playerFacade.getPlayerById(id);
             teamFacade.addPlayer(player.getId(), team.getId());
 
         redirectAttributes.addFlashAttribute("alert_success", "Player " + player.getName() + " was added to " +
                 "team " + team.getName());
-        return "redirect:" + uriBuilder.path("/team/" + team.getId() + "/view").toUriString();
+        return "redirect:" + uriBuilder.path("/team/view/" + team.getId()).toUriString();
+    }
+
+    @RequestMapping(value ="/{id}/removefromuserteam", method = RequestMethod.POST)
+    public String removePlayerFromUsersTeam(@PathVariable long id, HttpServletRequest request,
+                                            UriComponentsBuilder uriBuilder,
+                                            RedirectAttributes redirectAttributes) {
+
+        TeamDTO team = (TeamDTO)request.getSession().getAttribute("usersTeam");
+        if (team == null) {
+            redirectAttributes.addFlashAttribute("alert_waring", "Manager does not train any team");
+            return "redirect:" + uriBuilder.path("/player/freeagents").toUriString();
+        }
+
+        PlayerDTO player = playerFacade.getPlayerById(id);
+        teamFacade.removePlayer(player.getId(), team.getId());
+
+        redirectAttributes.addFlashAttribute("alert_success", "Player " + player.getName() + " was added to " +
+                "team " + team.getName());
+        return "redirect:" + uriBuilder.path("/team/view/" + team.getId()).toUriString();
     }
 
     @ModelAttribute("countries")
@@ -121,18 +144,17 @@ public class PlayerController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(@Valid @ModelAttribute("playerCreate") CreatePlayerDTO form,
+    public String create(@Valid @ModelAttribute("createPlayer") CreatePlayerDTO form,
                          BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes,
                          UriComponentsBuilder urisBuilder) {
         if (bindingResult.hasErrors()) {
             for (FieldError error: bindingResult.getFieldErrors()) {
                 model.addAttribute(error.getField() + "_error", true);
             }
-            return "team/new";
+            return "player/new";
         }
 
         Long id = playerFacade.createPlayer(form);
-        PlayerDTO newPlayer = playerFacade.getPlayerById(id);
 
         TeamDTO teamDTO = teamFacade.getTeamById(form.getTeamId());
         if (teamDTO != null) {
@@ -140,7 +162,7 @@ public class PlayerController {
         }
 
         redirectAttributes.addFlashAttribute("alert_success", "Player " + form.getName() + " was created successfully");
-        return "redirect: " + urisBuilder.path("player/view/{id}").buildAndExpand(id).encode().toUriString();
+        return "redirect:" + urisBuilder.path("/player/view/{id}").buildAndExpand(id).encode().toUriString();
     }
 
 }

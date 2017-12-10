@@ -31,18 +31,19 @@
                     <td>${player.birthDate}</td>
                     <td>${player.position}</td>
                     <td>#${player.number}</td>
-                    <td><my:a href="/team/view/${player.id}" class="btn btn-primary"><f:message key="view"/></my:a></td>
+                    <td><my:a href="/player/view/${player.id}" class="btn btn-primary"><f:message key="view"/></my:a></td>
                     <c:if test="${not empty authenticatedUser && authenticatedUser.isAdmin()}">
-                        <td><my:a href="javascript:deletePlayer(${player.id})" class="btn btn-danger"><f:message key="delete"/></my:a></td>
+                        <td>
+                            <form method="post" action="${pageContext.request.contextPath}/player/delete/${player.id}">
+                                <button type="submit" class="btn btn-danger">
+                                    <f:message key="delete"></f:message>
+                                </button>
+                            </form>
+                        </td>
                     </c:if>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
-        <script language="javascript">
-            function deletePlayer(id){
-                $.post("/pa165/player/delete/" + id);
-            }
-        </script>
     </jsp:attribute>
 </my:pagetemplate>

@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.soccermanager.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 
 import javax.persistence.*;
@@ -79,6 +80,7 @@ public class Manager {
     @Column(nullable = false)
     private String email;
 
+    @JsonIgnore
     @Column(nullable = false)
     private String passwordHash;
 

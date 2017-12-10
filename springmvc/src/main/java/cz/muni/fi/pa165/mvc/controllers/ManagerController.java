@@ -25,7 +25,7 @@ import javax.validation.Valid;
  */
 
 @Controller
-@RequestMapping("/match")
+@RequestMapping("/manager")
 public class ManagerController {
 
     private final ManagerFacade managerFacade;

@@ -78,6 +78,7 @@ public class AuthController {
         }
 
         request.getSession().setAttribute("authenticatedUser", found);
+
         if (! found.isAdmin()) {
             request.getSession().setAttribute("usersTeam", teamFacade.getTeamByManager(found.getId()));
         }

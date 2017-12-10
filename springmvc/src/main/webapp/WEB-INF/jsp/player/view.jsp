@@ -11,9 +11,19 @@
     <jsp:attribute name="body">
         <c:if test="${not empty authenticatedUser && !authenticatedUser.isAdmin()
                 && freeagents.contains(player)}">
-            <my:a href="${player.id}/addtouserteam" class="btn btn-success">
-                <f:message key="AssignPlayer"></f:message>
-            </my:a>
+             <form method="post" action="${pageContext.request.contextPath}/player/${player.id}/addtouserteam">
+                <button type="submit" class="btn btn-success">
+                    <f:message key="assignPlayer"></f:message>
+                </button>
+             </form>
+        </c:if>
+        <c:if test="${not empty authenticatedUser && !authenticatedUser.isAdmin() && not empty usersTeam &&
+        usersTeam == playersTeam}">
+             <form method="post" action="${pageContext.request.contextPath}/player/${player.id}/removefromuserteam">
+                 <button type="submit" class="btn btn-danger">
+                     <f:message key="removePlayer"></f:message>
+                 </button>
+             </form>
         </c:if>
         <table class="table">
             <tbody>

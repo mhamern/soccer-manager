@@ -31,16 +31,17 @@
                     <td>${team.manager.name}</td>
                     <td><my:a href="/team/view/${team.id}" class="btn btn-primary"><f:message key="view"/></my:a></td>
                     <c:if test="${not empty authenticatedUser && authenticatedUser.isAdmin()}">
-                        <td><my:a href="javascript:deleteTeam(${team.id})" class="btn btn-danger"><f:message key="delete"/></my:a></td>
+                        <td>
+                            <form method="post" action="${pageContext.request.contextPath}/team/delete/${team.id}">
+                                <button type="submit" class="btn btn-danger">
+                                    <f:message key="delete"></f:message>
+                                </button>
+                            </form>
+                        </td>
                     </c:if>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
-        <script language="javascript">
-            function deleteTeam(id){
-                $.post("/pa165/team/delete/" + id);
-            }
-        </script>
     </jsp:attribute>
 </my:pagetemplate>

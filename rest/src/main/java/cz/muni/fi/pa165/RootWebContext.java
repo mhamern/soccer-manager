@@ -23,7 +23,7 @@ import java.util.Locale;
 @EnableWebMvc
 @Configuration
 @Import({ServiceConfiguration.class, SoccerManagerSampleDataConfiguration.class})
-@ComponentScan(basePackages = {"cz.muni.fi.pa165.rest.controllers"}) //assemblers?
+@ComponentScan(basePackages = {"cz.muni.fi.pa165.rest.controllers"})
 public class RootWebContext implements WebMvcConfigurer {
 
     @Override
@@ -39,8 +39,6 @@ public class RootWebContext implements WebMvcConfigurer {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH));
-
-        //mix ins?
 
         objectMapper.disable(MapperFeature.DEFAULT_VIEW_INCLUSION);
         jsonConverter.setObjectMapper(objectMapper);
