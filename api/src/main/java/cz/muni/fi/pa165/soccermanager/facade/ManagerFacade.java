@@ -12,6 +12,13 @@ import java.util.List;
  * @version 1/12/2017.
  */
 public interface ManagerFacade {
+
+    /**
+     * get list of all managers of chosen nationality
+     * @return list of registered managers
+     */
+    public List<ManagerDTO> findAllManagers();
+
     /**
      * get list of all managers of chosen nationality
      * @param nationality nationality from nationality enum
@@ -71,4 +78,10 @@ public interface ManagerFacade {
      * @return true if manager is admin
      */
     public boolean isAdmin(ManagerDTO manager);
+
+    /**
+     * delete manager
+     * @param managerId id of the manager
+     */
+     public void deleteManager(Long managerId);
 }

@@ -86,6 +86,17 @@ public class ManagerFacadeImpl implements ManagerFacade {
     }
 
     @Override
+    public List<ManagerDTO> findAllManagers() {
+        List<Manager> managerList = managerService.fetchAll();
+        return beanMappingService.mapTo(managerList, ManagerDTO.class);
+    }
+
+    @Override
+    public void deleteManager(Long managerId) {
+        managerService.remove(managerId);
+    }
+
+    @Override
     public void registerManager(CreateManagerDTO managerDTO, String unencryptedPassword) {
         Manager managerEntity = beanMappingService.mapTo(managerDTO, Manager.class);
         managerService.create(managerEntity, unencryptedPassword);

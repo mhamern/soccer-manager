@@ -63,6 +63,12 @@ public class MatchFacadeImpl implements MatchFacade {
     }
 
     @Override
+    public List<MatchDTO> getAllMatches() {
+        List<Match> matchList = matchService.fetchAll();
+        return beanMappingService.mapTo(matchList, MatchDTO.class);
+    }
+
+    @Override
     public List<MatchDTO> getMatchesByTeam(Long teamId) {
 
         Team team = teamService.fetchById(teamId);
