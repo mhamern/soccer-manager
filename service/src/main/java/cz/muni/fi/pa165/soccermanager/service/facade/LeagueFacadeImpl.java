@@ -85,6 +85,12 @@ public class LeagueFacadeImpl implements LeagueFacade {
 
     }
 
+    @Override
+    public void removeMatch(Long leagueId, Long matchId) {
+        leagueService.removeMatch(matchService.fetchById(matchId), leagueService.fetchById(matchId));
+
+    }
+
 
 
 }

@@ -100,7 +100,7 @@ public class LeaguesController {
     public final LeagueDTO removeMatch(@PathVariable("id") long id, @RequestBody MatchDTO match)
             throws InvalidParameterException {
         try {
-           // leagueFacade.removeMatch(id, match.getId());
+            leagueFacade.removeMatch(id, match.getId());
             return leagueFacade.getLeagueById(id);
         } catch (Exception ex) { //specify?
             throw new InvalidParameterException();

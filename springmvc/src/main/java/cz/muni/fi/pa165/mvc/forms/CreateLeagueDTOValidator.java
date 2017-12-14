@@ -2,7 +2,6 @@ package cz.muni.fi.pa165.mvc.forms;
 
 
 import cz.muni.fi.pa165.soccermanager.dto.CreateLeagueDTO;
-import cz.muni.fi.pa165.soccermanager.dto.CreateTeamDTO;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
