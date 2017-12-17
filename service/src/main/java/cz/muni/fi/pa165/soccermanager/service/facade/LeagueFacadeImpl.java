@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.soccermanager.service.facade;
 import cz.muni.fi.pa165.soccermanager.dto.LeagueDTO;
+import cz.muni.fi.pa165.soccermanager.dto.TeamDTO;
 import cz.muni.fi.pa165.soccermanager.entity.League;
 import cz.muni.fi.pa165.soccermanager.service.*;
 import cz.muni.fi.pa165.soccermanager.dto.CreateLeagueDTO;
@@ -83,6 +84,18 @@ public class LeagueFacadeImpl implements LeagueFacade {
     public void addMatch(Long leagueId, Long matchId) {
         leagueService.addMatch(matchService.fetchById(matchId), leagueService.fetchById(matchId));
 
+    }
+
+    @Override
+    public void removeMatch(Long leagueId, Long matchId) {
+        leagueService.removeMatch(matchService.fetchById(matchId), leagueService.fetchById(matchId));
+
+    }
+
+    @Override
+    public List<TeamDTO> calculateLeagues(Long id) {
+        return beanMappingService.mapTo(leagueService.calculateLeagues(
+                leagueService.fetchById(id)), TeamDTO.class);
     }
 
 

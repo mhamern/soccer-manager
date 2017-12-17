@@ -8,6 +8,7 @@ import cz.muni.fi.pa165.soccermanager.entity.Match;
 import cz.muni.fi.pa165.soccermanager.entity.Team;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 import cz.muni.fi.pa165.soccermanager.service.exceptions.SoccerManagerServiceException;
+import javafx.collections.transformation.SortedList;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -63,20 +64,12 @@ public class LeagueServiceImpl implements LeagueService {
         if(league != null){
             List<Team> teams = teamDao.fetchByLeague(league);
 
-
             for (Team team: teams) {
                 teamService.calculatePointsAndGoals(team);
             }
-            Collections.sort(
-                    teams,
-                    Comparator.<Team> comparingInt(team -> team.getPoints())
-                            .thenComparingInt(team -> team.getGoalsScored())
-                            .thenComparingInt(team -> team.getGoalsConceded()));
-
-
             return teams;
         }
-        else{
+        else {
             throw new IllegalArgumentException("League is null");
         }
     }
@@ -131,6 +124,10 @@ public class LeagueServiceImpl implements LeagueService {
 
     @Override
     public void delete(long leagueId) {
+        League league = leagueDao.fetchById(leagueId);
+        for (Match match : matchDao.fetchByLeague(league)) {
+            matchDao.delete(match.getId());
+        }
         leagueDao.delete(leagueId);
     }
 }

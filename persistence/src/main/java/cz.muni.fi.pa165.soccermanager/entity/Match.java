@@ -197,6 +197,9 @@ public class Match {
 
     @PreRemove
     public void preRemove() {
+        if (getLeague() != null) {
+            getLeague().removeMatch(this);
+        }
         setLeague(null);
         setHomeTeam(null);
         setAwayTeam(null);
