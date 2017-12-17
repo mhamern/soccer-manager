@@ -4,6 +4,8 @@ import cz.muni.fi.pa165.soccermanager.dto.CreatePlayerDTO;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import java.time.LocalDate;
+
 /**
  * @author 445720 Martin Hamernik
  * @version 12/1/2017.
@@ -26,7 +28,10 @@ public class CreatePlayerDTOValidator implements Validator {
             errors.rejectValue("name", "nameFormat");
 
         if (createPlayerDTO.getBirthDate() == null)
-            errors.rejectValue("birthdate", "birthdateNull");
+            errors.rejectValue("birthDate", "birthDateNull");
+
+        if (createPlayerDTO.getBirthDate() != null && createPlayerDTO.getBirthDate().isAfter(LocalDate.now().minusYears(15)))
+            errors.rejectValue("birthDate", "birthDateTooYoung");
 
         if (createPlayerDTO.getNationality() == null)
             errors.rejectValue("nationality", "nationalityNull");

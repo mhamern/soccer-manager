@@ -3,9 +3,7 @@ import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 import cz.muni.fi.pa165.soccermanager.enums.StadiumEnum;
 
 import javax.persistence.*;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author 445720 Martin Hamernik
@@ -105,13 +103,13 @@ public class Team {
     private int goalsScored;
     private int goalsConceded;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private Manager manager;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany
     private Set<Player> players;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private League league;
 
 
@@ -245,5 +243,12 @@ public class Team {
                 ", manager=" + manager +
                 ", league=" + league +
                 '}';
+    }
+
+    @PreRemove
+    public void preRemove() {
+        setManager(null);
+        setPlayers(null);
+        setLeague(null);
     }
 }

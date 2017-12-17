@@ -195,4 +195,11 @@ public class Match {
         return string;
     }
 
+    @PreRemove
+    public void preRemove() {
+        getLeague().removeMatch(this);
+        setLeague(null);
+        setHomeTeam(null);
+        setAwayTeam(null);
+    }
 }

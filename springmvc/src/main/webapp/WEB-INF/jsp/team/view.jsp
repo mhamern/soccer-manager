@@ -23,6 +23,15 @@
             <tr>
                 <td><b><f:message key="manager"/>:</b> ${team.manager.name}</td>
             </tr>
+            <tr>
+                <td><b><f:message key="points"/>:</b> ${team.points}</td>
+            </tr>
+            <tr>
+                <td><b><f:message key="goalsScored"/>:</b> ${team.goalsScored}</td>
+            </tr>
+            <tr>
+                <td><b><f:message key="goalsConceded"/>:</b> ${team.goalsConceded}</td>
+            </tr>
             </tbody>
         </table>
         <h2><f:message key="navigation.players"/></h2>
