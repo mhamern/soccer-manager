@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,27 +45,44 @@ public class TeamServiceImpl implements  TeamService {
 
     @Override
     public Team fetchByName(String name) {
-        return teamDao.fetchByName(name);
+        Team team = teamDao.fetchByName(name);
+        return calculatePointsAndGoals(team);
     }
 
     @Override
     public Team fetchByManager(Manager manager) {
-        return teamDao.fetchByManager(manager);
+        Team team = teamDao.fetchByManager(manager);
+        return calculatePointsAndGoals(team);
     }
 
     @Override
     public List<Team> fetchByOrigin(NationalityEnum origin) {
-        return teamDao.fetchByOrigin(origin);
+        List<Team> teams = teamDao.fetchByOrigin(origin);
+        List<Team> calculated = new ArrayList<>();
+        for (Team team : teams) {
+            calculated.add(calculatePointsAndGoals(team));
+        }
+        return calculated;
     }
 
     @Override
     public List<Team> fetchByLeague(League league) {
-        return teamDao.fetchByLeague(league);
+        List<Team> teams = teamDao.fetchByLeague(league);
+        List<Team> calculated = new ArrayList<>();
+        for (Team team : teams) {
+            calculated.add(calculatePointsAndGoals(team));
+        }
+        return calculated;
     }
 
     @Override
     public List<Team> fetchTeamsWithoutManager() {
-        return teamDao.fetchTeamsWithoutManager();
+        List<Team> teams = teamDao.fetchTeamsWithoutManager();
+        List<Team> calculated = new ArrayList<>();
+        for (Team team : teams) {
+            calculated.add(calculatePointsAndGoals(team));
+        }
+        return calculated;
     }
 
     @Override
@@ -98,12 +116,20 @@ public class TeamServiceImpl implements  TeamService {
 
     @Override
     public void delete(long teamId) {
+        Team team = teamDao.fetchById(teamId);
+        if (team != null) {
+            List<Match> matches = matchDao.fetchByTeam(team);
+            for (Match match: matches) {
+                matchDao.delete(match.getId());
+            }
+        }
         teamDao.delete(teamId);
     }
 
     @Override
     public Team fetchByPlayer(Player player) {
-        return teamDao.fetchByPlayer(player);
+        Team team = teamDao.fetchByPlayer(player);
+        return calculatePointsAndGoals(team);
     }
 
     @Override
@@ -215,7 +241,7 @@ public class TeamServiceImpl implements  TeamService {
             return team;
 
         } else {
-            throw new IllegalArgumentException("Team is null");
+            return null;
         }
     }
 

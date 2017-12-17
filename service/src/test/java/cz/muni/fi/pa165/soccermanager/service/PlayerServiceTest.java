@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.soccermanager.service;
 
 import cz.muni.fi.pa165.soccermanager.dao.PlayerDao;
+import cz.muni.fi.pa165.soccermanager.dao.TeamDao;
 import cz.muni.fi.pa165.soccermanager.entity.League;
 import cz.muni.fi.pa165.soccermanager.entity.Player;
 import cz.muni.fi.pa165.soccermanager.entity.Team;
@@ -35,6 +36,7 @@ import static org.mockito.Mockito.when;
 public class PlayerServiceTest {
 
     private PlayerDao playerDao = mock(PlayerDao.class);
+    private TeamDao teamDao = mock(TeamDao.class);
 
     @Autowired
     @InjectMocks
@@ -49,7 +51,7 @@ public class PlayerServiceTest {
 
     @Before
     public void setup() {
-        playerService = new PlayerServiceImpl(playerDao);
+        playerService = new PlayerServiceImpl(playerDao, teamDao);
 
         player1 = new Player.PlayerBuilder(
                 "Kylian Mbappe",
@@ -186,7 +188,8 @@ public class PlayerServiceTest {
     @Test
     public void deletePlayer() {
         doNothing().when(playerDao).delete(10L);
-
+        when(playerDao.fetchById(10L)).thenReturn(player1);
+        when(teamDao.fetchByPlayer(player1)).thenReturn(null);
         playerService.delete(10L);
     }
 

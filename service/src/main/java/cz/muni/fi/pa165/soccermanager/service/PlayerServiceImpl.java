@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.soccermanager.service;
 
 import cz.muni.fi.pa165.soccermanager.dao.PlayerDao;
+import cz.muni.fi.pa165.soccermanager.dao.TeamDao;
 import cz.muni.fi.pa165.soccermanager.entity.Player;
 import cz.muni.fi.pa165.soccermanager.entity.Team;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
@@ -20,9 +21,12 @@ public class PlayerServiceImpl implements PlayerService {
 
     private final PlayerDao playerDao;
 
+    private final TeamDao teamDao;
+
     @Inject
-    public PlayerServiceImpl(PlayerDao playerDao) {
+    public PlayerServiceImpl(PlayerDao playerDao, TeamDao teamDao) {
         this.playerDao = playerDao;
+        this.teamDao = teamDao;
     }
 
     @Override
@@ -56,7 +60,15 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public void delete(long playerId) {
-        playerDao.delete(playerId);
+        Player player = playerDao.fetchById(playerId);
+        if (player != null) {
+            Team team = teamDao.fetchByPlayer(player);
+            if (team != null) {
+                team.removePlayer(player);
+            }
+                playerDao.delete(playerId);
+        }
+
     }
 
     @Override
