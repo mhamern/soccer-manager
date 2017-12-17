@@ -128,6 +128,10 @@ public class LeagueServiceImpl implements LeagueService {
         for (Match match : matchDao.fetchByLeague(league)) {
             matchDao.delete(match.getId());
         }
+        for (Team team: teamDao.fetchByLeague(league)) {
+            team.setLeague(null);
+        }
+
         leagueDao.delete(leagueId);
     }
 }
