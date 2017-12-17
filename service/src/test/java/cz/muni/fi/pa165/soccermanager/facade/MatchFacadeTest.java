@@ -127,8 +127,8 @@ public class MatchFacadeTest {
         match2.setId(2L);
 
         createMatchDTO = new CreateMatchDTO();
-        createMatchDTO.setHomeTeamName(match1.getHomeTeam().getName());
-        createMatchDTO.setAwayTeamName(match1.getAwayTeam().getName());
+        createMatchDTO.setHomeTeamId(match1.getHomeTeam().getId());
+        createMatchDTO.setAwayTeamId(match1.getAwayTeam().getId());
         createMatchDTO.setDate(match1.getDate());
 
         matchDTO1 = new MatchDTO();

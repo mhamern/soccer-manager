@@ -9,31 +9,35 @@ public class CreateMatchDTO {
 
     private LocalDate date;
 
-    private String homeTeamName;
+    private Long homeTeamId;
 
-    private String awayTeamName;
+    private Long awayTeamId;
 
-    public String getHomeTeamName() {
-        return homeTeamName;
+    private Long leagueId;
+
+    public Long getHomeTeamId() {
+        return homeTeamId;
     }
 
-    public void setHomeTeamName(String homeTeamName) {
-        this.homeTeamName = homeTeamName;
+    public void setHomeTeamId(Long homeTeamId) {
+        this.homeTeamId = homeTeamId;
     }
 
-    public String getAwayTeamName() {
-        return awayTeamName;
+    public Long getAwayTeamId() {
+        return awayTeamId;
     }
 
-    public void setAwayTeamName(String awayTeamName) {
-        this.awayTeamName = awayTeamName;
+    public void setAwayTeamId(Long awayTeamId) {
+        this.awayTeamId = awayTeamId;
     }
 
     public LocalDate getDate() { return date; }
 
     public void setDate(LocalDate date) { this.date = date; }
 
+    public Long getLeagueId() { return leagueId;}
 
+    public void setLeagueId(Long leagueId) { this.leagueId = leagueId; }
 
     @Override
     public boolean equals(Object o) {
@@ -42,21 +46,17 @@ public class CreateMatchDTO {
 
         CreateMatchDTO match= (CreateMatchDTO) o;
 
-        if (getHomeTeamName() != match.getHomeTeamName()) return false;
-        if (getAwayTeamName() != match.getAwayTeamName()) return false;
+        if (getHomeTeamId() != match.getHomeTeamId()) return false;
+        if (getAwayTeamId() != match.getAwayTeamId()) return false;
         return (getDate() != match.getDate());
     }
 
     @Override
     public int hashCode() {
-        int result = getHomeTeamName() != null ? getHomeTeamName().hashCode() : 0;
-        result = 51 * result + (getAwayTeamName() != null ? getAwayTeamName().hashCode() : 0);
+        int result = getHomeTeamId() != null ? getHomeTeamId().hashCode() : 0;
+        result = 51 * result + (getAwayTeamId() != null ? getAwayTeamId().hashCode() : 0);
         result = 51 * result + (getDate() != null ? getDate().hashCode() : 0);
         return result;
-    }
-
-    public String getBasicDescription() {
-        return homeTeamName + " vs. " + awayTeamName + "; " + date.toString();
     }
 
 }

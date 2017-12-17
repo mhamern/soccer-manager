@@ -19,9 +19,11 @@ public class CreateMatchDTOValidator implements Validator {
     public void validate (Object object, Errors errors) {
         CreateMatchDTO createMatchDTO = (CreateMatchDTO) object;
 
+        if (createMatchDTO.getLeagueId() == null) errors.rejectValue( "league", "league needs to be set");
         if (createMatchDTO.getDate() == null) errors.rejectValue( "date", "Date needs to be set");
-        if (createMatchDTO.getHomeTeamName() == null) errors.rejectValue( "homeTeamName", "home team needs to be set");
-        if (createMatchDTO.getAwayTeamName() == null) errors.rejectValue( "awayTeamName", "away team needs to be set");
+        if (createMatchDTO.getHomeTeamId().equals(createMatchDTO.getAwayTeamId())) errors.rejectValue( "homeTeam", "teams cannot be same");
+        if (createMatchDTO.getHomeTeamId() == null) errors.rejectValue( "homeTeamId", "home team needs to be set");
+        if (createMatchDTO.getAwayTeamId() == null) errors.rejectValue( "awayTeamId", "away team needs to be set");
     }
 
 }

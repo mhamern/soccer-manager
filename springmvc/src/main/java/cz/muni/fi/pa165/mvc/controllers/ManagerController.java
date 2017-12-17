@@ -42,7 +42,7 @@ public class ManagerController {
     @RequestMapping(value = "admins", method = RequestMethod.GET)
     public String listAdmins(Model model) {
         model.addAttribute("finished", managerFacade.getAdmins());
-        return "match/admins";
+        return "manager/admins";
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
