@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.soccermanager.dao.MatchDao;
 import cz.muni.fi.pa165.soccermanager.dao.TeamDao;
 import cz.muni.fi.pa165.soccermanager.entity.League;
 import cz.muni.fi.pa165.soccermanager.entity.Match;
+import cz.muni.fi.pa165.soccermanager.entity.Player;
 import cz.muni.fi.pa165.soccermanager.entity.Team;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 import cz.muni.fi.pa165.soccermanager.service.exceptions.SoccerManagerServiceException;
@@ -110,6 +111,21 @@ public class LeagueServiceImpl implements LeagueService {
             }
         } else {
             throw new IllegalArgumentException("Match or league is null");
+        }
+    }
+
+    @Override
+    public void removeMatch(Match match, League league) throws SoccerManagerServiceException {
+        if (match != null && league != null) {
+            if (matchDao.fetchByLeague(league).contains(match)) {
+                league.removeMatch(match);
+                leagueDao.update(league);
+            } else {
+                throw new SoccerManagerServiceException(
+                        "Match does not exist in League " + league.getName());
+            }
+        } else {
+            throw new IllegalArgumentException("match or league is null");
         }
     }
 

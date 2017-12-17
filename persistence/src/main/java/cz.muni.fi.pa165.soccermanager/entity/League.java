@@ -115,7 +115,10 @@ public class League {
 
     public void addMatch(Match match) { matches.add(match); }
 
-    public void removeMatch(Match match) { matches.remove(match); }
+    public void removeMatch(Match match) {
+
+        matches.remove(match);
+    }
 
     @Override
     public boolean equals(Object o) {
