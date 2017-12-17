@@ -64,12 +64,15 @@ public class LeagueController {
     public String view(@PathVariable long id, Model model) {
         model.addAttribute("league", leagueFacade.getLeagueById(id));
         model.addAttribute("matches", matchFacade.getMatchesByTeam(id));
+        model.addAttribute("leagueTable", leagueFacade.calculateLeagues(id));
+
         return "league/view";
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String newLeague(Model model) {
         model.addAttribute("createLeague", new CreateLeagueDTO());
+
         return "league/new";
     }
 
@@ -77,6 +80,8 @@ public class LeagueController {
     public NationalityEnum[] countries() {
         return NationalityEnum.values();
     }
+
+
 
 
     @InitBinder
@@ -101,4 +106,8 @@ public class LeagueController {
         redirectAttributes.addFlashAttribute("alert_success", " League " + form.getName() + " was created");
         return "redirect:" + uriBuilder.path("/league/view/{id}").buildAndExpand(id).encode().toUriString();
     }
+
+
+
+
 }

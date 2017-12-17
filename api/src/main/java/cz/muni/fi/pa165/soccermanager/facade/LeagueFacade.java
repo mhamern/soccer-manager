@@ -2,13 +2,15 @@ package cz.muni.fi.pa165.soccermanager.facade;
 
 import cz.muni.fi.pa165.soccermanager.dto.CreateLeagueDTO;
 import cz.muni.fi.pa165.soccermanager.dto.LeagueDTO;
+import cz.muni.fi.pa165.soccermanager.dto.TeamDTO;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
+
 
 import java.util.List;
 
 /**
  * @author 476368 Iman Mehmandoust
- * @version 121/14/2017.
+ * @version 12/14/2017.
  */
 public interface LeagueFacade {
 
@@ -28,5 +30,6 @@ public interface LeagueFacade {
 
     public void deleteLeague(Long leagueId);
 
+    public List<TeamDTO> calculateLeagues(Long id);
 
 }

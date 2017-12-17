@@ -19,6 +19,25 @@
             </tr>
             </tbody>
         </table>
-
+     <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th><f:message key="name"/></th>
+                    <th><f:message key="points"/></th>
+                    <th><f:message key="goalsScored"/></th>
+                    <th><f:message key="goalsConceded"/></th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach items="${leagueTable}" var="team">
+                    <tr>
+                        <td>${team.name}</td>
+                        <td>${team.points}</td>
+                        <td>${team.goalsScored}</td>
+                        <td>${team.goalsConceded}</td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
     </jsp:attribute>
 </my:pagetemplate>

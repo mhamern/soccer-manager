@@ -1,0 +1,15 @@
+F:\projects\soccer-manager\rest\src\main\java\cz\muni\fi\pa165\Initializer.java
+F:\projects\soccer-manager\rest\src\main\java\cz\muni\fi\pa165\rest\controllers\PlayersController.java
+F:\projects\soccer-manager\rest\src\main\java\cz\muni\fi\pa165\rest\exceptions\ResourceAlreadyExistingException.java
+F:\projects\soccer-manager\rest\src\main\java\cz\muni\fi\pa165\rest\controllers\GlobalExceptionController.java
+F:\projects\soccer-manager\rest\src\main\java\cz\muni\fi\pa165\rest\controllers\ManagersController.java
+F:\projects\soccer-manager\rest\src\main\java\cz\muni\fi\pa165\AllowOriginInterceptor.java
+F:\projects\soccer-manager\rest\src\main\java\cz\muni\fi\pa165\rest\controllers\TeamsController.java
+F:\projects\soccer-manager\rest\src\main\java\cz\muni\fi\pa165\rest\exceptions\ResourceNotFoundException.java
+F:\projects\soccer-manager\rest\src\main\java\cz\muni\fi\pa165\rest\controllers\LeaguesController.java
+F:\projects\soccer-manager\rest\src\main\java\cz\muni\fi\pa165\rest\ApiUris.java
+F:\projects\soccer-manager\rest\src\main\java\cz\muni\fi\pa165\rest\exceptions\InvalidParameterException.java
+F:\projects\soccer-manager\rest\src\main\java\cz\muni\fi\pa165\rest\controllers\MatchesController.java
+F:\projects\soccer-manager\rest\src\main\java\cz\muni\fi\pa165\rest\ApiError.java
+F:\projects\soccer-manager\rest\src\main\java\cz\muni\fi\pa165\rest\controllers\MainController.java
+F:\projects\soccer-manager\rest\src\main\java\cz\muni\fi\pa165\RootWebContext.java
