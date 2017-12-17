@@ -43,22 +43,12 @@ public class LeaguesController {
         return leagueDTO;
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public final LeagueDTO createLeague(@RequestBody CreateLeagueDTO league) throws ResourceAlreadyExistingException {
-        try {
-            Long id = leagueFacade.CreateLeague(league);
-            return leagueFacade.getLeagueById(id);
-        } catch (Exception ex) { //specify?
-            throw new ResourceAlreadyExistingException();
-        }
-    }
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     public final void deleteLeague(@PathVariable("id") long id) throws ResourceNotFoundException {
         try {
             leagueFacade.deleteLeague(id);
-        } catch (Exception ex) { //specify?
+        } catch (Exception ex) {
             throw new ResourceNotFoundException();
         }
     }
@@ -83,26 +73,26 @@ public class LeaguesController {
         return leagueDTO;
     }
 
-    @RequestMapping(value = "/{id}/add_match", method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final LeagueDTO addMatch(@PathVariable("id") long id, @RequestBody MatchDTO match)
+    @RequestMapping(value = "/{id}/add_match/{matchId}", method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public final LeagueDTO addMatch(@PathVariable("id") long id, @PathVariable("matchId") long matchId)
             throws InvalidParameterException {
         try {
-            leagueFacade.addMatch(id, match.getId());
+            leagueFacade.addMatch(id, matchId);
             return leagueFacade.getLeagueById(id);
-        } catch (Exception ex) { //specify?
+        } catch (Exception ex) {
             throw new InvalidParameterException();
         }
     }
 
-    @RequestMapping(value = "/{id}/remove_match", method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final LeagueDTO removeMatch(@PathVariable("id") long id, @RequestBody MatchDTO match)
+    @RequestMapping(value = "/{id}/remove_match/{matchId}", method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public final LeagueDTO removeMatch(@PathVariable("id") long id, @PathVariable("matchId") long matchId)
             throws InvalidParameterException {
         try {
-            leagueFacade.removeMatch(id, match.getId());
+            leagueFacade.removeMatch(id, matchId);
             return leagueFacade.getLeagueById(id);
-        } catch (Exception ex) { //specify?
+        } catch (Exception ex) {
             throw new InvalidParameterException();
         }
     }
