@@ -33,5 +33,4 @@ public interface LeagueService {
     void addMatch(Match match, League league) throws SoccerManagerServiceException;
 
     void removeMatch(Match match, League league) throws SoccerManagerServiceException;
-
 }

@@ -1,0 +1,15 @@
+cz\muni\fi\pa165\RootWebContext.class
+cz\muni\fi\pa165\AllowOriginInterceptor.class
+cz\muni\fi\pa165\rest\controllers\MatchesController.class
+cz\muni\fi\pa165\rest\exceptions\ResourceNotFoundException.class
+cz\muni\fi\pa165\rest\controllers\MainController.class
+cz\muni\fi\pa165\rest\exceptions\InvalidParameterException.class
+cz\muni\fi\pa165\rest\ApiError.class
+cz\muni\fi\pa165\rest\ApiUris.class
+cz\muni\fi\pa165\rest\controllers\TeamsController.class
+cz\muni\fi\pa165\Initializer.class
+cz\muni\fi\pa165\rest\controllers\ManagersController.class
+cz\muni\fi\pa165\rest\controllers\PlayersController.class
+cz\muni\fi\pa165\rest\controllers\LeaguesController.class
+cz\muni\fi\pa165\rest\controllers\GlobalExceptionController.class
+cz\muni\fi\pa165\rest\exceptions\ResourceAlreadyExistingException.class

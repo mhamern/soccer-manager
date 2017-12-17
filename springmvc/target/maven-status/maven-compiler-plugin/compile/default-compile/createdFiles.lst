@@ -1,0 +1,14 @@
+cz\muni\fi\pa165\mvc\controllers\MatchController.class
+cz\muni\fi\pa165\mvc\forms\CreateMatchDTOValidator.class
+cz\muni\fi\pa165\mvc\forms\CreateManagerDTOValidator.class
+cz\muni\fi\pa165\mvc\config\StartInitializer.class
+cz\muni\fi\pa165\mvc\security\ProtectFilter.class
+cz\muni\fi\pa165\mvc\controllers\PlayerController.class
+cz\muni\fi\pa165\mvc\forms\CreatePlayerDTOValidator.class
+cz\muni\fi\pa165\mvc\forms\CreateTeamDTOValidator.class
+cz\muni\fi\pa165\mvc\forms\CreateLeagueDTOValidator.class
+cz\muni\fi\pa165\mvc\config\SpringMvcConfig.class
+cz\muni\fi\pa165\mvc\controllers\TeamController.class
+cz\muni\fi\pa165\mvc\controllers\AuthController.class
+cz\muni\fi\pa165\mvc\controllers\LeagueController.class
+cz\muni\fi\pa165\mvc\controllers\ManagerController.class
