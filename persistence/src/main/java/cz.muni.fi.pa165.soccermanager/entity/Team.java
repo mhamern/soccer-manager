@@ -3,9 +3,7 @@ import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 import cz.muni.fi.pa165.soccermanager.enums.StadiumEnum;
 
 import javax.persistence.*;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author 445720 Martin Hamernik
@@ -245,5 +243,12 @@ public class Team {
                 ", manager=" + manager +
                 ", league=" + league +
                 '}';
+    }
+
+    @PreRemove
+    public void preRemove() {
+        setManager(null);
+        setPlayers(null);
+        setLeague(null);
     }
 }

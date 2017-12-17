@@ -18,6 +18,12 @@ public interface MatchFacade {
     public Long createMatch(CreateMatchDTO match);
 
     /**
+     * gets all matches
+     * @return list of all matches
+     */
+    public List<MatchDTO> getAllMatches();
+
+    /**
      * gets all matches played by specific team
      * @param teamId id of team
      * @return list of all matches played by the specified team
@@ -56,6 +62,20 @@ public interface MatchFacade {
      * @param matchId id of the requested match
      */
     public void play(Long matchId);
+
+    /**
+     * send a request to remove match from the league
+     * @param matchId id of the removed match
+     * @param leagueId id of the league from what should be match removed
+     */
+    public void removeMatch(Long matchId, Long leagueId);
+
+    /**
+     * send a request to add match to the league
+     * @param matchId id of the added match
+     * @param leagueId id of the league
+     */
+    public void addMatch(Long matchId, Long leagueId);
 
     /**
      * request to delete one match

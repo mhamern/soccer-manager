@@ -1,4 +1,5 @@
 package cz.muni.fi.pa165.soccermanager.dto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import cz.muni.fi.pa165.soccermanager.entity.League;
 import cz.muni.fi.pa165.soccermanager.entity.Manager;
 import cz.muni.fi.pa165.soccermanager.entity.Player;
@@ -22,8 +23,8 @@ public class TeamDTO {
     private int goalsScored;
     private int goalsConceded;
     private Manager manager;
-
     private Set<Player> players;
+    @JsonIgnore
     private League league;
 
     public Long getId() {

@@ -1,24 +1,21 @@
 package cz.muni.fi.pa165.mvc.security;
 
 import cz.muni.fi.pa165.soccermanager.dto.ManagerDTO;
-import cz.muni.fi.pa165.soccermanager.facade.ManagerFacade;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
 
 /**
  * @author 445720 Martin Hamernik
- * @version 12/1/2017.
+ * @version 12/8/2017.
  */
-
-@WebFilter(urlPatterns =  {"/team/*", "/player/*", "/league/*", "/match/*", "/manager/*"})
-public class ProtectFilter implements Filter {
-
+@WebFilter(urlPatterns =  {"/team/new/", "/player/new/", "/league/new/", "/match/new/", "/manager/new/",
+        "/team/new", "/player/new", "/league/new", "/match/new", "/manager/new",
+        "/team/delete/*", "/player/delete/*", "/league/delete/*", "/match/delete/*", "/manager/delete/*"})
+public class AdminFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
             throws IOException, ServletException {
@@ -29,6 +26,11 @@ public class ProtectFilter implements Filter {
 
         if (manager == null) {
             response.sendRedirect(request.getContextPath() + "/auth/login");
+            return;
+        }
+
+        if (!manager.isAdmin()) {
+            response.sendRedirect(request.getContextPath() + "/");
             return;
         }
 
@@ -44,5 +46,4 @@ public class ProtectFilter implements Filter {
     public void destroy() {
 
     }
-
 }

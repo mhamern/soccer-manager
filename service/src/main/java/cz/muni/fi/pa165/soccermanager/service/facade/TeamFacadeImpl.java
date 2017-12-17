@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.soccermanager.dto.TeamDTO;
 import cz.muni.fi.pa165.soccermanager.dto.CreateTeamDTO;
 import cz.muni.fi.pa165.soccermanager.entity.League;
 import cz.muni.fi.pa165.soccermanager.entity.Manager;
+import cz.muni.fi.pa165.soccermanager.entity.Player;
 import cz.muni.fi.pa165.soccermanager.entity.Team;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 import cz.muni.fi.pa165.soccermanager.facade.TeamFacade;
@@ -87,23 +88,35 @@ public class TeamFacadeImpl implements TeamFacade {
     @Override
     public TeamDTO getTeamByManager(Long managerId) {
         Manager manager = managerService.fetchById(managerId);
-        return beanMappingService.mapTo(teamService.fetchByManager(manager), TeamDTO.class);
+        Team team = teamService.fetchByManager(manager);
+        return (team == null) ? null : beanMappingService.mapTo(team, TeamDTO.class);
     }
 
     @Override
     public TeamDTO getTeamById(Long id) {
+        if (id == null) {
+            return null;
+        }
         Team team = teamService.fetchById(id);
         return (team == null) ? null : beanMappingService.mapTo(team, TeamDTO.class);
     }
 
     @Override
     public TeamDTO getTeamByName(String name) {
-        return beanMappingService.mapTo(teamService.fetchByName(name), TeamDTO.class);
+        Team team = teamService.fetchByName(name);
+        return (team == null) ? null : beanMappingService.mapTo(team, TeamDTO.class);
+    }
+
+    @Override
+    public TeamDTO getTeamByPlayer(Long id) {
+        Player player = playerService.fetchById(id);
+        Team team = teamService.fetchByPlayer(player);
+        return (team == null) ? null : beanMappingService.mapTo(team, TeamDTO.class);
     }
 
     @Override
     public void addPlayer(Long playerId, Long teamId) {
-        teamService.addPlayer(playerService.fetchById(playerId), teamService.fetchById(playerId));
+        teamService.addPlayer(playerService.fetchById(playerId), teamService.fetchById(teamId));
     }
 
     @Override

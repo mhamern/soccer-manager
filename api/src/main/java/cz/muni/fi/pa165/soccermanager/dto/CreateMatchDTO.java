@@ -55,4 +55,8 @@ public class CreateMatchDTO {
         return result;
     }
 
+    public String getBasicDescription() {
+        return homeTeamName + " vs. " + awayTeamName + "; " + date.toString();
+    }
+
 }

@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.mvc.controllers;
 import cz.muni.fi.pa165.mvc.forms.CreateTeamDTOValidator;
 import cz.muni.fi.pa165.soccermanager.dto.CreateTeamDTO;
 import cz.muni.fi.pa165.soccermanager.dto.LeagueDTO;
+import cz.muni.fi.pa165.soccermanager.dto.MatchDTO;
 import cz.muni.fi.pa165.soccermanager.dto.TeamDTO;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 import cz.muni.fi.pa165.soccermanager.enums.StadiumEnum;
@@ -18,9 +19,11 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -49,7 +52,7 @@ public class TeamController {
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(Model model) {
+    public String list(Model model, HttpServletRequest request) {
         model.addAttribute("teams", teamFacade.getAllTeams());
         return "team/list";
     }
@@ -70,6 +73,10 @@ public class TeamController {
     public String view(@PathVariable long id, Model model) {
         model.addAttribute("team", teamFacade.getTeamById(id));
         model.addAttribute("players", playerFacade.getPlayersByTeam(id));
+        List<MatchDTO> matches = matchFacade.getMatchesByTeam(id);
+        if (matches != null) {
+            Collections.sort(matches, Comparator.comparing((MatchDTO::getDate)));
+        }
         model.addAttribute("matches", matchFacade.getMatchesByTeam(id));
         return "team/view";
     }
@@ -78,6 +85,18 @@ public class TeamController {
     public String newTeam(Model model) {
         model.addAttribute("createTeam", new CreateTeamDTO());
         return "team/new";
+    }
+
+    @RequestMapping(value = "/{teamId}/manage/{managerId}", method = RequestMethod.GET)
+    public String manageTeam(@PathVariable long teamId, @PathVariable long managerId, Model model ) {
+        teamFacade.assignManager(managerId, teamId);
+        return "team/list";
+    }
+
+    @RequestMapping(value = "/{teamId}/removemanager/", method = RequestMethod.GET)
+    public String unassignManager(@PathVariable long teamId, @PathVariable long managerId, Model model ) {
+        teamFacade.removeManager(teamId);
+        return "team/list";
     }
 
     @ModelAttribute("countries")

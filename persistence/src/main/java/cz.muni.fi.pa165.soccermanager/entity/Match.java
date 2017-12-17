@@ -195,4 +195,10 @@ public class Match {
         return string;
     }
 
+    @PreRemove
+    public void preRemove() {
+        setLeague(null);
+        setHomeTeam(null);
+        setAwayTeam(null);
+    }
 }

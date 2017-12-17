@@ -1,11 +1,8 @@
 package cz.muni.fi.pa165.sampledata;
-
-import cz.muni.fi.pa165.sampledata.SampleDataLoadingFacade;
 import cz.muni.fi.pa165.soccermanager.entity.*;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 import cz.muni.fi.pa165.soccermanager.enums.PositionEnum;
 import cz.muni.fi.pa165.soccermanager.enums.StadiumEnum;
-import cz.muni.fi.pa165.soccermanager.facade.MatchFacade;
 import cz.muni.fi.pa165.soccermanager.service.*;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -80,6 +77,51 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
                 .goalkeeping(5)
                 .build();
         players.add(pogba);
+
+        Player ronaldo = new Player.PlayerBuilder(
+                "Cristiano Ronaldo",
+                PositionEnum.ATTACKER,
+                NationalityEnum.Portugal,
+                LocalDate.of(1990,1,1))
+                .number(7)
+                .passing(85)
+                .shooting(95)
+                .speed(85)
+                .defence(40)
+                .strength(85)
+                .goalkeeping(5)
+                .build();
+        players.add(ronaldo);
+
+        Player benzema = new Player.PlayerBuilder(
+                "Karim Benzema",
+                PositionEnum.ATTACKER,
+                NationalityEnum.France,
+                LocalDate.of(1990,1,1))
+                .number(9)
+                .passing(90)
+                .shooting(85)
+                .speed(70)
+                .defence(60)
+                .strength(85)
+                .goalkeeping(5)
+                .build();
+        players.add(benzema);
+
+        Player ramos = new Player.PlayerBuilder(
+                "Sergio Ramos",
+                PositionEnum.DEFENDER,
+                NationalityEnum.Spain,
+                LocalDate.of(1990,1,1))
+                .number(4)
+                .passing(70)
+                .shooting(60)
+                .speed(80)
+                .defence(90)
+                .strength(80)
+                .goalkeeping(5)
+                .build();
+        players.add(ramos);
 
         Player lukaku = new Player.PlayerBuilder(
                 "Romelu Lukaku",
@@ -179,6 +221,24 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
                 .build();
         unitedcityPlayed.playMatch();
         matches.add(unitedcityPlayed);
+
+        Match unitedcityPlayed2 = new Match.MatchBuilder(
+                united,
+                city,
+                LocalDate.of(2016, 3, 2),
+                premierLeague)
+                .build();
+        unitedcityPlayed2.playMatch();
+        matches.add(unitedcityPlayed2);
+
+        Match unitedcityPlayed3 = new Match.MatchBuilder(
+                united,
+                city,
+                LocalDate.of(2015, 3, 2),
+                premierLeague)
+                .build();
+        unitedcityPlayed3.playMatch();
+        matches.add(unitedcityPlayed3);
 
 
         loadToDb(leagues, managers, players, teams, matches);

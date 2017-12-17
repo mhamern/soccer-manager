@@ -45,22 +45,11 @@ public class TeamsController {
         return teamDTO;
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
-        produces =  MediaType.APPLICATION_JSON_VALUE)
-    public final TeamDTO createTeam(@RequestBody CreateTeamDTO team) throws ResourceAlreadyExistingException {
-        try {
-            Long id = teamFacade.createTeam(team);
-            return teamFacade.getTeamById(id);
-        } catch (Exception ex) { //specify?
-            throw new ResourceAlreadyExistingException();
-        }
-    }
-
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "{id}/delete", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     public final void deleteTeam(@PathVariable("id") long id) throws ResourceNotFoundException {
         try {
             teamFacade.deleteTeam(id);
-        } catch (Exception ex) { //specify?
+        } catch (Exception ex) {
             throw new ResourceNotFoundException();
         }
     }
@@ -83,7 +72,7 @@ public class TeamsController {
         return teamDTOS;
     }
 
-    @RequestMapping(value ="/manager/{manager_id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value ="/manager/{manager_id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final TeamDTO getTeamByManagerId(@PathVariable("manager_id") long managerId) {
         TeamDTO teamDTO = teamFacade.getTeamByManager(managerId);
         if (teamDTO == null) {
@@ -101,74 +90,74 @@ public class TeamsController {
         return teamDTO;
     }
 
-    @RequestMapping(value = "/{id}/add_player", method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final TeamDTO addPlayer(@PathVariable("id") long id, @RequestBody PlayerDTO player)
+    @RequestMapping(value = "/{id}/add_player/{playerId}", method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public final TeamDTO addPlayer(@PathVariable("id") long id, @PathVariable("playerId") long playerId)
             throws InvalidParameterException {
         try {
-            teamFacade.addPlayer(id, player.getId());
+            teamFacade.addPlayer(playerId, id);
             return teamFacade.getTeamById(id);
-        } catch (Exception ex) { //specify?
+        } catch (Exception ex) {
             throw new InvalidParameterException();
         }
     }
 
-    @RequestMapping(value = "/{id}/remove_player", method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final TeamDTO removePlayer(@PathVariable("id") long id, @RequestBody PlayerDTO player)
+    @RequestMapping(value = "/{id}/remove_player/{playerId}", method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public final TeamDTO removePlayer(@PathVariable("id") long id, @PathVariable("playerId") long playerId)
             throws InvalidParameterException {
         try {
-            teamFacade.removePlayer(id, player.getId());
+            teamFacade.removePlayer(playerId, id);
             return teamFacade.getTeamById(id);
-        } catch (Exception ex) { //specify?
+        } catch (Exception ex) {
             throw new InvalidParameterException();
         }
     }
 
-    @RequestMapping(value = "/{id}/assign_manager", method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final TeamDTO assignManager(@PathVariable("id") long id, @RequestBody ManagerDTO manager)
+    @RequestMapping(value = "/{id}/assign_manager/{managerId}", method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public final TeamDTO assignManager(@PathVariable("id") long id, @PathVariable("managerId") long managerId)
             throws InvalidParameterException {
         try {
-            teamFacade.assignManager(id, manager.getId());
+            teamFacade.assignManager(managerId, id);
             return teamFacade.getTeamById(id);
-        } catch (Exception ex) { //specify?
+        } catch (Exception ex) {
             throw new InvalidParameterException();
         }
     }
 
     @RequestMapping(value = "/{id}/remove_manager", method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public final TeamDTO removeManager(@PathVariable("id") long id)
             throws InvalidParameterException {
         try {
             teamFacade.removeManager(id);
             return teamFacade.getTeamById(id);
-        } catch (Exception ex) { //specify?
+        } catch (Exception ex) {
             throw new InvalidParameterException();
         }
     }
 
-    @RequestMapping(value = "/{id}/join_league", method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final TeamDTO addPlayer(@PathVariable("id") long id, @RequestBody LeagueDTO league)
+    @RequestMapping(value = "/{id}/join_league/{leagueId}", method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public final TeamDTO joinLeague(@PathVariable("id") long id, @PathVariable("leagueId") long leagueId)
             throws InvalidParameterException {
         try {
-            teamFacade.joinLeague(id, league.getId());
+            teamFacade.joinLeague(leagueId, id);
             return teamFacade.getTeamById(id);
-        } catch (Exception ex) { //specify?
+        } catch (Exception ex) {
             throw new InvalidParameterException();
         }
     }
 
     @RequestMapping(value = "/{id}/leave_league", method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final TeamDTO removePlayer(@PathVariable("id") long id)
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public final TeamDTO leaveLeague(@PathVariable("id") long id)
             throws InvalidParameterException {
         try {
             teamFacade.leaveLeague(id);
             return teamFacade.getTeamById(id);
-        } catch (Exception ex) { //specify?
+        } catch (Exception ex) {
             throw new InvalidParameterException();
         }
     }

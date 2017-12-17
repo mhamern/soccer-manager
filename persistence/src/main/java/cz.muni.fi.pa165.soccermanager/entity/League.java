@@ -21,13 +21,13 @@ public class League {
     public static class LeagueBuilder {
 
 
-        private  String name;
+        private String name;
         private NationalityEnum country;
 
         List matches = new ArrayList<>();
 
 
-        public LeagueBuilder(String name, NationalityEnum country,List<Match> matches) {
+        public LeagueBuilder(String name, NationalityEnum country, List<Match> matches) {
             this.name = name;
             this.country = country;
             this.matches = matches;
@@ -48,7 +48,7 @@ public class League {
             return this;
         }
 
-        public LeagueBuilder country(NationalityEnum country){
+        public LeagueBuilder country(NationalityEnum country) {
             this.country = country;
             return this;
         }
@@ -63,21 +63,21 @@ public class League {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column (nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String name;
 
     @Enumerated(EnumType.STRING)
     private NationalityEnum country;
 
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "league", orphanRemoval = true)
     private List<Match> matches;
 
 
     public League() {
     }
 
-    private League(LeagueBuilder builder){
+    private League(LeagueBuilder builder) {
         name = builder.name;
         country = builder.country;
     }
@@ -87,7 +87,9 @@ public class League {
         return id;
     }
 
-    public void setId(Long id) { this.id = id; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -113,10 +115,11 @@ public class League {
         this.matches = matches;
     }
 
-    public void addMatch(Match match) { matches.add(match); }
+    public void addMatch(Match match) {
+        matches.add(match);
+    }
 
     public void removeMatch(Match match) {
-
         matches.remove(match);
     }
 
@@ -132,8 +135,6 @@ public class League {
         if (getName() != null ? !getName().equals(league.getName()) : league.getName() != null) return false;
         return getCountry() != null ? getCountry().equals(league.getCountry()) : league.getCountry() == null;
     }
-
-
 
 
     @Override
@@ -153,4 +154,5 @@ public class League {
                 ", country='" + country + '\'' +
                 '}';
     }
+
 }

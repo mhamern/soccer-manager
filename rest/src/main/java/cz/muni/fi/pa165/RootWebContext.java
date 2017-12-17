@@ -3,6 +3,7 @@ package cz.muni.fi.pa165;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import cz.muni.fi.pa165.sampledata.SoccerManagerSampleDataConfiguration;
 import cz.muni.fi.pa165.soccermanager.service.config.ServiceConfiguration;
 import org.springframework.context.annotation.*;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -21,8 +22,8 @@ import java.util.Locale;
 
 @EnableWebMvc
 @Configuration
-@Import({ServiceConfiguration.class}) //sample data?
-@ComponentScan(basePackages = {"cz.muni.fi.pa165.rest.controllers"}) //assemblers?
+@Import({ServiceConfiguration.class, SoccerManagerSampleDataConfiguration.class})
+@ComponentScan(basePackages = {"cz.muni.fi.pa165.rest.controllers"})
 public class RootWebContext implements WebMvcConfigurer {
 
     @Override
@@ -38,8 +39,6 @@ public class RootWebContext implements WebMvcConfigurer {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH));
-
-        //mix ins?
 
         objectMapper.disable(MapperFeature.DEFAULT_VIEW_INCLUSION);
         jsonConverter.setObjectMapper(objectMapper);

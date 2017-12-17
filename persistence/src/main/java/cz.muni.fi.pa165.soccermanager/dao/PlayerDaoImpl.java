@@ -75,8 +75,7 @@ public class PlayerDaoImpl implements PlayerDao {
     @Override
     public List<Player> fetchFreeAgents() {
         return manager.
-                createQuery("SELECT p FROM Player p, Team t " +
-                        "WHERE p NOT MEMBER OF t.players", Player.class)
+                createQuery("SELECT p FROM Player p WHERE p NOT IN (SELECT player FROM Team t JOIN t.players player)" ,Player.class)
                 .getResultList();
     }
 

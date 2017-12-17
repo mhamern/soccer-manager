@@ -118,6 +118,7 @@ public class LeagueServiceImpl implements LeagueService {
     public void removeMatch(Match match, League league) throws SoccerManagerServiceException {
         if (match != null && league != null) {
             if (matchDao.fetchByLeague(league).contains(match)) {
+
                 league.removeMatch(match);
                 leagueDao.update(league);
             } else {

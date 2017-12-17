@@ -12,6 +12,7 @@ import cz.muni.fi.pa165.soccermanager.service.exceptions.SoccerManagerServiceExc
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -370,6 +371,9 @@ public class TeamServiceTest {
 
     @Test
     public void deleteTeam() {
+        when(teamDao.fetchById(10L)).thenReturn(team1);
+        when(matchDao.fetchByTeam(team1)).thenReturn(Collections.emptyList());
+        doNothing().when(matchDao).delete(Mockito.anyLong());
         doNothing().when(teamDao).delete(10L);
 
         teamService.delete(10L);
@@ -653,11 +657,11 @@ public class TeamServiceTest {
 
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void calculatePointsAndGoalsTeamNull() {
         when(matchDao.fetchByTeam(team1)).thenReturn(Collections.EMPTY_LIST);
 
-        Team calculated = teamService.calculatePointsAndGoals(null);
+        assertNull(teamService.calculatePointsAndGoals(null));
     }
 
 
