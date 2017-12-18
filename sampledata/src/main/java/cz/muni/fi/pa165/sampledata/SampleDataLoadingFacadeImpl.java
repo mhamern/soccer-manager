@@ -272,13 +272,29 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         matches.add(unitedcityPlayed2);
 
         Match unitedcityPlayed3 = new Match.MatchBuilder(
-                united,
                 city,
+                united,
                 LocalDate.of(2015, 3, 2),
                 premierLeague)
                 .build();
         unitedcityPlayed3.playMatch();
         matches.add(unitedcityPlayed3);
+
+        Match chelseacityNotPlayed1 = new Match.MatchBuilder(
+                chelsea,
+                city,
+                LocalDate.of(2016, 3, 2),
+                premierLeague)
+                .build();
+        matches.add(chelseacityNotPlayed1);
+
+        Match chelseacityNotPlayed2 = new Match.MatchBuilder(
+                city,
+                chelsea,
+                LocalDate.of(2017, 10, 8),
+                premierLeague)
+                .build();
+        matches.add(chelseacityNotPlayed2);
 
 
         loadToDb(leagues, managers, players, teams, matches);
