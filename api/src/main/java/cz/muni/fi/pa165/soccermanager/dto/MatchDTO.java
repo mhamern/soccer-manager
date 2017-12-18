@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.soccermanager.dto;
 import cz.muni.fi.pa165.soccermanager.entity.Match;
+import cz.muni.fi.pa165.soccermanager.enums.StadiumEnum;
 
 import java.time.LocalDate;
 
@@ -13,15 +14,21 @@ public class MatchDTO {
 
     private LocalDate date;
 
+    private StadiumEnum stadium;
+
     private TeamDTO homeTeam;
 
     private TeamDTO awayTeam;
+
+    private LeagueDTO league;
 
     private int homeTeamGoals;
 
     private int awayTeamGoals;
 
     private boolean finished;
+
+    private boolean inPast;
 
     public Long getId() {
         return id;
@@ -49,11 +56,21 @@ public class MatchDTO {
 
     public int getAwayTeamGoals() { return awayTeamGoals; }
 
-    public void setAwayTeamGoals(int awaytTeamGoals) { this.awayTeamGoals = awaytTeamGoals; }
+    public void setAwayTeamGoals(int awayTeamGoals) { this.awayTeamGoals = awayTeamGoals; }
 
     public boolean isFinished() { return finished; }
 
     public void setFinished(boolean finished) { this.finished = finished; }
+
+    public StadiumEnum getStadium() { return stadium; }
+
+    public void setStadium(StadiumEnum stadium) { this.stadium = stadium; }
+
+    public LeagueDTO getLeague() { return league; }
+
+    public void setLeague(LeagueDTO league) { this.league = league; }
+
+    public boolean isInPast() { return date.isBefore(LocalDate.now()); }
 
     @Override
     public boolean equals(Object o) {

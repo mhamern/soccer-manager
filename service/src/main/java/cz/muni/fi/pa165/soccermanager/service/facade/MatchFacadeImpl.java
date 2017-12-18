@@ -48,16 +48,18 @@ public class MatchFacadeImpl implements MatchFacade {
     public Long createMatch(CreateMatchDTO match) {
         Match mappedMatch = beanMappingService.mapTo(match, Match.class);
 
-        Team homeTeam = teamService.fetchByName(match.getHomeTeamName());
-        Team awayTeam = teamService.fetchByName(match.getAwayTeamName());
+        Team homeTeam = teamService.fetchById(match.getHomeTeamId());
+        Team awayTeam = teamService.fetchById(match.getAwayTeamId());
+        League league = leagueService.fetchById(match.getLeagueId());
 
         mappedMatch.setHomeTeam(homeTeam);
         mappedMatch.setAwayTeam(awayTeam);
         mappedMatch.setDate(match.getDate());
+        mappedMatch.setLeague(league);
 
         //save Match
         Match newMatch = matchService.createMatch(mappedMatch);
-        Long id = mappedMatch.getId();
+        Long id = newMatch.getId();
 
         return id;
     }

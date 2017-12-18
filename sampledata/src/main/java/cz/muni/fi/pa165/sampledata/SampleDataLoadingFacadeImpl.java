@@ -183,6 +183,36 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
                 .build();
         players.add(aguero);
 
+        Player hazard = new Player.PlayerBuilder(
+                "Eden Hazard",
+                PositionEnum.MIDFIELDER,
+                NationalityEnum.Belgium,
+                LocalDate.of(1982,1,1))
+                .number(10)
+                .passing(85)
+                .shooting(90)
+                .speed(80)
+                .defence(70)
+                .strength(70)
+                .goalkeeping(10)
+                .build();
+        players.add(hazard);
+
+        Player fabregas = new Player.PlayerBuilder(
+                "Francesc Fàbregas",
+                PositionEnum.MIDFIELDER,
+                NationalityEnum.Spain,
+                LocalDate.of(1987,5,4))
+                .number(4)
+                .passing(85)
+                .shooting(90)
+                .speed(80)
+                .defence(70)
+                .strength(70)
+                .goalkeeping(10)
+                .build();
+        players.add(fabregas);
+
         Team united = new Team.TeamBuilder(
                 "Manchester United",
                 NationalityEnum.England,
@@ -205,6 +235,16 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         city.addPlayer(debruyne);
         city.setManager(guardiola);
         teams.add(city);
+
+        Team chelsea = new Team.TeamBuilder(
+                "Chelsea",
+                NationalityEnum.England,
+                StadiumEnum.Stamford_Bridge,
+                premierLeague
+        ).build();
+        city.addPlayer(hazard);
+        city.addPlayer(fabregas);
+        teams.add(chelsea);
 
         Match unitedcity = new Match.MatchBuilder(
                 united,

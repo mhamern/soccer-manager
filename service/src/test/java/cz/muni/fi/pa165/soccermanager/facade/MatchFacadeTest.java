@@ -127,9 +127,10 @@ public class MatchFacadeTest {
         match2.setId(2L);
 
         createMatchDTO = new CreateMatchDTO();
-        createMatchDTO.setHomeTeamName(match1.getHomeTeam().getName());
-        createMatchDTO.setAwayTeamName(match1.getAwayTeam().getName());
+        createMatchDTO.setHomeTeamId(match1.getHomeTeam().getId());
+        createMatchDTO.setAwayTeamId(match1.getAwayTeam().getId());
         createMatchDTO.setDate(match1.getDate());
+        createMatchDTO.setLeagueId(league.getId());
 
         matchDTO1 = new MatchDTO();
         matchDTO1.setHomeTeam(beanMappingService.mapTo(match1.getHomeTeam(), TeamDTO.class));
@@ -221,7 +222,7 @@ public class MatchFacadeTest {
                 match1.getHomeTeam(),
                 match1.getAwayTeam(),
                 match1.getDate(),
-                league
+                match1.getLeague()
         ).build();
         newMatch.setId(10L);
 

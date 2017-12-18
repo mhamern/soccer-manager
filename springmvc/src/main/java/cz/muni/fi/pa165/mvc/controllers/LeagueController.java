@@ -101,6 +101,7 @@ public class LeagueController {
     public String create(@Valid @ModelAttribute("createLeague") CreateLeagueDTO form,
                          BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes,
                          UriComponentsBuilder uriBuilder) {
+
         if (bindingResult.hasErrors()) {
             for (FieldError error : bindingResult.getFieldErrors()) {
                 model.addAttribute(error.getField() + "_error", true);

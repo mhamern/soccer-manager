@@ -1,11 +1,11 @@
 package cz.muni.fi.pa165.mvc.controllers;
 
 import cz.muni.fi.pa165.mvc.forms.CreateMatchDTOValidator;
-import cz.muni.fi.pa165.soccermanager.dto.CreateMatchDTO;
-import cz.muni.fi.pa165.soccermanager.dto.ManagerDTO;
-import cz.muni.fi.pa165.soccermanager.dto.MatchDTO;
+import cz.muni.fi.pa165.soccermanager.dto.*;
 import cz.muni.fi.pa165.soccermanager.enums.StadiumEnum;
+import cz.muni.fi.pa165.soccermanager.facade.LeagueFacade;
 import cz.muni.fi.pa165.soccermanager.facade.MatchFacade;
+import cz.muni.fi.pa165.soccermanager.facade.TeamFacade;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @author 456519 Filip Lux
@@ -28,17 +29,28 @@ import javax.validation.Valid;
 public class MatchController {
 
     private final MatchFacade matchFacade;
+    private final LeagueFacade leagueFacade;
+    private final TeamFacade teamFacade;
 
     @Inject
-    MatchController(MatchFacade matchFacade) {this.matchFacade = matchFacade;}
+    MatchController(MatchFacade matchFacade,
+                    LeagueFacade leagueFacade,
+                    TeamFacade teamFacade) {
+        this.matchFacade = matchFacade;
+        this.leagueFacade = leagueFacade;
+        this.teamFacade = teamFacade; }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model) {
+
+        List<LeagueDTO> leagues = leagueFacade.getAllLeagues();
         model.addAttribute("matches", matchFacade.getAllMatches());
+
+
         return "match/list";
     }
 
-    @RequestMapping(value = "finished", method = RequestMethod.GET)
+    @RequestMapping(value = "/finished", method = RequestMethod.GET)
     public String listFinished(Model model) {
         model.addAttribute("finished", matchFacade.getFinishedMatches());
         return "match/finished";
@@ -53,7 +65,7 @@ public class MatchController {
         matchFacade.deleteMatch(id);
 
         redirectAttributes.addFlashAttribute("alert_success", "Match " + matchDTO.getBasicDescription() + " was deleted.");
-        return "redirect:" + uriBuilder.path("/player/list").toUriString();
+        return "redirect:" + uriBuilder.path("/match/list").toUriString();
     }
 
     @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
@@ -61,6 +73,7 @@ public class MatchController {
         model.addAttribute("match", matchFacade.getMatchById(id));
         return "match/view";
     }
+
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String newMatch(Model model) {
@@ -71,6 +84,16 @@ public class MatchController {
     @ModelAttribute("stadiums")
     public StadiumEnum[] stadiums() { return StadiumEnum.values(); }
 
+    @ModelAttribute("leagues")
+    public List<LeagueDTO> leagues() {
+        return leagueFacade.getAllLeagues();
+    }
+
+    @ModelAttribute("teams")
+    public List<TeamDTO> teams() {
+        return teamFacade.getAllTeams();
+    }
+
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
         if (binder.getTarget() instanceof CreateMatchDTO) {
@@ -79,19 +102,29 @@ public class MatchController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(@Valid @ModelAttribute("matchCreate") CreateMatchDTO cMatchDTO,
+    public String create(@Valid @ModelAttribute("createMatch") CreateMatchDTO form,
                          BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes,
-                         UriComponentsBuilder urisBuilder) {
+                         UriComponentsBuilder uriBuilder) {
+
         if (bindingResult.hasErrors()) {
-            for (FieldError error: bindingResult.getFieldErrors()) {
+            for (FieldError error : bindingResult.getFieldErrors()) {
                 model.addAttribute(error.getField() + "_error", true);
             }
-            return "team/new";
+            return "/match/new";
         }
 
-        Long id = matchFacade.createMatch(cMatchDTO);
-        redirectAttributes.addFlashAttribute("alert_success", "Match " + cMatchDTO.getBasicDescription() + " was created successfully");
-        return "redirect: " + urisBuilder.path("match/view/{id}").buildAndExpand(id).encode().toUriString();
+        Long id = matchFacade.createMatch(form);
+        redirectAttributes.addFlashAttribute("alert_success", "Match was created successfully");
+        return "redirect: " + uriBuilder.path("/match/view/{id}").buildAndExpand(id).encode().toUriString();
     }
+
+    @RequestMapping(value = "/play/{id}", method = RequestMethod.GET)
+    public String play(@PathVariable long id, RedirectAttributes redirectAttributes,
+                       UriComponentsBuilder uriBuilder) {
+        matchFacade.play(id);
+        redirectAttributes.addFlashAttribute("alert_success", "Match was played");
+        return "redirect: " + uriBuilder.path("/match/view/{id}").buildAndExpand(id).toUriString();
+    }
+
 
 }
