@@ -7,6 +7,7 @@ import cz.muni.fi.pa165.soccermanager.dto.MatchDTO;
 import cz.muni.fi.pa165.soccermanager.enums.StadiumEnum;
 import cz.muni.fi.pa165.soccermanager.facade.ManagerFacade;
 import cz.muni.fi.pa165.soccermanager.facade.MatchFacade;
+import cz.muni.fi.pa165.soccermanager.facade.TeamFacade;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,17 +30,23 @@ import javax.validation.Valid;
 public class ManagerController {
 
     private final ManagerFacade managerFacade;
+    private final TeamFacade teamFacade;
 
     @Inject
-    ManagerController(ManagerFacade managerFacade) {this.managerFacade = managerFacade;}
+    ManagerController(ManagerFacade managerFacade,
+                      TeamFacade teamFacade) {
+        this.managerFacade = managerFacade;
+        this.teamFacade = teamFacade;}
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model) {
         model.addAttribute("managers", managerFacade.findAllManagers());
+        model.addAttribute("admins", managerFacade.getAdmins());
+        model.addAttribute("teams", teamFacade.getAllTeams());
         return "manager/list";
     }
 
-    @RequestMapping(value = "admins", method = RequestMethod.GET)
+    @RequestMapping(value = "/admins", method = RequestMethod.GET)
     public String listAdmins(Model model) {
         model.addAttribute("finished", managerFacade.getAdmins());
         return "manager/admins";

@@ -9,8 +9,9 @@
 
 <my:pagetemplate title="${match.homeTeam.name} vs. ${match.awayTeam.name}">
     <jsp:attribute name="body">
+
         <table class="table">
-        <tbody>
+            <tbody>
             <tr>
                 <td><b><f:message key="homeTeam"/>:</b> ${match.homeTeam.name}</td>
             </tr>
@@ -21,19 +22,27 @@
                 <td><b><f:message key="date"/>:</b> ${match.date}</td>
             </tr>
             <tr>
-                <td><b><f:message key="finished"/>:</b> ${match.finished}</td>
+                <td><b><f:message key="league"/>:</b> ${match.league.name}</td>
             </tr>
-            <tr>
             <c:choose>
-                <c:when test="${match.finished}">
-                    <td><b><f:message key="score"/>:</b> ${match.getHomeTeamGoals()} : ${match.getAwayTeamGoals()}</td>
+                <c:when test="${not match.finished && match.inPast}">
+                    <td><my:a href="/match/play/${match.id}" class="btn btn-primary"><f:message key="play"/></my:a>
+                        </td>
+                </c:when>
+                <c:when test="${not match.finished}">
+                    <tr>
+                        <td><my:a href="/match/play/${match.id}" class="btn btn-primary disabled"><f:message key="play"/></my:a>
+                            <b>Match is not possible to play now.</b> </td>
+                    </tr>
                 </c:when>
                 <c:otherwise>
-                    <td><b><f:message key="score"/>:</b>-</td>
+                    <td><b><f:message key="score"/>:</b> ${match.getHomeTeamGoals()} : ${match.getAwayTeamGoals()}</td>
                 </c:otherwise>
                 </c:choose>
-            </tr>
             </tbody>
         </table>
+
+
+
     </jsp:attribute>
 </my:pagetemplate>

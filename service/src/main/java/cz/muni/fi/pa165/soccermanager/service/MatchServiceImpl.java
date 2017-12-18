@@ -82,8 +82,8 @@ public class MatchServiceImpl implements MatchService {
                 throw new SoccerManagerServiceException(
                         "It is not allowed to create match in the past "
                                 + date + ". ");*/
-                matchDao.insert(match);
-                return match;
+            matchDao.insert(match);
+            return match;
         }
         else
             throw new IllegalArgumentException();

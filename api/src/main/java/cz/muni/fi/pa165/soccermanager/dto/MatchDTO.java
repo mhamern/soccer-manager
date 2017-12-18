@@ -20,11 +20,15 @@ public class MatchDTO {
 
     private TeamDTO awayTeam;
 
+    private LeagueDTO league;
+
     private int homeTeamGoals;
 
     private int awayTeamGoals;
 
     private boolean finished;
+
+    private boolean inPast;
 
     public Long getId() {
         return id;
@@ -62,6 +66,11 @@ public class MatchDTO {
 
     public void setStadium(StadiumEnum stadium) { this.stadium = stadium; }
 
+    public LeagueDTO getLeague() { return league; }
+
+    public void setLeague(LeagueDTO league) { this.league = league; }
+
+    public boolean isInPast() { return date.isBefore(LocalDate.now()); }
 
     @Override
     public boolean equals(Object o) {

@@ -13,6 +13,7 @@
         <c:if test="${not empty authenticatedUser && authenticatedUser.isAdmin()}">
             <td><my:a href="/match/new" class="btn btn-success"><f:message key="create"/></my:a></td>
         </c:if>
+
         <table class="table table-striped">
             <thead>
             <tr>
@@ -24,6 +25,7 @@
             </tr>
             </thead>
             <tbody>
+
             <c:forEach items="${matches}" var="match">
                 <tr>
                     <td>${match.homeTeam.name}</td>

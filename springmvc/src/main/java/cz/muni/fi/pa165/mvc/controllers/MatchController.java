@@ -42,7 +42,11 @@ public class MatchController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model) {
+
+        List<LeagueDTO> leagues = leagueFacade.getAllLeagues();
         model.addAttribute("matches", matchFacade.getAllMatches());
+
+
         return "match/list";
     }
 
@@ -61,7 +65,7 @@ public class MatchController {
         matchFacade.deleteMatch(id);
 
         redirectAttributes.addFlashAttribute("alert_success", "Match " + matchDTO.getBasicDescription() + " was deleted.");
-        return "redirect:" + uriBuilder.path("/player/list").toUriString();
+        return "redirect:" + uriBuilder.path("/match/list").toUriString();
     }
 
     @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
@@ -97,22 +101,32 @@ public class MatchController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(@Valid @ModelAttribute("matchCreate") CreateMatchDTO form,
+    public String create(@Valid @ModelAttribute("createMatch") CreateMatchDTO form,
                          BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes,
                          UriComponentsBuilder urisBuilder) {
+
         if (bindingResult.hasErrors()) {
             for (FieldError error: bindingResult.getFieldErrors()) {
                 model.addAttribute(error.getField() + "_error", true);
             }
-            return "match/new";
+            return "/match/new";
         }
 
         Long id = matchFacade.createMatch(form);
+
         redirectAttributes.addFlashAttribute("alert_success", "Match " +
-                matchFacade.getMatchById(form.getAwayTeamId()).getAwayTeam().getName() + " vs. " +
-                matchFacade.getMatchById(form.getHomeTeamId()).getHomeTeam().getName() +
                 " was created successfully");
-        return "redirect: " + urisBuilder.path("match/view/{id}").buildAndExpand(id).encode().toUriString();
+
+        return "redirect: " + urisBuilder.path("/match/view/{id}").buildAndExpand(id).encode().toUriString();
     }
+
+    @RequestMapping(value = "/play/{id}", method = RequestMethod.GET)
+    public String play(@PathVariable long id, RedirectAttributes redirectAttributes,
+                       UriComponentsBuilder urisBuilder) {
+        matchFacade.play(id);
+        redirectAttributes.addFlashAttribute("alert_success", "Match was played");
+        return "redirect: " + urisBuilder.path("/match/view/{id}").buildAndExpand(id).toUriString();
+    }
+
 
 }

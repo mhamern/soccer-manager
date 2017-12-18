@@ -1,4 +1,6 @@
 package cz.muni.fi.pa165.soccermanager.dto;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 
 /**
@@ -7,6 +9,7 @@ import java.time.LocalDate;
  */
 public class CreateMatchDTO {
 
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate date;
 
     private Long homeTeamId;

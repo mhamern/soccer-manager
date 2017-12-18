@@ -50,14 +50,16 @@ public class MatchFacadeImpl implements MatchFacade {
 
         Team homeTeam = teamService.fetchById(match.getHomeTeamId());
         Team awayTeam = teamService.fetchById(match.getAwayTeamId());
+        League league = leagueService.fetchById(match.getLeagueId());
 
         mappedMatch.setHomeTeam(homeTeam);
         mappedMatch.setAwayTeam(awayTeam);
         mappedMatch.setDate(match.getDate());
+        mappedMatch.setLeague(league);
 
         //save Match
         Match newMatch = matchService.createMatch(mappedMatch);
-        Long id = mappedMatch.getId();
+        Long id = newMatch.getId();
 
         return id;
     }

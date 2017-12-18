@@ -12,19 +12,20 @@
     <form:form method="post" action="${pageContext.request.contextPath}/match/create"
                modelAttribute="createMatch" cssClass="form-horizontal">
 
+
         <div class="form-group">
             <form:label path="leagueId" cssClass="col-sm-2 control-label"><f:message key="league"/></form:label>
             <div class="col-sm-10">
-                <form:select path="leagueId" cssClass="form-control">
-                    <c:forEach items="${leagues}" var="l">
-                        <form:option value="${l.id}">${l.name}</form:option>
-                    </c:forEach>
-                </form:select>
+        <form:select path="leagueId" cssClass="form-control">
+            <c:forEach items="${leagues}" var="l">
+                <form:option value="${l.id}">${l.name}</form:option>
+            </c:forEach>
+        </form:select>
                 <form:errors path="leagueId" cssClass="error"/>
             </div>
         </div>
 
-        <div class="form-group ${name_error?'has-error':''}">
+        <div class="form-group">
             <form:label path="homeTeamId" cssClass="col-sm-2 control-label"><f:message key="homeTeam"/></form:label>
             <div class="col-sm-10">
                 <form:select path="homeTeamId" cssClass="form-control">
@@ -32,11 +33,11 @@
                         <form:option value="${t.id}">${t.name}</form:option>
                     </c:forEach>
                 </form:select>
-                <form:errors path="homeTeamId" cssClass="error"/>
+                <form:errors path="homeTeamId" cssClass="help-block"/>
             </div>
         </div>
 
-        <div class="form-group ${name_error?'has-error':''}">
+        <div class="form-group" ${team_error?'has-error':''}>
             <form:label path="awayTeamId" cssClass="col-sm-2 control-label"><f:message key="awayTeam"/></form:label>
             <div class="col-sm-10">
                 <form:select path="awayTeamId" cssClass="form-control">
@@ -48,7 +49,7 @@
             </div>
         </div>
 
-        <div class="form-group ${date_00error?'has-error':''}">
+        <div class="form-group ${date_error?'has-error':''}">
             <form:label path="date" cssClass="col-sm-2 control-label"><f:message key="date"/></form:label>
             <div class="col-sm-10">
                 <form:input path="date" placeholder="DD-MM-YYYY" cssClass="form-control"/>
