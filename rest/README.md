@@ -29,7 +29,7 @@ Method type: DELETE
 http://localhost:8080/pa165/rest/teams/delete/{id}
 where id is id of team you want to delete.
 
-example: http://localhost:8080/pa165/rest/teams/delete/1
+example: http://localhost:8080/pa165/rest/teams/1/delete
 
 ### Get by league
 Method type: GET
@@ -95,12 +95,12 @@ where id is id of team and leagueId is id of league you want to join.
 example: http://localhost:8080/pa165/rest/teams/1/join_league/1
 
 
-### Leavue league
+### Leave league
 Method type: POST
 http://localhost:8080/pa165/rest/teams/{id}/leave_league
-where id is id of team which wants to leavue current league.
+where id is id of team which wants to leave current league.
 
-example: http://localhost:8080/pa165/rest/teams/1/leavue_league
+example: http://localhost:8080/pa165/rest/teams/1/leave_league
 
 ## Players
 http://localhost:8080/pa165/rest/players/
@@ -121,7 +121,7 @@ Method type: DELETE
 http://localhost:8080/pa165/rest/players/delete/{id}
 where id is id of player you want to delete.
 
-example: http://localhost:8080/pa165/rest/players/delete/1
+example: http://localhost:8080/pa165/rest/players/1/delete
 
 ### Get by team
 Method type: GET
@@ -165,7 +165,7 @@ example: http://localhost:8080/pa165/rest/leagues/1
 ### Delete
 Method type: DELETE http://localhost:8080/pa165/rest/leagues/delete/{id} where id is id of league you want to delete.
 
-example: http://localhost:8080/pa165/rest/leagues/delete/1
+example: http://localhost:8080/pa165/rest/leagues/1/delete/
 
 ### Get by country
 Method type: GET http://localhost:8080/pa165/rest/leagues/country/{country} where country is that you want to use to fetch leagues. Must match NationalityEnum.
@@ -208,9 +208,10 @@ Method type: DELETE
 http://localhost:8080/pa165/rest/managers/delete/{id}
 where id is id of manager you want to delete.
 
-example: http://localhost:8080/pa165/rest/managers/delete/1
+example: http://localhost:8080/pa165/rest/managers/1/delete/
 
-### Get by team
+### Get by teammatches
+
 Method type: GET
 http://localhost:8080/pa165/rest/managers/team/{id}
 where id is id id team you want to get manager of.

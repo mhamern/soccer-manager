@@ -22,7 +22,7 @@ public class MainController {
 
         Map<String, String> resourceMap = new HashMap<>();
 
-        resourceMap.put("teams_uri", ApiUris.ROOT_URI_PLAYERS);
+        resourceMap.put("teams_uri", ApiUris.ROOT_URI_TEAMS);
         resourceMap.put("players_uri", ApiUris.ROOT_URI_PLAYERS);
         resourceMap.put("managers_uri", ApiUris.ROOT_URI_MANAGERS);
         resourceMap.put("leagues_uri", ApiUris.ROOT_URI_LEAGUES);
