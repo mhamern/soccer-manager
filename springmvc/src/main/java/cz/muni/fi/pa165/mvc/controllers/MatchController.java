@@ -115,7 +115,7 @@ public class MatchController {
 
         Long id = matchFacade.createMatch(form);
         redirectAttributes.addFlashAttribute("alert_success", "Match was created successfully");
-        return "redirect: " + uriBuilder.path("/match/view/{id}").buildAndExpand(id).encode().toUriString();
+        return "redirect:" + uriBuilder.path("/match/view/{id}").buildAndExpand(id).encode().toUriString();
     }
 
     @RequestMapping(value = "/play/{id}", method = RequestMethod.GET)
@@ -123,7 +123,7 @@ public class MatchController {
                        UriComponentsBuilder uriBuilder) {
         matchFacade.play(id);
         redirectAttributes.addFlashAttribute("alert_success", "Match was played");
-        return "redirect: " + uriBuilder.path("/match/view/{id}").buildAndExpand(id).toUriString();
+        return "redirect:" + uriBuilder.path("/match/view/{id}").buildAndExpand(id).toUriString();
     }
 
 
