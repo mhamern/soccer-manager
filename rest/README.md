@@ -186,3 +186,99 @@ example: http://localhost:8080/pa165/rest/leagues/1/add_match/5
 Method type: POST http://localhost:8080/pa165/rest/leagues/{id}/remove_match/{matchId} where id is id of league and matchId is id of match you want to remove from league.
 
 example: http://localhost:8080/pa165/rest/leagues/1/remove_match/5
+
+
+## Managers
+http://localhost:8080/pa165/rest/managers/
+Some attributes are omitted to from produces JSON for readability and smaller size of response.
+
+### Get all
+Method type: GET
+http://localhost:8080/pa165/rest/managers/
+
+### Get by ID
+Method type: GET
+http://localhost:8080/pa165/rest/managers/{id}
+where id is id of manager you want to get.
+
+example: http://localhost:8080/pa165/rest/managers/1
+
+### Delete
+Method type: DELETE
+http://localhost:8080/pa165/rest/managers/delete/{id}
+where id is id of manager you want to delete.
+
+example: http://localhost:8080/pa165/rest/managers/delete/1
+
+### Get by team
+Method type: GET
+http://localhost:8080/pa165/rest/managers/team/{id}
+where id is id id team you want to get manager of.
+
+example: http://localhost:8080/pa165/rest/managers/team/1
+
+### Get by name
+Method type: GET
+http://localhost:8080/pa165/rest/managers/name/{name}
+where name is name of manager (case sensitive).
+
+example: http://localhost:8080/pa165/rest/managers/name/Jose%20Mourinho
+
+### Get by email
+Method type: GET
+http://localhost:8080/pa165/rest/managers/email/{email}
+where email is email of manager (case sensitive).
+
+example: http://localhost:8080/pa165/rest/managers/email/jose@mail.com
+
+### Get by nationality
+Method type: GET
+http://localhost:8080/pa165/rest/managers/nationality/{nationality}
+where nationality is country you want to use to fetch managers. Must match NationalityEnum.
+
+example: http://localhost:8080/pa165/rest/manager/nationality/Spain
+
+
+## Matches
+http://localhost:8080/pa165/rest/matches/
+Some attributes are omitted to from produces JSON for readability and smaller size of response.
+
+### Get all
+Method type: GET
+http://localhost:8080/pa165/rest/matches/
+
+### Get by ID
+Method type: GET
+http://localhost:8080/pa165/rest/matches/{id}
+where id is id of match you want to get.
+
+example: http://localhost:8080/pa165/rest/matches/1
+
+### Get by team
+Method type: GET
+http://localhost:8080/pa165/rest/matches/team/{id}
+where id is id id team you want to get matches of.
+
+example: http://localhost:8080/pa165/rest/matches/team/1
+
+### Delete
+Method type: DELETE
+http://localhost:8080/pa165/rest/matches/delete/{id}
+where id is id of match you want to delete.
+
+example: http://localhost:8080/pa165/rest/matches/delete/1
+
+### Get finished
+Method type: GET
+http://localhost:8080/pa165/rest/matches/finished
+
+example: http://localhost:8080/pa165/rest/matches/finished
+
+### Get by league
+Method type: GET
+http://localhost:8080/pa165/rest/matches/league/{leagueId}
+where leagueId is id of the league
+
+example: http://localhost:8080/pa165/rest/matches/league/1
+
+
