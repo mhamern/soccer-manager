@@ -16,7 +16,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping(ApiUris.ROOT_URI_PLAYERS)
+@RequestMapping(ApiUris.ROOT_URI_MATCHES)
 public class MatchesController {
 
     private final MatchFacade matchFacade;
@@ -60,7 +60,7 @@ public class MatchesController {
     }
 
     @RequestMapping(value ="/finished", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final List<MatchDTO> getPlayersByTeam() {
+    public final List<MatchDTO> getFinishedMatches() {
         List<MatchDTO> matchesDTO = matchFacade.getFinishedMatches();
         if (matchesDTO == null) {
             throw new ResourceNotFoundException();
@@ -69,7 +69,7 @@ public class MatchesController {
     }
 
     @RequestMapping(value ="/league/{leagueId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final List<MatchDTO> getPlayersByNationality(@PathVariable("leagueId") Long id) {
+    public final List<MatchDTO> getMatchesByLeague(@PathVariable("leagueId") Long id) {
         List<MatchDTO> matchesDTO = matchFacade.getMatchesByLeague(id);
         if (matchesDTO == null) {
             throw new ResourceNotFoundException();

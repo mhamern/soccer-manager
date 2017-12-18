@@ -17,7 +17,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping(ApiUris.ROOT_URI_PLAYERS)
+@RequestMapping(ApiUris.ROOT_URI_MANAGERS)
 public class ManagersController {
 
     private final ManagerFacade managerFacade;
