@@ -55,17 +55,6 @@ public class PlayersController {
     }
 
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    public final PlayerDTO createPlayer(@RequestBody CreatePlayerDTO player) throws ResourceAlreadyExistingException {
-        try {
-            Long id = playerFacade.createPlayer(player);
-            return  playerFacade.getPlayerById(id);
-        } catch (Exception ex) {
-            throw new ResourceAlreadyExistingException();
-        }
-    }
-
     @RequestMapping(value = "/{id}/delete", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     public final void deletePlayer(@PathVariable("id") long id) throws ResourceNotFoundException {
         try {
@@ -84,7 +73,7 @@ public class PlayersController {
         return playerDTOSs;
     }
 
-    @RequestMapping(value ="/list/nationality/{nationality}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value ="/nationality/{nationality}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<PlayerDTO> getPlayersByNationality(@PathVariable("nationality") NationalityEnum nationality) {
         List<PlayerDTO> playerDTOSs = playerFacade.getPlayersByNationality(nationality);
         if (playerDTOSs.isEmpty()) {
@@ -93,7 +82,7 @@ public class PlayersController {
         return playerDTOSs;
     }
 
-    @RequestMapping(value ="/list/position/{position}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value ="/position/{position}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<PlayerDTO> getPlayersByPosition(@PathVariable("position")PositionEnum position) {
         List<PlayerDTO> playerDTOSs = playerFacade.getPlayersByPosition(position);
         if (playerDTOSs.isEmpty()) {
@@ -102,7 +91,7 @@ public class PlayersController {
         return playerDTOSs;
     }
 
-    @RequestMapping(value ="/list/freeagents",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value ="/freeagents",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<PlayerDTO> getFreeAgents() {
         List<PlayerDTO> playerDTOSs = playerFacade.getFreeAgents();
         if (playerDTOSs.isEmpty()) {
