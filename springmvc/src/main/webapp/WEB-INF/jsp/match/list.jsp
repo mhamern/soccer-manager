@@ -19,6 +19,7 @@
             <tr>
                 <th><f:message key="homeTeam"/></th>
                 <th><f:message key="awayTeam"/></th>
+                <th><f:message key="stadium"/></th>
                 <th><f:message key="score"/></th>
                 <th><f:message key="date"/></th>
 
@@ -30,6 +31,7 @@
                 <tr>
                     <td>${match.homeTeam.name}</td>
                     <td>${match.awayTeam.name}</td>
+                    <td>${match.stadium}</td>
 
                     <c:choose>
                     <c:when test="${match.isFinished() }">

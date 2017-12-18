@@ -74,6 +74,7 @@ public class MatchController {
         return "match/view";
     }
 
+
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String newMatch(Model model) {
         model.addAttribute("createMatch", new CreateMatchDTO());
@@ -103,29 +104,26 @@ public class MatchController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(@Valid @ModelAttribute("createMatch") CreateMatchDTO form,
                          BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes,
-                         UriComponentsBuilder urisBuilder) {
+                         UriComponentsBuilder uriBuilder) {
 
         if (bindingResult.hasErrors()) {
-            for (FieldError error: bindingResult.getFieldErrors()) {
+            for (FieldError error : bindingResult.getFieldErrors()) {
                 model.addAttribute(error.getField() + "_error", true);
             }
             return "/match/new";
         }
 
         Long id = matchFacade.createMatch(form);
-
-        redirectAttributes.addFlashAttribute("alert_success", "Match " +
-                " was created successfully");
-
-        return "redirect: " + urisBuilder.path("/match/view/{id}").buildAndExpand(id).encode().toUriString();
+        redirectAttributes.addFlashAttribute("alert_success", "Match was created successfully");
+        return "redirect: " + uriBuilder.path("/match/view/{id}").buildAndExpand(id).encode().toUriString();
     }
 
     @RequestMapping(value = "/play/{id}", method = RequestMethod.GET)
     public String play(@PathVariable long id, RedirectAttributes redirectAttributes,
-                       UriComponentsBuilder urisBuilder) {
+                       UriComponentsBuilder uriBuilder) {
         matchFacade.play(id);
         redirectAttributes.addFlashAttribute("alert_success", "Match was played");
-        return "redirect: " + urisBuilder.path("/match/view/{id}").buildAndExpand(id).toUriString();
+        return "redirect: " + uriBuilder.path("/match/view/{id}").buildAndExpand(id).toUriString();
     }
 
 

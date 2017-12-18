@@ -49,6 +49,18 @@
             </div>
         </div>
 
+        <div class="form-group" ${stadium_error?'has-error':''}>
+            <form:label path="stadium" cssClass="col-sm-2 control-label"><f:message key="stadium"/></form:label>
+            <div class="col-sm-10">
+                <form:select path="stadium" cssClass="form-control">
+                    <c:forEach items="${stadiums}" var="st">
+                        <form:option value="${st}">${st}</form:option>
+                    </c:forEach>
+                </form:select>
+                <form:errors path="stadium" cssClass="help-block"/>
+            </div>
+        </div>
+
         <div class="form-group ${date_error?'has-error':''}">
             <form:label path="date" cssClass="col-sm-2 control-label"><f:message key="date"/></form:label>
             <div class="col-sm-10">

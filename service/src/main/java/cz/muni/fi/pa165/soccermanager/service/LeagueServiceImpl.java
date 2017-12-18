@@ -8,7 +8,6 @@ import cz.muni.fi.pa165.soccermanager.entity.Match;
 import cz.muni.fi.pa165.soccermanager.entity.Team;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
 import cz.muni.fi.pa165.soccermanager.service.exceptions.SoccerManagerServiceException;
-import javafx.collections.transformation.SortedList;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;

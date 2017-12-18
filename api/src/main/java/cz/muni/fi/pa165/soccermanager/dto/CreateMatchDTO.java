@@ -1,4 +1,5 @@
 package cz.muni.fi.pa165.soccermanager.dto;
+import cz.muni.fi.pa165.soccermanager.enums.StadiumEnum;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -17,6 +18,8 @@ public class CreateMatchDTO {
     private Long awayTeamId;
 
     private Long leagueId;
+
+    private StadiumEnum stadium;
 
     public Long getHomeTeamId() {
         return homeTeamId;
@@ -41,6 +44,10 @@ public class CreateMatchDTO {
     public Long getLeagueId() { return leagueId;}
 
     public void setLeagueId(Long leagueId) { this.leagueId = leagueId; }
+
+    public StadiumEnum getStadium() { return stadium;}
+
+    public void setStadium(StadiumEnum stadium) { this.stadium = stadium; }
 
     @Override
     public boolean equals(Object o) {

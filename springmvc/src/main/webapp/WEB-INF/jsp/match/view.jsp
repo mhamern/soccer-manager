@@ -13,6 +13,9 @@
         <table class="table">
             <tbody>
             <tr>
+                <td><b><f:message key="league"/>:</b> ${match.league.name}</td>
+            </tr>
+            <tr>
                 <td><b><f:message key="homeTeam"/>:</b> ${match.homeTeam.name}</td>
             </tr>
             <tr>
@@ -22,7 +25,7 @@
                 <td><b><f:message key="date"/>:</b> ${match.date}</td>
             </tr>
             <tr>
-                <td><b><f:message key="league"/>:</b> ${match.league.name}</td>
+                <td><b><f:message key="stadium"/>:</b> ${match.stadium}</td>
             </tr>
             <c:choose>
                 <c:when test="${not match.finished && match.inPast}">
