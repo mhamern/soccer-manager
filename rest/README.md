@@ -150,3 +150,30 @@ http://localhost:8080/pa165/rest/teams/freeagents
 Returns all free agents (players without team)
 
 example: http://localhost:8080/pa165/rest/players/freeagents
+
+Leagues
+http://localhost:8080/pa165/rest/leagues/ Some attributes are omitted to from produces JSON for readability and smaller size of response.
+Get all
+Method type: GET http://localhost:8080/pa165/rest/leagues/
+Get by ID
+Method type: GET http://localhost:8080/pa165/rest/leagues/{id} where id is id of league you want to get.
+example: http://localhost:8080/pa165/rest/leagues/1
+Delete
+Method type: DELETE http://localhost:8080/pa165/rest/leagues/delete/{id} where id is id of league you want to delete.
+example: http://localhost:8080/pa165/rest/leagues/delete/1
+Get by country
+Method type: GET http://localhost:8080/pa165/rest/leagues/country/{country} where country is that you want to use to fetch leagues. Must match NationalityEnum.
+example: http://localhost:8080/pa165/rest/leagues/country/England
+Get by name
+Method type: GET http://localhost:8080/pa165/rest/leagues/name/{name} where name is name of league (case sensitive).
+example: http://localhost:8080/pa165/rest/leagues/name/ Pro League
+
+Add match to league
+Method type: POST http://localhost:8080/pa165/rest/league/{id}/add_match/{matchId} where id is id of league and matchId is id of match you want to add to league.
+example: http://localhost:8080/pa165/rest/leagues/1/add_match/5
+Remove match from league
+Method type: POST http://localhost:8080/pa165/rest/leagues/{id}/remove_match/{matchId} where id is id of league and matchId is id of match you want to remove from league.
+example: http://localhost:8080/pa165/rest/leagues/1/remove_match/5
+
+
+
