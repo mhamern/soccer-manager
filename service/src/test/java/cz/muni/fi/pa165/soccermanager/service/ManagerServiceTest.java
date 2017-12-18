@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.soccermanager.service;
 
 import cz.muni.fi.pa165.soccermanager.dao.ManagerDao;
+import cz.muni.fi.pa165.soccermanager.dao.TeamDao;
 import cz.muni.fi.pa165.soccermanager.entity.League;
 import cz.muni.fi.pa165.soccermanager.entity.Manager;
 import cz.muni.fi.pa165.soccermanager.entity.Match;
@@ -39,6 +40,7 @@ import static org.mockito.Mockito.when;
 public class ManagerServiceTest {
 
     private ManagerDao managerDao = mock(ManagerDao.class);
+    private TeamDao teamDao = mock(TeamDao.class);
 
     @Autowired
     @InjectMocks
@@ -54,7 +56,7 @@ public class ManagerServiceTest {
     @Before
     public void setUp() {
 
-        managerService = new ManagerServiceImpl(managerDao);
+        managerService = new ManagerServiceImpl(managerDao, teamDao);
 
         manager1 = new Manager.ManagerBuilder(
                 "Jose Mourinho",

@@ -28,14 +28,20 @@
                 <td><b><f:message key="stadium"/>:</b> ${match.stadium}</td>
             </tr>
             <c:choose>
-                <c:when test="${not match.finished && match.inPast}">
-                    <td><my:a href="/match/play/${match.id}" class="btn btn-primary"><f:message key="play"/></my:a>
+                <c:when test="${not match.finished && match.inPast && not empty authenticatedUser &&
+                not authenticatedUser.isAdmin() && isUsersMatch}">
+                <td>
+                    <form method="post" action="${pageContext.request.contextPath}/match/play/${match.id}">
+                        <button type="submit" class="btn btn-primary">
+                            <f:message key="play"></f:message>
+                        </button>
+                    </form>
                         </td>
                 </c:when>
                 <c:when test="${not match.finished}">
                     <tr>
                         <td><my:a href="/match/play/${match.id}" class="btn btn-primary disabled"><f:message key="play"/></my:a>
-                            <b>Match is not possible to play now.</b> </td>
+                            <b><fmt:message key="notPossibleMatch"/></b></td>
                     </tr>
                 </c:when>
                 <c:otherwise>

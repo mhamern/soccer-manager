@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.soccermanager.service;
 
 import cz.muni.fi.pa165.soccermanager.dao.ManagerDao;
+import cz.muni.fi.pa165.soccermanager.dao.TeamDao;
 import cz.muni.fi.pa165.soccermanager.entity.Manager;
 import cz.muni.fi.pa165.soccermanager.entity.Team;
 import cz.muni.fi.pa165.soccermanager.enums.NationalityEnum;
@@ -25,9 +26,13 @@ import java.util.List;
 public class ManagerServiceImpl implements ManagerService {
 
     private final ManagerDao managerDao;
+    private final TeamDao teamDao;
 
     @Inject
-    public ManagerServiceImpl(ManagerDao managerDao) { this.managerDao = managerDao; }
+    public ManagerServiceImpl(ManagerDao managerDao, TeamDao teamDao) {
+        this.managerDao = managerDao;
+        this.teamDao = teamDao;
+    }
 
     @Override
     public Manager fetchById(long managerId) {
@@ -99,8 +104,15 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     public void remove(long managerId) {
-        managerDao.delete(managerId);
+        Manager m = managerDao.fetchById(managerId);
+        if (m != null) {
+            Team t  = teamDao.fetchByManager(m);
 
+            if (t != null) {
+                t.setManager(null);
+            }
+            managerDao.delete(managerId);
+        }
     }
 
     @Override

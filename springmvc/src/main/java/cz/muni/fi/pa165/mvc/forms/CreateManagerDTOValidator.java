@@ -19,9 +19,9 @@ public class CreateManagerDTOValidator implements Validator {
     public void validate (Object object, Errors errors) {
         CreateManagerDTO createMatchDTO = (CreateManagerDTO) object;
 
-        if (createMatchDTO.getName() == null) errors.rejectValue("name", "Managers name is null");
-        if (createMatchDTO.getNationality() == null) errors.rejectValue("nationality", "Managers nationality is null");
-        if (createMatchDTO.getEmail() == null) errors.rejectValue("email", "Managers email is null");
+        if (createMatchDTO.getName() == null || createMatchDTO.getName().isEmpty()) errors.rejectValue("name", "nameNull");
+        if (createMatchDTO.getNationality() == null) errors.rejectValue("nationality", "nationalityNull");
+        if (createMatchDTO.getEmail() == null || createMatchDTO.getEmail().isEmpty()) errors.rejectValue("email", "emailNull");
     }
 
 }

@@ -97,9 +97,10 @@ public class ManagerFacadeImpl implements ManagerFacade {
     }
 
     @Override
-    public void registerManager(CreateManagerDTO managerDTO, String unencryptedPassword) {
+    public Long registerManager(CreateManagerDTO managerDTO, String unencryptedPassword) {
         Manager managerEntity = beanMappingService.mapTo(managerDTO, Manager.class);
-        managerService.create(managerEntity, unencryptedPassword);
+        Manager newManger =  managerService.create(managerEntity, unencryptedPassword);
+        return newManger.getId();
     }
 
     @Override

@@ -65,7 +65,7 @@ public interface ManagerFacade {
      * @param manager information about manager
      * @param unencryptedPassword password
      */
-    public void registerManager(CreateManagerDTO manager, String unencryptedPassword);
+    public Long registerManager(CreateManagerDTO manager, String unencryptedPassword);
 
     /**
      * authenticate manager

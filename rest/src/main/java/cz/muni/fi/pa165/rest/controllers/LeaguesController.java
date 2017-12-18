@@ -19,7 +19,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping(ApiUris.ROOT_URI_TEAMS)
+@RequestMapping(ApiUris.ROOT_URI_LEAGUES)
 public class LeaguesController {
 
     private final LeagueFacade leagueFacade;

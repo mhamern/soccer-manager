@@ -72,14 +72,6 @@
                     <td>${admin.nationality}</td>
                     <td>${admin.email}</td>
                     <td><my:a href="/manager/view/${admin.id}" class="btn btn-primary"><f:message key="view"/></my:a></td>
-
-                    <td>
-                        <form method="post" action="${pageContext.request.contextPath}/manager/delete/${manager.id}">
-                            <button type="submit" class="btn btn-danger">
-                                <f:message key="delete"></f:message>
-                            </button>
-                        </form>
-                    </td>
                 </c:forEach>
                 </tbody>
             </table>
