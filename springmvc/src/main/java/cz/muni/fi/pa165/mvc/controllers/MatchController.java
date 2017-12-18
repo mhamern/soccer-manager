@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -69,8 +70,14 @@ public class MatchController {
     }
 
     @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
-    public String view(@PathVariable long id, Model model) {
-        model.addAttribute("match", matchFacade.getMatchById(id));
+    public String view(@PathVariable long id, Model model, HttpServletRequest request) {
+        ManagerDTO managerDTO = (ManagerDTO) request.getSession().getAttribute("authenticatedUser");
+        MatchDTO matchDTO = matchFacade.getMatchById(id);
+        TeamDTO usersTeam = teamFacade.getTeamByManager(managerDTO.getId());
+
+        model.addAttribute("match", matchDTO);
+        model.addAttribute("isUsersMatch", usersTeam != null &&
+                (usersTeam.equals(matchDTO.getHomeTeam()) || usersTeam.equals(matchDTO.getAwayTeam())));
         return "match/view";
     }
 
@@ -115,16 +122,29 @@ public class MatchController {
 
         Long id = matchFacade.createMatch(form);
         redirectAttributes.addFlashAttribute("alert_success", "Match was created successfully");
-        return "redirect: " + uriBuilder.path("/match/view/{id}").buildAndExpand(id).encode().toUriString();
+        return "redirect:" + uriBuilder.path("/match/view/{id}").buildAndExpand(id).encode().toUriString();
     }
 
-    @RequestMapping(value = "/play/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/play/{id}", method = RequestMethod.POST)
     public String play(@PathVariable long id, RedirectAttributes redirectAttributes,
-                       UriComponentsBuilder uriBuilder) {
-        matchFacade.play(id);
-        redirectAttributes.addFlashAttribute("alert_success", "Match was played");
-        return "redirect: " + uriBuilder.path("/match/view/{id}").buildAndExpand(id).toUriString();
+                       UriComponentsBuilder uriBuilder, HttpServletRequest request) {
+        MatchDTO match = matchFacade.getMatchById(id);
+        ManagerDTO managerDTO = (ManagerDTO) request.getSession().getAttribute("authenticatedUser");
+        TeamDTO managersTeam = null;
+        if (managerDTO != null) {
+            managersTeam = teamFacade.getTeamByManager(managerDTO.getId());
+        }
+
+        if (match != null && match.getAwayTeam() != null && match.getHomeTeam() != null && managersTeam != null &&
+                (match.getHomeTeam().equals(managersTeam)) || match.getAwayTeam().equals(managersTeam)) {
+
+            matchFacade.play(id);
+            redirectAttributes.addFlashAttribute("alert_success", "Match was played");
+            return "redirect:" + uriBuilder.path("/match/view/{id}").buildAndExpand(id).toUriString();
+        } else {
+            redirectAttributes.addFlashAttribute("alert_warning", "Match cannot be played");
+            return "redirect:" + uriBuilder.path("/match/list/").toUriString();
+        }
+
     }
-
-
 }

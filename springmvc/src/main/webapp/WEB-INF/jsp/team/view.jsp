@@ -100,16 +100,9 @@
                     <td>${match.date}</td>
                     <td>${match.homeTeam.stadium}</td>
                     <td>${match.homeTeamGoals}-${match.awayTeamGoals}</td>
-                    <c:if test="${not empty authenticatedUser && not authenticatedUser.isAdmin() && not match.finished}">
                     <td>
-                        <form method="post" action="${pageContext.request.contextPath}/match/play/${match.id}">
-                            <button type="submit" class="btn btn-primary">
-                                <f:message key="play"></f:message>
-                            </button>
-                        </form>
+                        <my:a href="/match/view/${match.id}" class="btn btn-primary"><f:message key="view"/></my:a>
                     </td>
-
-                    </c:if>
                     <c:if test="${not empty authenticatedUser && authenticatedUser.isAdmin()}">
                         <td>
                             <form method="post" action="${pageContext.request.contextPath}/match/delete/${match.id}">

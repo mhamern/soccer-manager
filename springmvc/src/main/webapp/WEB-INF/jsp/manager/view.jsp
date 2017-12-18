@@ -19,5 +19,25 @@
             </tr>
             </tbody>
         </table>
+        <c:if test="${not empty managersTeam}">
+            <h2><f:message key="team"/></h2>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th><f:message key="name"/></th>
+                    <th><f:message key="country"/></th>
+                    <th><f:message key="league"/></th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>${managersTeam.name}</td>
+                        <td>${managersTeam.origin}</td>
+                        <td>${managersTeam.league.name}</td>
+                        <td><my:a href="/team/view/${managersTeam.id}" class="btn btn-primary"><f:message key="view"/></my:a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </c:if>
     </jsp:attribute>
 </my:pagetemplate>
